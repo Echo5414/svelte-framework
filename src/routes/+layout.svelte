@@ -32,6 +32,13 @@
 
 <style lang="scss">
 
+
+  ::slotted([slot="footer"]) {
+      grid-area: footer;
+      background-color: red;
+      /* Add other styles here */
+    }
+
 	:global(app-icon) {
 		visibility: hidden;
 	}
@@ -39,21 +46,21 @@
 	:global(:root) {
 		--primary-color: #3498db;
 		--secondary-color: #12121c;
-		--icon-valid: url("...");
+		//--icon-valid: url("...");
 	}
 
+  :global(html, body) { 
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    margin: 0; 
+    padding: 0; 
+  }
+
   /* ---------------------------------- */
+  // atribute starts here
 
   :global() {
-
-/*     [ui-col-xs="1-3"] {
-      grid-column: 1/3;
-    }
-
-    [ui-col-xs="4-12"] {
-      grid-column: 4/12;
-    } */
-
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // 1.0

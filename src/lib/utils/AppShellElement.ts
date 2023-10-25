@@ -52,9 +52,16 @@ if (typeof window !== 'undefined' && !customElements.get('app-shell')) {
 
 			this.shadowRoot!.innerHTML = `
                 <style>
+                    :host {
+                        display: block;
+                        height: 100vh;
+                        width: 100vw;
+                    }
                     /* CSS Grid styling */
                     .grid-container {
                         display: grid;
+                        height: 100%;  /* Add this */
+                        width: 100%;   /* Add this */
                         grid-template-columns: ${columns};
                         grid-template-areas:
                             "sidebar-left header sidebar-right"
