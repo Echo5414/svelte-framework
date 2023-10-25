@@ -60,13 +60,12 @@ if (typeof window !== 'undefined' && !customElements.get('app-shell')) {
                     /* CSS Grid styling */
                     .grid-container {
                         display: grid;
-                        height: 100%;  /* Add this */
-                        width: 100%;   /* Add this */
+                        height: 100%;
+                        width: 100%;
                         grid-template-columns: ${columns};
-                        grid-template-areas:
-                            "sidebar-left header sidebar-right"
-                            "sidebar-left main sidebar-right"
-                            "footer footer footer";
+                        grid-template-rows: var(--grid-template-rows);
+                        grid-template-areas: var(--grid-template-areas);
+                        background-color: var(--primary-color);
                     }
                     
                     /* Ensure each grid item fills its area */

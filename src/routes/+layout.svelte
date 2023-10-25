@@ -18,7 +18,7 @@
 	<app-section slot="header" col="12" style="border: 1px red solid;"> Header </app-section>
 	<app-section slot="main" col="12" style="border: 1px red solid;">
 		<slot />
-    <h2 ui-col-xs="4-12" style="border: 1px red solid;">Another Test</h2>
+		<h2 ui-col-xs="4-12" style="border: 1px red solid;">Another Test</h2>
 	</app-section>
 	<app-section slot="sidebar-right" col="4" style="border: 1px red solid;">
 		<span ui-col-xs="1-3">Sidebar-Right</span>
@@ -33,86 +33,105 @@
 <style lang="scss">
 
 
-  ::slotted([slot="footer"]) {
-      grid-area: footer;
-      background-color: red;
-      /* Add other styles here */
-    }
+// CSS Grid
+app-shell:defined app-section[slot="footer"] {
+		background-color: red;
+    height: 200px;
+  }
+
+// AppShellElement.ts
+  app-shell:defined app-section[slot="footer"] {
+		background-color: red;
+    height: 200px;
+  }
+
+  app-shell:defined app-section[slot="sidebar-left"] {
+    //grid-area: footer;
+		background-color: yellow;
+    width: 320px;
+  }
+
+
+/* 	::slotted([slot='footer']) {
+
+	} */
 
 	:global(app-icon) {
 		visibility: hidden;
 	}
 
-	:global(:root) {
-		--primary-color: #3498db;
-		--secondary-color: #12121c;
-		//--icon-valid: url("...");
+  :global(:root) {
+    --grid-template-rows: auto 1fr auto;
+    --grid-template-areas: 
+    "sidebar-left header header" 
+    "sidebar-left main sidebar-right" 
+    "footer footer footer";
+    --primary-color: #3498db;
+    --secondary-color: #12121c;
+    //--icon-valid: url("...");
+}
+
+	:global(html, body) {
+		height: 100%;
+		width: 100%;
+		overflow: hidden;
+		margin: 0;
+		padding: 0;
 	}
 
-  :global(html, body) { 
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-    margin: 0; 
-    padding: 0; 
-  }
+	/* ---------------------------------- */
+	// atribute starts here
 
-  /* ---------------------------------- */
-  // atribute starts here
+	:global() {
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		// 1.0
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  :global() {
+ 		$ui: 'ui-';
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // 1.0
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		// Grid
+		$grid: 'grid';
+		$column: 'col';
+		$row: 'row';
 
-    $ui: "ui-";
+		// 1.2.1 Grid-Prefixes
+		$grid-columns: 12;
+		$grid-columns-all: 14; // 1fr repeat(12) 1fr = 14 | needed for columns creation
+		$grid-rows: 1;
+		$grid-column-gap: 24px; // <= 16px sm; >= md 64px
+		$grid-row-gap: 0;
+		$grid-column-min: 0;
+		$grid-column-max: 96px;
 
-    // Grid
-    $grid: "grid";
-    $column: "col";
-    $row: "row";
+		// Custom
+		@mixin col-custom($device: null) {
+			$count: 1;
+			@while $count <= ($grid-columns-all + 1) {
+				@for $i from 1 through ($grid-columns-all + 1) {
+					@if ($i + $count) <= ($grid-columns-all + 1) {
+						[#{$ui}#{$column}#{$device}='#{$count}-#{($i+$count)}'] {
+							grid-column: $count + /+($i + $count);
+						}
+					}
+				}
+				$count: $count + 1;
+			}
+		}
 
-    // 1.2.1 Grid-Prefixes
-    $grid-columns: 12;
-    $grid-columns-all: 14; // 1fr repeat(12) 1fr = 14 | needed for columns creation
-    $grid-rows: 1;
-    $grid-column-gap: 24px; // <= 16px sm; >= md 64px 
-    $grid-row-gap: 0;
-    $grid-column-min: 0;
-    $grid-column-max: 96px;
+		@include col-custom();
 
-    // Custom
-    @mixin col-custom($device:null) {
-      $count: 1;
-      @while $count <= ($grid-columns-all+1) {
-        @for $i from 1 through ($grid-columns-all+1) {
-          @if ($i+$count) <= ($grid-columns-all+1) {
-            [#{$ui}#{$column}#{$device}="#{$count}-#{($i+$count)}"] {
-              grid-column: $count + / + ($i+$count);
-            }
-          }
-        }
-        $count: $count+1;
-      }
-    }
+		// 1.4.1 Breakpoints
+		$grid-breakpoint-xs: 0px;
+		$grid-breakpoint-sm: 480px;
+		$grid-breakpoint-md: 768px;
+		$grid-breakpoint-lg: 1024px;
+		$grid-breakpoint-xl: 1440px;
 
-    @include col-custom();
-
-    // 1.4.1 Breakpoints 
-    $grid-breakpoint-xs: 0px;
-    $grid-breakpoint-sm: 480px;
-    $grid-breakpoint-md: 768px;
-    $grid-breakpoint-lg: 1024px;
-    $grid-breakpoint-xl: 1440px;
-
-    // 1.4.2 Media query – Extra small devices 
-    @media only screen and (min-width: $grid-breakpoint-xs) {
-
-      // Columns: Manually
-      @include col-custom("-xs");
-      //@include col-custom("\\:xs");
-    }
-
-	}
+		// 1.4.2 Media query – Extra small devices
+		@media only screen and (min-width: $grid-breakpoint-xs) {
+			// Columns: Manually
+			@include col-custom('-xs');
+			//@include col-custom("\\:xs");
+		}
+	} 
 </style>
