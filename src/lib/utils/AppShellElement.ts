@@ -88,17 +88,49 @@ if (typeof window !== 'undefined' && !customElements.get('app-shell')) {
                     ::slotted([slot="footer"]) {
                         grid-area: footer;
                     }
+                    .resizer {
+                        cursor: ew-resize;
+                        background-color: #ccc;  /* Farbe für den Resizer; Sie können dies nach Bedarf anpassen */
+                        width: 5px;              /* Breite des Resizers */
+                        height: 100%;
+                        grid-area: sidebar-left; /* Setzt den Resizer in die gleiche Grid-Zone wie die Sidebar */
+                        z-index: 2;              /* Damit der Resizer über anderen Elementen liegt */
+                    }
                     ${customStyles}
                 </style>
 
                 <div class="grid-container">
                     ${hasHeader ? '<slot name="header"></slot>' : ''}
-                    ${hasSidebarLeft ? '<slot name="sidebar-left"></slot>' : ''}
+                    ${
+											hasSidebarLeft
+												? '<div class="resizer"></div><slot name="sidebar-left"></slot>'
+												: ''
+										}
                     <slot name="main"></slot>
                     ${hasSidebarRight ? '<slot name="sidebar-right"></slot>' : ''}
                     ${hasFooter ? '<slot name="footer"></slot>' : ''}
                 </div>
+                
             `;
+
+			const resizer = this.shadowRoot!.querySelector('.resizer');
+			const leftSidebar = this.shadowRoot!.querySelector('slot[name="sidebar-left"]');
+			let isResizing = false;
+
+			resizer?.addEventListener('mousedown', (event) => {
+				isResizing = true;
+				document.addEventListener('mousemove', handleMouseMove);
+				document.addEventListener('mouseup', () => {
+					isResizing = false;
+					document.removeEventListener('mousemove', handleMouseMove);
+				});
+			});
+
+			function handleMouseMove(event: MouseEvent) {
+				if (!isResizing) return;
+				const newWidth = event.clientX; // Sie können dies anpassen, um die Startposition der Sidebar zu berücksichtigen
+				leftSidebar?.style.setProperty('width', `${newWidth}px`);
+			}
 		}
 	}
 	customElements.define('app-shell', AppShellElement);
