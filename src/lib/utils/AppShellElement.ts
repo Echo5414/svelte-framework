@@ -1,22 +1,30 @@
 if (typeof window !== 'undefined' && !customElements.get('app-shell')) {
 	class AppShellElement extends HTMLElement {
+		private shadow: ShadowRoot;
+		private isResizing = false;
+		private initialWidth: number;
+		private startX: number;
+		private resizingSection: Element | null = null;
+
 		constructor() {
 			super();
-			this.attachShadow({ mode: 'open' });
+			this.shadow = this.attachShadow({ mode: 'open' });
+			console.log('AppShellElement constructor called');
 		}
 
 		connectedCallback(): void {
+			console.log('AppShellElement connected');
 			this.render();
+			this.initializeResizableSections();
 		}
 
-		render(): void {
-			// Check for the presence of each slot's content
+		private render(): void {
+			console.log('AppShellElement render called');
 			const hasHeader: boolean = !!this.querySelector('[slot="header"]');
 			const hasSidebarLeft: boolean = !!this.querySelector('[slot="sidebar-left"]');
 			const hasSidebarRight: boolean = !!this.querySelector('[slot="sidebar-right"]');
 			const hasFooter: boolean = !!this.querySelector('[slot="footer"]');
 
-			// Query the width of each section based on child elements
 			const sidebarLeftWidth: string =
 				(this.querySelector('[slot="sidebar-left"]') as HTMLElement)?.getAttribute('col') || '4';
 			const headerWidth: string =
@@ -28,18 +36,17 @@ if (typeof window !== 'undefined' && !customElements.get('app-shell')) {
 			const footerWidth: string =
 				(this.querySelector('[slot="footer"]') as HTMLElement)?.getAttribute('col') || '20';
 
-			// Construct grid template for AppShell
 			const columns: string = `${sidebarLeftWidth}fr ${mainWidth}fr ${sidebarRightWidth}fr`;
 
 			const sections: NodeListOf<HTMLElement> = this.querySelectorAll('app-section');
-			let customStyles: string = ''; // We'll accumulate the custom styles here
+			let customStyles: string = '';
 
 			sections.forEach((section, index) => {
 				const col: string | null = section.getAttribute('col');
 				const gap: string | null = section.getAttribute('gap');
 
 				const gridColumns: string = col ? `repeat(${col}, minmax(0, 1fr))` : '1fr';
-				const gridGap: string = gap ? `${gap}px` : '0px'; // Default gap is now 0
+				const gridGap: string = gap ? `${gap}px` : '0px';
 
 				customStyles += `
                     ::slotted(app-section:nth-of-type(${index + 1})) {
@@ -50,14 +57,20 @@ if (typeof window !== 'undefined' && !customElements.get('app-shell')) {
                 `;
 			});
 
-			this.shadowRoot!.innerHTML = `
+			const sidebarLeft = this.querySelector('[slot="sidebar-left"]');
+			const isResizable = sidebarLeft && sidebarLeft.getAttribute('resize') === 'true';
+			const sidebarRight = this.querySelector('[slot="sidebar-right"]');
+			const isRightResizable = sidebarRight && sidebarRight.getAttribute('resize') === 'true';
+
+			if (this.shadowRoot) {
+				this.shadowRoot.innerHTML = `
                 <style>
                     :host {
                         display: block;
                         height: 100vh;
                         width: 100vw;
                     }
-                    /* CSS Grid styling */
+                    
                     .grid-container {
                         display: grid;
                         height: 100%;
@@ -68,13 +81,17 @@ if (typeof window !== 'undefined' && !customElements.get('app-shell')) {
                         background-color: var(--primary-color);
                     }
                     
-                    /* Ensure each grid item fills its area */
                     ::slotted([slot="header"]) {
                         grid-area: header;
                     }
 
                     ::slotted([slot="sidebar-left"]) {
                         grid-area: sidebar-left;
+                        position: relative;
+                    }
+        
+                    ::slotted([slot="sidebar-left"].resizable)::after {
+                        content: '';
                     }
 
                     ::slotted([slot="main"]) {
@@ -83,57 +100,114 @@ if (typeof window !== 'undefined' && !customElements.get('app-shell')) {
 
                     ::slotted([slot="sidebar-right"]) {
                         grid-area: sidebar-right;
+                        position: relative;
+                    }
+
+                    ::slotted([slot="sidebar-right"].resizable)::after {
+                        content: '';
                     }
 
                     ::slotted([slot="footer"]) {
                         grid-area: footer;
                     }
-                    .resizer {
-                        cursor: ew-resize;
-                        background-color: #ccc;  /* Farbe für den Resizer; Sie können dies nach Bedarf anpassen */
-                        width: 5px;              /* Breite des Resizers */
-                        height: 100%;
-                        grid-area: sidebar-left; /* Setzt den Resizer in die gleiche Grid-Zone wie die Sidebar */
-                        z-index: 2;              /* Damit der Resizer über anderen Elementen liegt */
-                    }
+
                     ${customStyles}
                 </style>
-
+        
                 <div class="grid-container">
                     ${hasHeader ? '<slot name="header"></slot>' : ''}
-                    ${
-											hasSidebarLeft
-												? '<div class="resizer"></div><slot name="sidebar-left"></slot>'
-												: ''
-										}
+                    <slot name="sidebar-left" class="${isResizable ? 'resizable' : ''}"></slot>
                     <slot name="main"></slot>
                     ${hasSidebarRight ? '<slot name="sidebar-right"></slot>' : ''}
                     ${hasFooter ? '<slot name="footer"></slot>' : ''}
                 </div>
-                
-            `;
+                `;
+			}
 
-			const resizer = this.shadowRoot!.querySelector('.resizer');
-			const leftSidebar = this.shadowRoot!.querySelector('slot[name="sidebar-left"]');
-			let isResizing = false;
+			if (hasSidebarLeft && isResizable) {
+				this.addResizerEvents(sidebarLeft, 'right');
+			}
 
-			resizer?.addEventListener('mousedown', (event) => {
-				isResizing = true;
-				document.addEventListener('mousemove', handleMouseMove);
-				document.addEventListener('mouseup', () => {
-					isResizing = false;
-					document.removeEventListener('mousemove', handleMouseMove);
-				});
+			if (hasSidebarRight && isRightResizable) {
+				this.addResizerEvents(sidebarRight, 'left');
+			}
+
+			const resizerExists = this.shadowRoot && this.shadowRoot.querySelector('.resizer') !== null;
+			console.log('Resizer exists:', resizerExists);
+		}
+
+		private initializeResizableSections(): void {
+			const resizableSections = this.querySelectorAll('[resize="true"]');
+			resizableSections.forEach((section) => {
+				section.classList.add('resizable');
+				this.addResizerEvents(section);
 			});
+		}
 
-			function handleMouseMove(event: MouseEvent) {
-				if (!isResizing) return;
-				const newWidth = event.clientX; // Sie können dies anpassen, um die Startposition der Sidebar zu berücksichtigen
-				leftSidebar?.style.setProperty('width', `${newWidth}px`);
+		private addResizerEvents(section: Element, resizeEdge: 'left' | 'right'): void {
+			section.addEventListener('mousedown', (event: Event) => {
+				const mouseEvent = event as MouseEvent;
+				if (this.isResizerClicked(mouseEvent, section, resizeEdge)) {
+					this.isResizing = true;
+					this.startX = mouseEvent.clientX;
+					this.initialWidth = section.clientWidth;
+					this.resizingSection = section;
+					document.addEventListener('mousemove', this.handleMouseMove.bind(this) as EventListener);
+					document.addEventListener('mouseup', this.stopResize.bind(this) as EventListener);
+				}
+			});
+		}
+
+        private handleMouseMove(event: Event): void {
+            const mouseEvent = event as MouseEvent;
+            if (!this.isResizing || !this.resizingSection) return;
+        
+            let newWidth;
+        
+            if (this.resizingSection?.getAttribute('slot') === 'sidebar-right') {
+                const changeInWidth = this.startX - mouseEvent.clientX;
+                newWidth = this.initialWidth + changeInWidth;
+                document.documentElement.style.setProperty('--sidebarRightWidth', `${newWidth}px`);
+            } else if (this.resizingSection?.getAttribute('slot') === 'sidebar-left') {
+                const changeInWidth = mouseEvent.clientX - this.startX;
+                newWidth = this.initialWidth + changeInWidth;
+                document.documentElement.style.setProperty('--sidebarLeftWidth', `${newWidth}px`);
+            }
+        
+            this.updateSectionWidth(this.resizingSection, newWidth);
+        }
+
+		private stopResize(): void {
+			this.isResizing = false;
+			document.removeEventListener('mousemove', this.handleMouseMove.bind(this));
+			document.removeEventListener('mouseup', this.stopResize.bind(this));
+			this.resizingSection = null;
+		}
+
+		private isResizerClicked(
+			e: MouseEvent,
+			element: Element,
+			resizeEdge: 'left' | 'right'
+		): boolean {
+			const rect = element.getBoundingClientRect();
+			const resizerWidth = 10;
+			if (resizeEdge === 'left') {
+				return e.clientX > rect.left && e.clientX < rect.left + resizerWidth;
+			} else {
+				return e.clientX > rect.right - resizerWidth && e.clientX < rect.right;
 			}
 		}
+
+		private updateSectionWidth(section: Element, newWidth: number): void {
+			// Adjust these values as needed
+			const minWidth = 100; // Minimum width
+			const maxWidth = Math.min(600, window.innerWidth - 100); // Maximum width or less than viewport width
+
+			newWidth = Math.max(minWidth, Math.min(newWidth, maxWidth));
+			section.style.width = `${newWidth}px`;
+		}
 	}
+
 	customElements.define('app-shell', AppShellElement);
 }
-
 export {};

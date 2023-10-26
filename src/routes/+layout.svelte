@@ -3,24 +3,26 @@
 
 	onMount(() => {
 		if (import.meta.env.SSR) return;
-		import('$lib/utils/IconElement');
-		import('$lib/utils/AppShellElement');
-		import('$lib/utils/TooltipElement.js').then((module) => {
-			module.initializeTooltips(); // Call the initializer after importing
+		Promise.all([
+			import('$lib/utils/IconElement'),
+			import('$lib/utils/AppShellElement'),
+			import('$lib/utils/TooltipElement.js')
+		]).then(([_, __, tooltipModule]) => {
+			tooltipModule.initializeTooltips();
 		});
 	});
 </script>
 
 <app-shell>
-	<app-section slot="sidebar-left" col="4" style="border: 1px red solid;">
-		Sidebar-Left
+	<app-section slot="sidebar-left" col="4" resize="true">
+		<span ui-col-xs="1-5">Sidebar-Left</span>
 	</app-section>
 	<app-section slot="header" col="12" style="border: 1px red solid;"> Header </app-section>
 	<app-section slot="main" col="12" style="border: 1px red solid;">
 		<slot />
 		<h2 ui-col-xs="4-12" style="border: 1px red solid;">Another Test</h2>
 	</app-section>
-	<app-section slot="sidebar-right" col="4" style="border: 1px red solid;">
+	<app-section slot="sidebar-right" col="4" resize="true">
 		<span ui-col-xs="1-3">Sidebar-Right</span>
 	</app-section>
 	<app-section slot="footer" col="20" style="border: 1px red solid;">
@@ -31,45 +33,67 @@
 </app-shell>
 
 <style lang="scss">
+	app-shell:defined app-section[slot='footer'] {
+		background-color: green;
+		height: 200px;
+	}
 
-
-// CSS Grid
-app-shell:defined app-section[slot="footer"] {
-		background-color: red;
-    height: 200px;
-  }
-
-// AppShellElement.ts
-  app-shell:defined app-section[slot="footer"] {
-		background-color: red;
-    height: 200px;
-  }
-
-  app-shell:defined app-section[slot="sidebar-left"] {
-    //grid-area: footer;
+	app-shell:defined app-section[slot='sidebar-left'] {
 		background-color: yellow;
-    width: 320px;
-  }
+		width: var(--sidebarLeftInitialWidth);
 
+		&[resize='true']::after {
+			content: '';
+			display: block;
+			width: 10px;
+			background-color: rgb(0, 0, 0);
+			height: 100%;
+			cursor: ew-resize;
+			position: absolute;
+			right: 0;
+			top: 0;
+			z-index: 10;
+		}
+	}
 
-/* 	::slotted([slot='footer']) {
+	app-shell:defined app-section[slot='sidebar-right'] {
+		background-color: rgb(238, 0, 255);
+		width: var(--sidebarRightWidth);
+		overflow: auto;
 
-	} */
+		&[resize='true']::before {
+			content: '';
+			display: block;
+			width: 10px;
+			background-color: rgb(0, 0, 0);
+			height: 100%;
+			cursor: ew-resize;
+			position: absolute;
+			left: 0;
+			top: 0;
+			z-index: 10;
+		}
+	}
 
 	:global(app-icon) {
 		visibility: hidden;
 	}
 
-  :global(:root) {
-    --grid-template-rows: auto 1fr auto;
-    --grid-template-areas: 
-    "sidebar-left header header" 
-    "sidebar-left main sidebar-right" 
-    "footer footer footer";
-    --primary-color: #3498db;
-    --secondary-color: #12121c;
-    //--icon-valid: url("...");
-}
+	:global(app-shell) {
+		position: relative;
+	}
+
+	:global(:root) {
+		--sidebarRightInitialWidth: 320px;
+		--sidebarLeftInitialWidth: 320px;
+		--grid-template-rows: auto 1fr auto;
+		--grid-template-areas: 'sidebar-left header header' 'sidebar-left main sidebar-right'
+			'footer footer footer';
+		--primary-color: #6db4e4;
+		--secondary-color: #12121c;
+		/* --grid-template-columns:  */
+		//--icon-valid: url("...");
+	}
 
 	:global(html, body) {
 		height: 100%;
@@ -82,12 +106,19 @@ app-shell:defined app-section[slot="footer"] {
 	/* ---------------------------------- */
 	// atribute starts here
 
+	/*   @media only screen and (max-width: 600px) {
+    app-shell:defined app-section[slot='sidebar-right'] {
+        // Adjustments for smaller screens
+        width: 100%; // Example: full width on small screens
+    }
+} */
+
 	:global() {
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// 1.0
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
- 		$ui: 'ui-';
+		$ui: 'ui-';
 
 		// Grid
 		$grid: 'grid';
@@ -133,5 +164,5 @@ app-shell:defined app-section[slot="footer"] {
 			@include col-custom('-xs');
 			//@include col-custom("\\:xs");
 		}
-	} 
+	}
 </style>
