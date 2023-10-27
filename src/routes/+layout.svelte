@@ -1,6 +1,17 @@
 <script>
 	import { onMount } from 'svelte';
 
+  function forceLayoutUpdate() {
+		const appShell = document.querySelector('app-shell');
+		if (appShell) {
+			// Triggering reflow
+			appShell.offsetHeight;
+
+			// Optionally, if you have a specific method in your component to update layout, call it here
+			// appShell.updateLayout(); // Uncomment if such a method exists
+		}
+	}
+
 	onMount(() => {
 		if (import.meta.env.SSR) return;
 		Promise.all([
@@ -9,8 +20,10 @@
 			import('$lib/utils/TooltipElement.js')
 		]).then(([_, __, tooltipModule]) => {
 			tooltipModule.initializeTooltips();
+			forceLayoutUpdate(); // Call the function to force layout update
 		});
 	});
+
 </script>
 
 <app-shell>
@@ -40,7 +53,7 @@
 
 	app-shell:defined app-section[slot='sidebar-left'] {
 		background-color: yellow;
-		width: var(--sidebarLeftInitialWidth);
+		width: var(--sidebarRightWidth), 256px;
 
 		&[resize='true']::after {
 			content: '';
@@ -56,24 +69,28 @@
 		}
 	}
 
-	app-shell:defined app-section[slot='sidebar-right'] {
-		background-color: rgb(238, 0, 255);
-		width: var(--sidebarRightWidth);
-		overflow: auto;
+  app-shell:defined app-section[slot='main'] {
+    overflow: auto;
+}
 
-		&[resize='true']::before {
-			content: '';
-			display: block;
-			width: 10px;
-			background-color: rgb(0, 0, 0);
-			height: 100%;
-			cursor: ew-resize;
-			position: absolute;
-			left: 0;
-			top: 0;
-			z-index: 10;
-		}
-	}
+app-shell:defined app-section[slot='sidebar-right'] {
+    background-color: rgb(238, 0, 255);
+    width: var(--sidebarRightWidth), 256px;
+    overflow: auto;
+
+    &[resize='true']::before {
+        content: '';
+        display: block;
+        width: 10px;
+        background-color: rgb(0, 0, 0);
+        height: 100%;
+        cursor: ew-resize;
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 10;
+    }
+}
 
 	:global(app-icon) {
 		visibility: hidden;
@@ -84,8 +101,8 @@
 	}
 
 	:global(:root) {
-		--sidebarRightInitialWidth: 320px;
-		--sidebarLeftInitialWidth: 320px;
+		--sidebarRightWidth: 320px!important;
+		--sidebarLeftWidth: 420px!important;
 		--grid-template-rows: auto 1fr auto;
 		--grid-template-areas: 'sidebar-left header header' 'sidebar-left main sidebar-right'
 			'footer footer footer';
