@@ -134,8 +134,8 @@
 
 	:global(:root) {
 		--headerHeight: 120px !important;
-		--headerMinHeight: 40px;
-		--headerMaxHeight: 400px;
+		--headerMinHeight: 80px;
+		--headerMaxHeight: 320x;
 
 		--sidebarRightWidth: 320px !important;
 		--sidebarRightMinWidth: 100px;

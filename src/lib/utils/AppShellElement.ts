@@ -177,18 +177,22 @@ class AppShellElement extends HTMLElement {
 		const resizableSections = this.querySelectorAll('[resize="true"]');
 		resizableSections.forEach((section) => {
 			section.addEventListener('mousedown', this.handleVerticalResize as EventListener);
-			section.classList.add('resizable');
 			this.addResizerEvents(section, 'right');
 		});
 		const header = this.querySelector('[slot="header"]');
 		if (header && header.getAttribute('resize') === 'true') {
 			this.addResizerEvents(header, 'bottom');
 		}
+
+		const footer = this.querySelector('[slot="footer"]');
+		if (footer && footer.getAttribute('resize') === 'true') {
+			this.addResizerEvents(footer, 'top');
+		}
 	}
 
 	private addResizerEvents(
 		section: Element,
-		resizeEdge: 'left' | 'right' | 'top' | 'bottom' = 'right'
+		resizeEdge: 'left' | 'right' | 'top' | 'bottom'
 	): void {
 		section.addEventListener('mousedown', (event: Event) => {
 			const mouseEvent = event as MouseEvent;
@@ -222,7 +226,10 @@ class AppShellElement extends HTMLElement {
 			this.handleHorizontalResize(mouseEvent);
 		}
 
-		if (this.resizingSection.getAttribute('slot') === 'header') {
+		if (
+			this.resizingSection.getAttribute('slot') === 'header' ||
+			this.resizingSection.getAttribute('slot') === 'footer'
+		) {
 			this.handleVerticalResize(mouseEvent);
 		}
 	}
@@ -253,9 +260,15 @@ class AppShellElement extends HTMLElement {
 			return;
 
 		const changeInHeight = mouseEvent.clientY - this.startY;
-		const newHeight = this.initialHeight + changeInHeight;
+		let newHeight;
 
-		console.log(`New Height: ${newHeight}`); // Add this log
+		if (this.resizingSection.getAttribute('slot') === 'footer') {
+			newHeight = this.initialHeight - changeInHeight;
+		} else {
+			newHeight = this.initialHeight + changeInHeight;
+		}
+
+		console.log(`New Height: ${newHeight}`);
 
 		this.updateSectionHeight(this.resizingSection, newHeight);
 	}
@@ -298,7 +311,7 @@ class AppShellElement extends HTMLElement {
 		newHeight = Math.max(minHeight, Math.min(newHeight, maxHeight));
 		section.style.height = `${newHeight}px`;
 
-		console.log(`Updated Height: ${section.style.height}`); // Add this log
+		console.log(`Updated Height: ${section.style.height}`);
 	}
 
 	private updateSectionWidth(section: Element, newWidth: number): void {
@@ -321,7 +334,7 @@ class AppShellElement extends HTMLElement {
 		const gridContainer = this.shadowRoot?.querySelector('.grid-container');
 		if (!gridContainer) return;
 
-		const columns = gridContainer.style.gridTemplateColumns.split(' '); // Changed 'let' to 'const'
+		const columns = gridContainer.style.gridTemplateColumns.split(' ');
 
 		if (sidebar === 'left') {
 			columns[0] = `${newWidth}px`;
