@@ -53,7 +53,7 @@
 
 	app-shell:defined app-section[slot='sidebar-left'] {
 		background-color: yellow;
-		width: var(--sidebarRightWidth), 256px;
+		width: var(--sidebarRightWidth);
 
 		&[resize='true']::after {
 			content: '';
@@ -75,7 +75,7 @@
 
 app-shell:defined app-section[slot='sidebar-right'] {
     background-color: rgb(238, 0, 255);
-    width: var(--sidebarRightWidth), 256px;
+    width: var(--sidebarRightWidth);
     overflow: auto;
 
     &[resize='true']::before {
