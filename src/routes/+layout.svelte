@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 
-  function forceLayoutUpdate() {
+	function forceLayoutUpdate() {
 		const appShell = document.querySelector('app-shell');
 		if (appShell) {
 			// Triggering reflow
@@ -23,22 +23,21 @@
 			forceLayoutUpdate(); // Call the function to force layout update
 		});
 	});
-
 </script>
 
 <app-shell>
 	<app-section slot="sidebar-left" col="4" resize="true">
 		<span ui-col-xs="1-5">Sidebar-Left</span>
 	</app-section>
-	<app-section slot="header" col="12" style="border: 1px red solid;"> Header </app-section>
-	<app-section slot="main" col="12" style="border: 1px red solid;">
+	<app-section slot="header" col="12" resize="true"> Header </app-section>
+	<app-section slot="main" col="12">
 		<slot />
-		<h2 ui-col-xs="4-12" style="border: 1px red solid;">Another Test</h2>
+		<h2 ui-col-xs="4-12">Another Test</h2>
 	</app-section>
 	<app-section slot="sidebar-right" col="4" resize="true">
 		<span ui-col-xs="1-3">Sidebar-Right</span>
 	</app-section>
-	<app-section slot="footer" col="20" style="border: 1px red solid;">
+	<app-section slot="footer" col="20" resize="true">
 		Footer
 		<app-icon width="64" fill="var(--secondary-color)">icon-layerzero</app-icon>
 		<app-icon width="32" fill="#535353">icon-user</app-icon>
@@ -46,9 +45,42 @@
 </app-shell>
 
 <style lang="scss">
+	app-shell:defined app-section[slot='header'] {
+		background-color: rgb(64, 0, 255);
+		min-height: var(--headerMinHeight);
+		height: var(--headerHeight);
+
+		&[resize='true']::after {
+			content: '';
+			display: block;
+			height: 10px;
+			background-color: rgb(0, 0, 0);
+			width: 100%;
+			cursor: ns-resize;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			z-index: 10;
+		}
+	}
+
 	app-shell:defined app-section[slot='footer'] {
-		background-color: green;
-		height: 200px;
+		background-color: rgb(53, 203, 86);
+		min-height: var(--footerMinHeight);
+		height: var(--footerHeight);
+
+		&[resize='true']::after {
+			content: '';
+			display: block;
+			height: 10px;
+			background-color: rgb(0, 0, 0);
+			width: 100%;
+			cursor: ns-resize;
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 10;
+		}
 	}
 
 	app-shell:defined app-section[slot='sidebar-left'] {
@@ -69,28 +101,28 @@
 		}
 	}
 
-  app-shell:defined app-section[slot='main'] {
-    overflow: auto;
-}
+	app-shell:defined app-section[slot='main'] {
+		overflow: auto;
+	}
 
-app-shell:defined app-section[slot='sidebar-right'] {
-    background-color: rgb(238, 0, 255);
-    width: var(--sidebarRightWidth);
-    overflow: auto;
+	app-shell:defined app-section[slot='sidebar-right'] {
+		background-color: rgb(238, 0, 255);
+		width: var(--sidebarRightWidth);
+		overflow: auto;
 
-    &[resize='true']::before {
-        content: '';
-        display: block;
-        width: 10px;
-        background-color: rgb(0, 0, 0);
-        height: 100%;
-        cursor: ew-resize;
-        position: absolute;
-        left: 0;
-        top: 0;
-        z-index: 10;
-    }
-}
+		&[resize='true']::before {
+			content: '';
+			display: block;
+			width: 10px;
+			background-color: rgb(0, 0, 0);
+			height: 100%;
+			cursor: ew-resize;
+			position: absolute;
+			left: 0;
+			top: 0;
+			z-index: 10;
+		}
+	}
 
 	:global(app-icon) {
 		visibility: hidden;
@@ -101,8 +133,22 @@ app-shell:defined app-section[slot='sidebar-right'] {
 	}
 
 	:global(:root) {
-		--sidebarRightWidth: 320px!important;
-		--sidebarLeftWidth: 420px!important;
+		--headerHeight: 120px !important;
+		--headerMinHeight: 40px;
+		--headerMaxHeight: 400px;
+
+		--sidebarRightWidth: 320px !important;
+		--sidebarRightMinWidth: 100px;
+		--sidebarRightMaxWidth: 600px;
+
+		--sidebarLeftWidth: 420px !important;
+		--sidebarLeftMinWidth: 100px;
+		--sidebarLeftMaxWidth: 600px;
+
+		--footerHeight: 120px !important;
+		--footerMinHeight: 40px;
+		--footerMaxHeight: 400px;
+
 		--grid-template-rows: auto 1fr auto;
 		--grid-template-areas: 'sidebar-left header header' 'sidebar-left main sidebar-right'
 			'footer footer footer';

@@ -1,18 +1,20 @@
 class AppShellElement extends HTMLElement {
 	private shadow: ShadowRoot;
 	private isResizing = false;
-	private initialWidth: number | undefined; // Allowing undefined
-	private startX: number | undefined; // Allowing undefined
+	private initialWidth: number | undefined;
+	private initialHeight: number | undefined;
+	private startX: number | undefined;
+	private startY: number | undefined;
 	private resizingSection: Element | null = null;
 
-    private boundHandleMouseMove: (event: MouseEvent) => void;
-    private boundStopResize: () => void;
+	private boundHandleMouseMove: (event: MouseEvent) => void;
+	private boundStopResize: () => void;
 
 	constructor() {
-        super();
-        this.shadow = this.attachShadow({ mode: 'open' });
-        this.boundHandleMouseMove = this.handleMouseMove.bind(this);
-        this.boundStopResize = this.stopResize.bind(this);
+		super();
+		this.shadow = this.attachShadow({ mode: 'open' });
+		this.boundHandleMouseMove = this.handleMouseMove.bind(this);
+		this.boundStopResize = this.stopResize.bind(this);
 		console.log('AppShellElement constructor called');
 	}
 
@@ -118,6 +120,7 @@ class AppShellElement extends HTMLElement {
                     
                     ::slotted([slot="header"]) {
                         grid-area: header;
+                        position: relative;
                     }
 
                     ::slotted([slot="sidebar-left"]) {
@@ -127,6 +130,7 @@ class AppShellElement extends HTMLElement {
 
                     ::slotted([slot="main"]) {
                         grid-area: main;
+                        position: relative;
                     }
 
                     ::slotted([slot="sidebar-right"]) {
@@ -136,18 +140,19 @@ class AppShellElement extends HTMLElement {
 
                     ::slotted([slot="footer"]) {
                         grid-area: footer;
+                        position: relative;
                     }
 
                     ${customStyles}
                 </style>
         
                 <div class="grid-container">
-                    ${hasHeader ? '<slot name="header"></slot>' : ''}
-                    <slot name="sidebar-left" class="${isResizable ? 'resizable' : ''}"></slot>
-                    <slot name="main"></slot>
-                    ${hasSidebarRight ? '<slot name="sidebar-right"></slot>' : ''}
-                    ${hasFooter ? '<slot name="footer"></slot>' : ''}
-                </div>
+                ${hasHeader ? '<slot name="header"></slot>' : ''}
+                ${hasSidebarLeft ? '<slot name="sidebar-left"></slot>' : ''}
+                <slot name="main"></slot>
+                ${hasSidebarRight ? '<slot name="sidebar-right"></slot>' : ''}
+                ${hasFooter ? '<slot name="footer"></slot>' : ''}
+            </div>
                 `;
 		}
 
@@ -171,59 +176,129 @@ class AppShellElement extends HTMLElement {
 	private initializeResizableSections(): void {
 		const resizableSections = this.querySelectorAll('[resize="true"]');
 		resizableSections.forEach((section) => {
+			section.addEventListener('mousedown', this.handleVerticalResize as EventListener);
 			section.classList.add('resizable');
 			this.addResizerEvents(section, 'right');
 		});
+		const header = this.querySelector('[slot="header"]');
+		if (header && header.getAttribute('resize') === 'true') {
+			this.addResizerEvents(header, 'bottom');
+		}
 	}
 
-	private addResizerEvents(section: Element, resizeEdge: 'left' | 'right' = 'right'): void {
+	private addResizerEvents(
+		section: Element,
+		resizeEdge: 'left' | 'right' | 'top' | 'bottom' = 'right'
+	): void {
 		section.addEventListener('mousedown', (event: Event) => {
 			const mouseEvent = event as MouseEvent;
 			if (this.isResizerClicked(mouseEvent, section, resizeEdge)) {
 				this.isResizing = true;
 				this.startX = mouseEvent.clientX;
+				this.startY = mouseEvent.clientY;
 				this.initialWidth = section.clientWidth;
+				this.initialHeight = section.clientHeight;
 				this.resizingSection = section;
-                document.addEventListener('mousemove', this.boundHandleMouseMove);
-                document.addEventListener('mouseup', this.boundStopResize);
+				document.addEventListener('mousemove', this.boundHandleMouseMove);
+				document.addEventListener('mouseup', this.boundStopResize);
 			}
 		});
 	}
 
 	private handleMouseMove(event: Event): void {
 		const mouseEvent = event as MouseEvent;
-		if (!this.isResizing || !this.resizingSection) return;
+		if (
+			!this.isResizing ||
+			!this.resizingSection ||
+			this.startX === undefined ||
+			this.startY === undefined
+		)
+			return;
 
-		let newWidth;
-
-		if (this.resizingSection?.getAttribute('slot') === 'sidebar-right') {
-			const changeInWidth = this.startX - mouseEvent.clientX;
-			newWidth = this.initialWidth + changeInWidth;
-			document.documentElement.style.setProperty('--sidebarRightWidth', `${newWidth}px`);
-		} else if (this.resizingSection?.getAttribute('slot') === 'sidebar-left') {
-			const changeInWidth = mouseEvent.clientX - this.startX;
-			newWidth = this.initialWidth + changeInWidth;
-			document.documentElement.style.setProperty('--sidebarLeftWidth', `${newWidth}px`);
+		if (
+			this.resizingSection.getAttribute('slot') === 'sidebar-left' ||
+			this.resizingSection.getAttribute('slot') === 'sidebar-right'
+		) {
+			this.handleHorizontalResize(mouseEvent);
 		}
 
+		if (this.resizingSection.getAttribute('slot') === 'header') {
+			this.handleVerticalResize(mouseEvent);
+		}
+	}
+
+	private handleHorizontalResize(mouseEvent: MouseEvent): void {
+		console.log('handleHorizontalResize called');
+		if (!this.resizingSection || this.startX === undefined || this.initialWidth === undefined)
+			return;
+
+		const changeInWidth =
+			this.resizingSection.getAttribute('slot') === 'sidebar-right'
+				? this.startX - mouseEvent.clientX
+				: mouseEvent.clientX - this.startX;
+
+		const newWidth = this.initialWidth + changeInWidth;
+
+		const property =
+			this.resizingSection.getAttribute('slot') === 'sidebar-right'
+				? '--sidebarRightWidth'
+				: '--sidebarLeftWidth';
+		document.documentElement.style.setProperty(property, `${newWidth}px`);
 		this.updateSectionWidth(this.resizingSection, newWidth);
+	}
+
+	private handleVerticalResize(mouseEvent: MouseEvent): void {
+		console.log('handleVerticalResize called');
+		if (!this.resizingSection || this.startY === undefined || this.initialHeight === undefined)
+			return;
+
+		const changeInHeight = mouseEvent.clientY - this.startY;
+		const newHeight = this.initialHeight + changeInHeight;
+
+		console.log(`New Height: ${newHeight}`); // Add this log
+
+		this.updateSectionHeight(this.resizingSection, newHeight);
 	}
 
 	private stopResize(): void {
 		this.isResizing = false;
-        document.removeEventListener('mousemove', this.boundHandleMouseMove);
-        document.removeEventListener('mouseup', this.boundStopResize);
+		document.removeEventListener('mousemove', this.boundHandleMouseMove);
+		document.removeEventListener('mouseup', this.boundStopResize);
 		this.resizingSection = null;
 	}
 
-	private isResizerClicked(e: MouseEvent, element: Element, resizeEdge: 'left' | 'right'): boolean {
+	private isResizerClicked(
+		e: MouseEvent,
+		element: Element,
+		resizeEdge: 'left' | 'right' | 'top' | 'bottom'
+	): boolean {
 		const rect = element.getBoundingClientRect();
 		const resizerWidth = 10;
-		if (resizeEdge === 'left') {
-			return e.clientX > rect.left && e.clientX < rect.left + resizerWidth;
-		} else {
-			return e.clientX > rect.right - resizerWidth && e.clientX < rect.right;
+		const resizerHeight = 10;
+
+		switch (resizeEdge) {
+			case 'left':
+				return e.clientX > rect.left && e.clientX < rect.left + resizerWidth;
+			case 'right':
+				return e.clientX > rect.right - resizerWidth && e.clientX < rect.right;
+			case 'top':
+				return e.clientY > rect.top && e.clientY < rect.top + resizerHeight;
+			case 'bottom':
+				return e.clientY > rect.bottom - resizerHeight && e.clientY < rect.bottom;
+			default:
+				return false;
 		}
+	}
+
+	private updateSectionHeight(section: Element, newHeight: number): void {
+		const style = getComputedStyle(document.documentElement);
+		const minHeight = parseInt(style.getPropertyValue('--footerMinHeight'), 10);
+		const maxHeight = parseInt(style.getPropertyValue('--footerMaxHeight'), 10);
+
+		newHeight = Math.max(minHeight, Math.min(newHeight, maxHeight));
+		section.style.height = `${newHeight}px`;
+
+		console.log(`Updated Height: ${section.style.height}`); // Add this log
 	}
 
 	private updateSectionWidth(section: Element, newWidth: number): void {
@@ -236,13 +311,18 @@ class AppShellElement extends HTMLElement {
 		if (section.getAttribute('slot') === 'sidebar-left') {
 			this.updateGridLayout(newWidth, 'left');
 		}
+
+		console.log(`Resizing ${section.getAttribute('slot')}`);
+		console.log(`New Width: ${newWidth}`);
+		console.log(`Computed Style Width: ${section.style.width}`);
 	}
 
 	private updateGridLayout(newWidth: number, sidebar: 'left' | 'right'): void {
 		const gridContainer = this.shadowRoot?.querySelector('.grid-container');
 		if (!gridContainer) return;
 
-		let columns = gridContainer.style.gridTemplateColumns.split(' ');
+		const columns = gridContainer.style.gridTemplateColumns.split(' '); // Changed 'let' to 'const'
+
 		if (sidebar === 'left') {
 			columns[0] = `${newWidth}px`;
 		} else if (sidebar === 'right') {
