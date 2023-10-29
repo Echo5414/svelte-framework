@@ -1,0 +1,246 @@
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 1.0 CSS Reset
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: 0 !important;
+  border: 0;
+}
+
+html {
+  line-height: 120%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body, button, input, optgroup, select, textarea {
+  font-family: inherit;
+  font-size: 100%;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+hr {
+  box-sizing: content-box;
+  height: 0;
+  overflow: visible;
+}
+
+pre {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+
+a {
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:active, a:hover {
+  outline-width: 0;
+}
+
+abbr[title] {
+  border-bottom: none;
+  text-decoration: underline;
+  text-decoration: underline dotted;
+}
+
+b, strong {
+  font-weight: bolder;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+  height: auto;
+}
+
+svg:not(:root) {
+  overflow: hidden;
+}
+
+button, input {
+  overflow: visible;
+}
+
+button, select {
+  text-transform: none;
+}
+
+button, [type="button"], [type="reset"], [type="submit"] {
+  -webkit-appearance: button;
+}
+
+fieldset {
+  padding: 0.35em 0.75em 0.625em;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* ::before, ::after {
+  content: ''; // makes problems
+  display: table;
+} */
+
+a:focus, button:focus {
+  /* your custom focus style here if needed */
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 1.0 CSS Reset
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+$ui: 'ui-';
+
+// Grid
+$grid: 'grid';
+$column: 'col';
+$row: 'row';
+
+// Variables
+$unit: 4;
+$step: 64;
+$margin: "m";
+$padding: "p";
+$all: "a";
+$top: "t";
+$right: "r";
+$bottom: "b";
+$left: "l";
+$topbottom: "y";
+$leftright: "x";
+
+// 1.2.1 Grid-Prefixes
+$grid-columns: 12;
+$grid-columns-all: 20; // 1fr repeat(12) 1fr = 14 | needed for columns creation
+$grid-rows: 1;
+$grid-column-gap: 24px; // <= 16px sm; >= md 64px
+$grid-row-gap: 0;
+$grid-column-min: 0;
+$grid-column-max: 96px;
+
+// 1.4.1 Breakpoints
+$grid-breakpoint-xs: 0px;
+$grid-breakpoint-sm: 480px;
+$grid-breakpoint-md: 768px;
+$grid-breakpoint-lg: 1024px;
+$grid-breakpoint-xl: 1440px;
+
+// Custom
+@mixin col-custom($device: null) {
+  $count: 1;
+  @while $count <= ($grid-columns-all + 1) {
+    @for $i from 1 through ($grid-columns-all + 1) {
+      @if ($i + $count) <= ($grid-columns-all + 1) {
+        [#{$ui}#{$column}#{$device}='#{$count}-#{($i+$count)}'] {
+          grid-column: $count + /+($i + $count);
+        }
+      }
+    }
+    $count: $count + 1;
+  }
+}
+
+@include col-custom();
+
+// Padding
+@mixin helpers-padding($device:null) {
+  @for $i from 0 through $step {
+    // Padding: "all"
+    [#{$ui}#{$padding}#{$all}#{$device}="#{$unit * $i}"] {
+      padding: ($unit * $i) + px; 
+    }
+    // Padding: "top"
+    [#{$ui}#{$padding}#{$top}#{$device}="#{$unit * $i}"] {
+      padding-top: ($unit * $i) + px; 
+    }
+    // Padding: "right"
+    [#{$ui}#{$padding}#{$right}#{$device}="#{$unit * $i}"] {
+      padding-right: ($unit * $i) + px; 
+    }
+    // Padding: "bottom"
+    [#{$ui}#{$padding}#{$bottom}#{$device}="#{$unit * $i}"] {
+      padding-bottom: ($unit * $i) + px; 
+    }
+    // Padding: "left"
+    [#{$ui}#{$padding}#{$left}#{$device}="#{$unit * $i}"] {
+      padding-left: ($unit * $i) + px; 
+    }
+    // Padding: "top", "bottom"
+    [#{$ui}#{$padding}#{$topbottom}#{$device}="#{$unit * $i}"] {
+      padding-top: ($unit * $i) + px; 
+      padding-bottom: ($unit * $i) + px; 
+    }
+    // Padding: "right", "left"
+    [#{$ui}#{$padding}#{$leftright}#{$device}="#{$unit * $i}"] {
+      padding-left: ($unit * $i) + px; 
+      padding-right: ($unit * $i) + px; 
+    } 
+  }
+}
+
+@include helpers-padding();
+
+// Margin
+@mixin helpers-margin($device:null) {
+  @for $i from 0 through $step {
+    // Margin: "all"
+    [#{$ui}#{$margin}#{$all}#{$device}="#{$unit * $i}"] {
+      margin: ($unit * $i) + px; 
+    }
+    // Margin: "top"
+    [#{$ui}#{$margin}#{$top}#{$device}="#{$unit * $i}"] {
+      margin-top: ($unit * $i) + px; 
+    }
+    // Margin: "right"
+    [#{$ui}#{$margin}#{$right}#{$device}="#{$unit * $i}"] {
+      margin-right: ($unit * $i) + px; 
+    }
+    // Margin: "bottom"
+    [#{$ui}#{$margin}#{$bottom}#{$device}="#{$unit * $i}"] {
+      margin-bottom: ($unit * $i) + px; 
+    }
+    // Margin: "left"
+    [#{$ui}#{$margin}#{$left}#{$device}="#{$unit * $i}"] {
+      margin-left: ($unit * $i) + px; 
+    }
+    // Margin: "top", "bottom"
+    [#{$ui}#{$margin}#{$topbottom}#{$device}="#{$unit * $i}"] {
+      margin-top: ($unit * $i) + px; 
+      margin-bottom: ($unit * $i) + px; 
+    }
+    // Margin: "right", "left"
+    [#{$ui}#{$margin}#{$leftright}#{$device}="#{$unit * $i}"] {
+      margin-right: ($unit * $i) + px; 
+      margin-left: ($unit * $i) + px; 
+    }
+  }
+}
+
+@include helpers-margin();
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 1.0 Media Queries
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// 1.4.2 Media query – Extra small devices
+@media only screen and (min-width: $grid-breakpoint-xs) {
+  
+  // Columns: Manually
+  @include col-custom('-xs');
+
+  // Helpers: Margin
+  @include helpers-margin("-xs");
+
+  // Helpers: Padding
+  @include helpers-padding("-xs");
+}

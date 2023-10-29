@@ -14,9 +14,8 @@ class Tooltip {
       this._tooltipElement = document.createElement("div");
       this._tooltipElement.style.position = "absolute";
       this._tooltipElement.style.visibility = "hidden";
-      // ... Add more default styles as needed ...
 
-      document.body.appendChild(this._tooltipElement); // Add tooltip to body to avoid overflow issues
+      document.body.appendChild(this._tooltipElement);
       
       this._element.addEventListener('mouseenter', this.showTooltip.bind(this));
       this._element.addEventListener('mouseleave', this.hideTooltip.bind(this));
@@ -28,9 +27,9 @@ class Tooltip {
       switch(this._tooltipPosition) {
           case 'top':
               this._tooltipElement.style.left = `${rect.left + rect.width / 2}px`;
-              this._tooltipElement.style.top = `${rect.top - 30}px`;  // Adjust positioning values as needed
-              this._tooltipElement.style.zIndex = '1000';  // Make sure the tooltip is on top of other content
-              this._tooltipElement.style.pointerEvents = 'none'; // Ensure the tooltip doesn't interfere with other interactions
+              this._tooltipElement.style.top = `${rect.top - 30}px`;
+              this._tooltipElement.style.zIndex = '1000';
+              this._tooltipElement.style.pointerEvents = 'none';
               break;
           case 'left':
               // ... Handle left position ...
