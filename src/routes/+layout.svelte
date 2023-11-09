@@ -7,7 +7,8 @@
       Promise.all([
         import('$lib/utils/IconElement'),
         import('$lib/utils/AppShellElement'),
-        import('$lib/utils/TooltipElement')
+        import('$lib/utils/TooltipElement'),
+        import('$lib/utils/DropdownElement')
       ])
       .then(() => {
         initializeTooltips();
@@ -32,29 +33,116 @@
 		<nav id="home" ui-col-xs="1-5">
 			<ul>
 				<li>
-					<a href=""
-						><app-icon width="20" fill="white" ui-pr-xs="8">icon-home</app-icon>
+					<a href="" tooltipDescription="Bibliothek ausblenden" tooltipPosition="right">
+            <app-icon width="32" fill="white" ui-pr-xs="8">icon-home</app-icon>
 						<span>Home</span>
 					</a>
 				</li>
 				<li>
-					<a href=""
-						><app-icon width="20" fill="white" ui-pr-xs="8">icon-search</app-icon>
+					<a href="" tooltipDescription="Bibliothek ausblenden" tooltipPosition="bottom">
+            <app-icon width="32" fill="white" ui-pr-xs="8">icon-search</app-icon>
 						<span>Search</span>
 					</a>
 				</li>
 			</ul>
 		</nav>
-		<nav id="library" ui-col-xs="1-5">
-			<ul>
-				<li>
-					<a href="" tooltipDescription="Bibliothek ausblenden" tooltipPosition="top">
-						<app-icon width="20" fill="white" ui-pr-xs="8">icon-library</app-icon>
-						<span>Bibliothek</span>
-					</a>
-				</li>
-			</ul>
-		</nav>
+    <div class="cardLeft" ui-col-xs="1-5" >
+      <nav id="library" ui-align="between">
+        <ul>
+          <li>
+            <a href="" tooltipDescription="Bibliothek ausblenden" tooltipPosition="top">
+              <app-icon width="32" fill="white" ui-pr-xs="8">icon-library</app-icon>
+              <span>Bibliothek</span>
+            </a>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <button class="transparent-rounded" tooltipDescription="Go back" tooltipPosition="bottom">
+              <app-icon width="16" fill="white" >icon-plus</app-icon>
+            </button>
+          </li>
+          <li>
+            <button class="transparent-rounded" tooltipDescription="Go back" tooltipPosition="left">
+              <app-icon width="16" fill="white" >icon-showMore</app-icon>
+            </button>
+          </li>
+        </ul>
+      </nav>
+      <nav id="area">
+        <ul>
+          <li>
+            <button class="pill-rounded">Playlists</button>
+          </li>
+          <li>
+            <button class="pill-rounded">Alben</button>
+          </li>
+          <li>
+            <button class="pill-rounded">Künstler</button>
+          </li>
+        </ul>
+      </nav>
+
+<!--       <details>
+        <summary>Dropdown Menu</summary>
+        <ul>
+          <li><a href="#">Option 1</a></li>
+          <li><a href="#">Option 2</a></li>
+          <li><a href="#">Option 3</a></li>
+        </ul>
+      </details>
+ --> 
+      <app-dropdown>
+        <!-- Slot: Action -->
+        <button theme="default">
+          <span>Recents</span>
+          <app-icon width="20" fill="white" ui-pl-xs="8">icon-list</app-icon>
+        </button>
+        <!-- Slot: Content -->
+        <nav>
+          <ul>
+            <li><small>Sortieren nach</small></li>
+            <li><a href="">Zuletzt</a></li>
+            <li><a href="">Kürzlich hinzugefügt</a></li>
+            <li>
+              <details>
+              <a href="">Alphabetisch</a>
+              <ul class="">
+                <li>
+                  <a href="">Link #1</a>
+                  <a href="">Link #2</a>
+                  <a href="">Link #3</a>
+                </li>
+              </ul>
+            </details>
+            </li>
+            <li><a href="">Ersteller</a></li>
+          </ul>
+          <ul>
+            <li><small>Ansicht</small></li>
+            <li>
+              <a href="">
+                <app-icon width="20" fill="white" ui-pr-xs="4">icon-compact</app-icon>
+                <span>Kompakt</span>
+              </a>
+            </li>
+            <li>
+              <a href="">
+                <app-icon width="20" fill="white" ui-pr-xs="4">icon-list</app-icon>
+                <span>Liste</span>
+              </a>
+            </li>
+            <li>
+              <a href="">
+                <app-icon width="20" fill="white" ui-pr-xs="4">icon-grid</app-icon>
+                <span>Raster</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </app-dropdown>
+    </div>
+
 	</app-section>
 	<app-section slot="header" col="12" resize="true"> Header </app-section>
 	<app-section slot="main" col="12">
@@ -72,90 +160,23 @@
 
 <style lang="scss">
 
-  :global(:root) {
-      --headerHeight: 120px !important;
-      --headerMinHeight: 80px;
-      --headerMaxHeight: 320x;
-
-      --sidebarRightWidth: 320px !important;
-      --sidebarRightMinWidth: 100px;
-      --sidebarRightMaxWidth: 600px;
-
-      --sidebarLeftWidth: 420px !important;
-      --sidebarLeftMinWidth: 100px;
-      --sidebarLeftMaxWidth: 600px;
-
-      --footerHeight: 120px !important;
-      --footerMinHeight: 40px;
-      --footerMaxHeight: 400px;
-
-      --grid-template-rows: auto;
-      --grid-template-areas: 
-        'sidebar-left header sidebar-right' 
-        'sidebar-left main sidebar-right'
-        'footer footer sidebar-right';
-      --primary-color: #6db4e4;
-      --secondary-color: #12121c;
-
-      --bodyBackgroundColor: rgba(0, 0, 0, 1);
-      --bodyColor: rgba(200, 200, 200, 1);
-
-      --tooltip-bg-color: #4e4d50;
-      --tooltip-text-color: white;
-      /* --grid-template-columns:  */
-      //--icon-valid: url("...");
-    }
-
-
 	.menu-item {
 		display: flex;
-		align-items: center; /* Zentriert die Inhalte vertikal */
+		align-items: center;
 	}
 
-	app-icon,
-	span {
-		vertical-align: middle;
-		display: inline-block;
-	}
 
-	app-icon svg {
-		width: auto;
-		height: auto;
-		max-width: 100%;
-		max-height: 100%;
-		display: block;
-	}
+
+
 
 	/* Optional: Weitere Anpassungen am Text-Styling */
 	.menu-item span {
 		/* Hier könnten Sie weitere Stil-Anpassungen vornehmen */
 	}
 
-	app-shell:defined app-section[slot='header'] {
-		background-color: rgb(64, 0, 255);
-		min-height: var(--headerMinHeight);
-		height: var(--headerHeight);
-    border-radius: 8px;
 
-		&[resize='true']::after {
-			content: '';
-			display: block;
-			height: 10px;
-			background-color: rgb(0, 0, 0);
-			width: 100%;
-			cursor: ns-resize;
-			position: absolute;
-			bottom: 0;
-			left: 0;
-			z-index: 10;
-		}
-	}
 
-  app-shell:defined app-section[slot='main'] {
-    background-color: rgb(54, 56, 61);
-    border-radius: 8px;
-		overflow: auto;
-	}
+
 
 	app-shell:defined app-section[slot='sidebar-left'] {
 		background-color: black;
@@ -176,11 +197,20 @@
 			z-index: 10;
 		}
 
+    .cardLeft {
+      //border: 1px red solid;
+			background-color: rgb(54, 56, 61);
+			border-radius: 8px;
+			margin: 4px 8px 4px 8px;
+      padding: 16px;
+    }
+
 		#home {
 			//border: 1px red solid;
 			background-color: rgb(54, 56, 61);
 			border-radius: 8px;
 			margin: 8px 8px 4px 8px;
+      padding: 16px;
 
 			ul > li {
 				list-style: none;
@@ -189,17 +219,36 @@
 		}
 
 		#library {
-			//border: 1px red solid;
-			background-color: rgb(54, 56, 61);
-			border-radius: 8px;
-			margin: 4px 8px 4px 8px;
 
 			ul > li {
 				list-style: none;
 				line-height: 32px;
+        float: left;
 			}
 		}
+
+    #area {
+      //border: 1px red solid;
+      display:flex;
+      margin: 16px 0;
+      ul {
+        li {
+          float:left;
+          margin: 0 4px 0 0;
+          :last-child {
+            margin: 0;
+          }
+        }
+      }
+    }
+
+    #search {
+
+    }
 	}
+
+
+
 
   app-shell:defined app-section[slot='sidebar-right'] {
 		background-color: rgb(238, 0, 255);
@@ -249,18 +298,18 @@
 
 
 
-	:global(html, body) {
+/* 	:global(html, body) {
 		height: 100%;
 		width: 100%;
 		overflow: hidden;
 		margin: 0;
 		padding: 0;
-	}
+	} */
 
 	:global(body) {
 		background-color: var(--bodyBackgroundColor);
 		color: var(--bodyColor);
-		font-family: 'Segoe UI', Arial, Tahoma, Geneva, Verdana, sans-serif;
+		font-family: 'Circular', 'Segoe UI', Arial, Tahoma, Geneva, Verdana, sans-serif;
 	}
 
   :global(.tooltip-content) {
@@ -276,40 +325,7 @@
 	:global() {
 
     .tooltip-content {} // DOES NOT WORK!!!!
-    
-
-		a,
-		a:visited {
-			color: inherit;
-			text-decoration: none;
-
-			&:hover {
-				text-decoration: underline;
-				color: white;
-			}
-		}
-
-    ::-webkit-scrollbar {
-      width: 8px;
-      background-color: transparent;
-      cursor: pointer; // funktioniert nicht, bitte überprüfen
-
-      &:hover {
-      }
-
-      &-thumb {
-        background-color: rgba(200,200,200,1);
-
-        &:hover {
-          background-color: rgba(225,225,225,1);
-        }
-      }
-
-      &-track {
-        
-      }
-    }
-
+  
     
 	}
 </style>

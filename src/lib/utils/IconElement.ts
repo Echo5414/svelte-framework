@@ -30,8 +30,56 @@ const icons = {
 			viewBox: '0 0 24 24',
 			alt: 'Library Icon',
 			pathData: 'M3 22a1 1 0 0 1-1-1V3a1 1 0 0 1 2 0v18a1 1 0 0 1-1 1zM15.5 2.134A1 1 0 0 0 14 3v18a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V6.464a1 1 0 0 0-.5-.866l-6-3.464zM9 2a1 1 0 0 0-1 1v18a1 1 0 1 0 2 0V3a1 1 0 0 0-1-1z'
+	},
+	'icon-arrowLeft': {
+			id: 'icon-arrowLeft',
+			viewBox: '0 0 16 16',
+			alt: 'Arrow Left Icon',
+			pathData: 'M11.03.47a.75.75 0 0 1 0 1.06L4.56 8l6.47 6.47a.75.75 0 1 1-1.06 1.06L2.44 8 9.97.47a.75.75 0 0 1 1.06 0z'
+	},
+	'icon-arrowRight': {
+			id: 'icon-arrowRight',
+			viewBox: '0 0 16 16',
+			alt: 'Arrow Right Icon',
+			pathData: 'M4.97.47a.75.75 0 0 0 0 1.06L11.44 8l-6.47 6.47a.75.75 0 1 0 1.06 1.06L13.56 8 6.03.47a.75.75 0 0 0-1.06 0z'
+	},
+	'icon-download': {
+			id: 'icon-download',
+			viewBox: '0 0 16 16',
+			alt: 'Download Icon',
+			pathData: 'M4.995 8.745a.75.75 0 0 1 1.06 0L7.25 9.939V4a.75.75 0 0 1 1.5 0v5.94l1.195-1.195a.75.75 0 1 1 1.06 1.06L8 12.811l-.528-.528a.945.945 0 0 1-.005-.005L4.995 9.805a.75.75 0 0 1 0-1.06z'
+	},
+	'icon-plus': {
+			id: 'icon-plus',
+			viewBox: '0 0 16 16',
+			alt: 'Plus/Add Icon',
+			pathData: 'M15.25 8a.75.75 0 0 1-.75.75H8.75v5.75a.75.75 0 0 1-1.5 0V8.75H1.5a.75.75 0 0 1 0-1.5h5.75V1.5a.75.75 0 0 1 1.5 0v5.75h5.75a.75.75 0 0 1 .75.75z'
+	},
+	'icon-showMore': {
+			id: 'icon-showMore',
+			viewBox: '0 0 16 16',
+			alt: 'Show More Icon',
+			pathData: 'M7.19 1A.749.749 0 0 1 8.47.47L16 7.99l-7.53 7.521a.75.75 0 0 1-1.234-.815.75.75 0 0 1 .174-.243l5.72-5.714H.75a.75.75 0 1 1 0-1.498h12.38L7.41 1.529a.749.749 0 0 1-.22-.53z'
+	},
+	'icon-compact': {
+			id: 'icon-compact',
+			viewBox: '0 0 16 16',
+			alt: 'Compact Icon',
+			pathData: 'M15.5 13.5H.5V12h15v1.5zm0-4.75H.5v-1.5h15v1.5zm0-4.75H.5V2.5h15V4z'
+	},
+	'icon-list': {
+			id: 'icon-list',
+			viewBox: '0 0 16 16',
+			alt: 'List Icon',
+			pathData: 'M15 14.5H5V13h10v1.5zm0-5.75H5v-1.5h10v1.5zM15 3H5V1.5h10V3zM3 3H1V1.5h2V3zm0 11.5H1V13h2v1.5zm0-5.75H1v-1.5h2v1.5z'
+	},
+	'icon-grid': {
+			id: 'icon-grid',
+			viewBox: '0 0 16 16',
+			alt: 'Grid Icon',
+			pathData: 'M1 1h6v6H1V1zm1.5 1.5v3h3v-3h-3zM1 9h6v6H1V9zm1.5 1.5v3h3v-3h-3zM9 1h6v6H9V1zm1.5 1.5v3h3v-3h-3zM9 9h6v6H9V9zm1.5 1.5v3h3v-3h-3z'
 	}
-
+	
 } as const;
 
 

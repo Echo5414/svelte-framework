@@ -65,10 +65,16 @@ class Tooltip {
 				this._tooltipElement.style.left = `${rect.left - 30}px`;
 				this._tooltipElement.style.top = `${rect.top + rect.height / 2}px`;
 				break;
-			case 'right':
-				this._tooltipElement.style.left = `${rect.right + 10}px`;
-				this._tooltipElement.style.top = `${rect.top + rect.height / 2}px`;
-				break;
+        case 'right': {
+          console.log('Button rect:', rect);
+          console.log('Button right position:', rect.right);
+      
+          const tooltipHeight = this._tooltipElement.offsetHeight;  // Get tooltip's height
+          this._tooltipElement.style.left = `${rect.right + 10}px`;
+          this._tooltipElement.style.top = `${rect.top + (rect.height / 2) - (tooltipHeight / 2)}px`;  // Adjust vertical position
+          break;
+      }
+      
 			case 'bottom':
 				this._tooltipElement.style.left = `${rect.left + rect.width / 2}px`;
 				this._tooltipElement.style.top = `${rect.bottom + 10}px`;

@@ -1,6 +1,66 @@
+// [atribute] 0.1
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 0.0 Table of Contents
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// 1.0 CSS-Reset
+// 2.0 Variables
+// |- 2.1 Prefixes
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // 1.0 CSS Reset
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// HTML5 Elements with Attributes
+// <audio> (autoplay|controls|crossorigin|loop|muted|preload|src)
+// <button> (autofocus|disabled|form|formaction|formenctype|formmethod|formnovalidate|formtarget|name|type|value)
+// <details> (open)
+// <dialog> (open)
+// <fieldset> (disabled|form|name)
+// <form> (accept-charset|action|autocomplete|enctype|method|name|novalidate|target)
+// <input> (accept|alt|autocomplete|autofocus|checked|disabled|form|formaction|formenctype|formmethod|formnovalidate|formtarget|height|list|max|maxlength|min|minlength|multiple|name|pattern|placeholder|readonly|required|size|src|step|type|value|width)
+// <label> (for|form)
+// <link> (crossorigin|href|hreflang|media|rel|sizes|type)
+// <meta> (charset|content|http-equiv|name)
+// <meter> (form|high|low|max|min|optimum|value)
+// <object> (data|form|height|name|type|usemap|width)
+// <ol> (reversed|start|type)
+// <optgroup> (disabled|label)
+// <option> (disabled|label|selected|value)
+// <output> (for|form|name)
+// <param> (name|value)
+// <progress> (max|value)
+// <script> (async|crossorigin|defer|src|type)
+// <select> (autofocus|disabled|form|multiple|name|required|size)
+// <source> (media|sizes|src|srcset|type)
+// <style> (media|type)
+// <textarea> (autocomplete|autofocus|cols|disabled|form|maxlength|minlength|name|placeholder|readonly|required|rows|wrap)
+// <track> (default|kind|label|src|srclang)
+// <video> (autoplay|controls|crossorigin|height|loop|muted|playsinline|preload|src|width)
+
+// HTML5-Tags
+a, abbr, address, area, article, aside, audio,
+b, base, bdi, bdo, blockquote, body, br, button,
+canvas, caption, cite, code, col, colgroup,
+data, datalist, dd, del, details, dfn, dialog, div, dl, dt,
+em, embed,
+fieldset, figcaption, figure, footer, form,
+h1, h2, h3, h4, h5, h6, head, header, hgroup, hr, html,
+i, iframe, img, input,
+kbd,
+label, legend, li, link,
+main, map, mark, menu, meta, meter,
+nav, noscript,
+object, ol, optgroup, option,
+p, param, picture, pre,
+q,
+rp, rt, ruby,
+s, samp, script, section, select, small, source, span, strong, style, sub, summary, sup,
+table, tbody, td, template, textarea, tfoot, th, thead, time, title, tr, track,
+u, ul,
+var, video, wbr {}
+
 
 * {
   margin: 0;
@@ -95,16 +155,50 @@ a:focus, button:focus {
 }
 
 
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// 1.0 CSS Reset
+// 1.0 Variables
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-$ui: 'ui-';
+$ui: "ui-";
 
 // Grid
-$grid: 'grid';
-$column: 'col';
-$row: 'row';
+$grid: "grid";
+$column: "col";
+$row: "row";
+
+// Elements
+$typography: "typo";
+$color: "color";
+$icon: "i";
+$image: "image";
+$link: "a";
+$background: "bg";
+$backgroundColor: "bgcolor";
+$text: "text";
+
+// Components 
+$button: "btn";
+$card: "card";
+
+$navigation: "nav";
+$bar: "bar";
+$item: "item";
+$extended: "extended";
+
+// Elements – Typography
+$headline: "h";
+$paragraph: "p";
+$buttonLabel: "bl";
+$small: "small";
+$label: "label";
+
+// Data-Attributes
+$theme: "theme";
+
+// Layout: Colors
+$primary: "primary";
+$brand: "azero";
 
 // Variables
 $unit: 4;
@@ -120,8 +214,8 @@ $topbottom: "y";
 $leftright: "x";
 
 // 1.2.1 Grid-Prefixes
-$grid-columns: 12;
-$grid-columns-all: 20; // 1fr repeat(12) 1fr = 14 | needed for columns creation
+$grid-columns: 10;
+$grid-columns-all: 14; // 1fr repeat(12) 1fr = 14 | needed for columns creation
 $grid-rows: 1;
 $grid-column-gap: 24px; // <= 16px sm; >= md 64px
 $grid-row-gap: 0;
@@ -135,22 +229,425 @@ $grid-breakpoint-md: 768px;
 $grid-breakpoint-lg: 1024px;
 $grid-breakpoint-xl: 1440px;
 
-// Custom
-@mixin col-custom($device: null) {
-  $count: 1;
-  @while $count <= ($grid-columns-all + 1) {
-    @for $i from 1 through ($grid-columns-all + 1) {
-      @if ($i + $count) <= ($grid-columns-all + 1) {
-        [#{$ui}#{$column}#{$device}='#{$count}-#{($i+$count)}'] {
-          grid-column: $count + /+($i + $count);
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 1.2 Variables: Root
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+:root {
+  // Colors
+  --primary-color: #6db4e4;
+  --secondary-color: #12121c;
+  --colorWhite: rgba(255,255,255,1);
+
+  // Diverse
+  --buttonBorderRadius: 8px;
+
+  // Custom Element Sections
+  --headerHeight: 120px !important;
+  --headerMinHeight: 80px;
+  --headerMaxHeight: 320x;
+
+  --sidebarRightWidth: 320px !important;
+  --sidebarRightMinWidth: 100px;
+  --sidebarRightMaxWidth: 600px;
+
+  --sidebarLeftWidth: 420px !important;
+  --sidebarLeftMinWidth: 100px;
+  --sidebarLeftMaxWidth: 600px;
+
+  --footerHeight: 120px !important;
+  --footerMinHeight: 40px;
+  --footerMaxHeight: 400px;
+
+  --grid-template-rows: auto 1fr auto;
+  --grid-template-areas: 
+    'sidebar-left header sidebar-right' 
+    'sidebar-left main sidebar-right'
+    'footer footer sidebar-right';
+
+
+  --bodyBackgroundColor: rgba(0, 0, 0, 1);
+  --bodyColor: rgba(200, 200, 200, 1);
+
+  --tooltip-bg-color: #4e4d50;
+  --tooltip-text-color: white;
+  /* --grid-template-columns:  */
+  //--icon-valid: url("...");
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 1.3 Typography
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Font Face
+@font-face {
+  font-family:'Circular';
+  font-style: normal;
+  font-weight: 600;
+  src: url(../../../static/font/CircularStd-Medium.otf) format('otf');
+}
+
+/* @font-face {
+  font-family: 'TT Hoves';
+  src: url('../fonts/TTHoves-Bold.eot');
+  src: local('TT Hoves Bold'), local('TTHoves-Bold'),
+      url('../fonts/TTHoves-Bold.eot?#iefix') format('embedded-opentype'),
+      url('../fonts/TTHoves-Bold.woff2') format('woff2'),
+      url('../fonts/TTHoves-Bold.woff') format('woff'),
+      url('../fonts/TTHoves-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+} */
+
+h1 {
+  font-family: 'Circular', 'Arial';
+  font-weight: 600;
+  font-style: normal;
+  color: white;
+}
+
+small {
+  font-family: 'Circular', 'Arial';
+  font-weight: 600;
+  font-style: normal;
+  color: #a7a7a7;
+  font-size: 0.6875rem;
+
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 1.3 IDs
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+html {
+  height:100%;
+}
+
+body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+header {}
+
+main {
+/*   max-width: 1920px;
+  margin: 0 auto; */
+}
+
+footer {}
+
+a, a:visited {
+  color: inherit;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+    color: inherit;
+  }
+}
+ 
+hr {}
+
+::selection {}
+
+::-webkit-scrollbar {
+  width: 8px;
+  background-color: transparent;
+  cursor: pointer; // funktioniert nicht, bitte überprüfen
+
+  &:hover {
+  }
+
+  &-thumb {
+    background-color: rgba(200,200,200,1);
+
+    &:hover {
+      background-color: rgba(225,225,225,1);
+    }
+  }
+
+  &-track {
+    
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 1.2 Custom Elements
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+app-shell:defined app-section[slot='header'] {
+  background-color: rgb(64, 0, 255);
+  min-height: var(--headerMinHeight);
+  height: var(--headerHeight);
+  border-radius: 8px;
+
+  &[resize='true']::after {
+    content: '';
+    display: block;
+    height: 10px;
+    background-color: rgb(0, 0, 0);
+    width: 100%;
+    cursor: ns-resize;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+  }
+}
+
+app-shell:defined app-section[slot='main'] {
+  background-color: rgb(54, 56, 61);
+  border-radius: 8px;
+  overflow: auto;
+  display: grid;
+  grid-template-rows: min-content;
+  align-items: start;
+}
+
+app-shell:defined app-section[slot='main'] {
+  background-color: rgb(54, 56, 61);
+  border-radius: 8px;
+  overflow: auto;
+  display: grid;
+  grid-template-rows: min-content;
+  align-items: start;
+}
+
+
+:root {
+  --navLibraryWidth: 200px;
+  --subnavLibraryWidth: 100px;
+  --navLiHeight: 42px;
+  --subnavLinksCount: 3;
+}
+
+app-dropdown {
+  //border: 1px red solid;
+  cursor: default;
+  z-index: 2;
+  //min-width: 160px;
+
+  nav {
+    background-color: rgba(40, 40, 40, 1);
+    color: var(--colorWhite);
+    border-radius: 8px;
+    box-shadow: 0 16px 24px rgba(0,0,0,.3);
+    width: var(--navLibraryWidth);
+
+    ul {
+      li {
+        .right-align, 
+        .left-align,
+        .bottom-align,
+        .top-align {
+          display: none;
+          position: absolute;
+          z-index: 3;
+          width: var(--subnavLibraryWidth);
+          background-color: #12121c;
+        }
+
+        &:hover .right-align {
+          display: block;
+          left: calc(var(--navLibraryWidth));
+          top: 0;
+        }
+
+        &:hover .left-align {
+          display: block;
+          left: calc(-1 * var(--subnavLibraryWidth));
+          top: 0;
+        }
+
+        &:hover .bottom-align {
+          display: block;
+          top: calc(var(--navLiHeight));
+        }
+        &:hover .top-align {
+          display: block;
+          //top: -300%;
+          top: calc(-100% - (var(--navLiHeight) * (var(--subnavLinksCount) - 1)));
+        }
+
+        position: relative;
+        small {
+          display: block;
+          padding: 16px 0 0 12px;
+        }
+
+        .selected {
+          background-color: rgba(255,255,255,.1);
+        }
+
+        a {
+
+          display:block;
+          height: 42px;
+          padding: 12px;
+
+          &:hover {
+            background-color: rgba(255,255,255,.1);
+          }
+
+          &::after {
+            content: '';
+            display: none;
+          }
         }
       }
     }
-    $count: $count + 1;
+  }
+}
+
+/* app-dropdown::part(dropdown-content) {
+  background-color: blue;
+
+  ul {
+    li {
+      margin: 8px;
+    }
+  }
+
+} */
+
+
+
+app-icon, span {
+  vertical-align: middle;
+  display: inline-block;
+}
+
+app-icon svg {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 1.3 Classes
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Buttons
+
+button[theme="default"] {
+  background-color: rgba(40, 40, 40, 1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  height: 32px;
+  border-radius: 8px;
+  font-size: smaller;
+  padding: 8px;
+  color: white;
+}
+
+button.black-rounded {
+  //border: 1px red solid;
+  display: grid;
+  place-items: center;
+  background-color: black;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+
+  &:hover {
+    background-color: grey;
+  }
+}
+
+button.transparent-rounded {
+  display: grid;
+  place-items: center;
+  background-color: rgba(0,0,0,0);
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+
+  &:hover {
+    background-color: rgba(0,0,0,0.25);
+  }
+}
+
+button.pill-rounded {
+  display: grid;
+  place-items: center;
+  background-color: rgb(77, 79, 83);
+  cursor: pointer;
+  height: 32px;
+  border-radius: 16px;
+  color: inherit;
+  padding: 4px 12px;
+
+  &:hover {
+    background-color: rgb(103, 103, 103);
+  }
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 1.3 Helpers
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Flex Align
+[#{$ui}align="center"] {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+[#{$ui}align="col-between"] {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+[#{$ui}align="between"] {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Refactored col-custom
+
+@mixin col-custom($device: null) {
+  @for $start from 1 through $grid-columns-all {
+    @for $span from 1 through ($grid-columns-all - $start + 1) {
+      $end: $start + $span;
+
+      [#{$ui}#{$column}#{$device}='#{$start}-#{$end}'] {
+        grid-column: #{$start}/#{($start + $span)};
+      }
+    }
   }
 }
 
 @include col-custom();
+
 
 // Padding
 @mixin helpers-padding($device:null) {
@@ -236,8 +733,9 @@ $grid-breakpoint-xl: 1440px;
 @media only screen and (min-width: $grid-breakpoint-xs) {
   
   // Columns: Manually
+  /* START */
   @include col-custom('-xs');
-
+  /* END */
   // Helpers: Margin
   @include helpers-margin("-xs");
 
