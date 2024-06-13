@@ -2,14 +2,100 @@
   import { onMount } from 'svelte';
   import { initializeTooltips } from '$lib/utils/TooltipElement';
 
+  import { AppShellElement, IconElement, TooltipElement, DropdownElement, ModalElement } from 'svelte-framework';
+
   onMount(() => {
     if (typeof window !== 'undefined') {
-      Promise.all([
+      if (!customElements.get('app-shell')) customElements.define('app-shell', AppShellElement);
+/*       if (!customElements.get('app-icon')) customElements.define('app-icon', IconElement);
+      if (!customElements.get('app-tooltip')) customElements.define('app-tooltip', TooltipElement);
+      if (!customElements.get('app-dropdown')) customElements.define('app-dropdown', DropdownElement);
+      if (!customElements.get('app-modal')) customElements.define('app-modal', ModalElement); */
+    }
+  });
+
+  function forceLayoutUpdate(): void {
+    const appShell = document.querySelector('app-shell') as HTMLElement;
+    if (appShell) {
+      appShell.offsetHeight;
+    }
+  }
+
+/*   onMount(async () => {
+    if (typeof window !== 'undefined') {
+      if (!customElements.get('app-shell')) {
+        const { default: AppShellElement } = await import('$lib/utils/AppShellElement');
+        customElements.define('app-shell', AppShellElement);
+      }
+
+      // Dynamically import other custom elements if necessary
+      await Promise.all([
         import('$lib/utils/IconElement'),
-        import('$lib/utils/AppShellElement'),
         import('$lib/utils/TooltipElement'),
         import('$lib/utils/DropdownElement'),
         import('$lib/utils/ModalElement')
+      ]);
+
+      initializeTooltips();
+      forceLayoutUpdate();
+    }
+  });
+
+  function forceLayoutUpdate(): void {
+    const appShell = document.querySelector('app-shell') as HTMLElement;
+    if (appShell) {
+      appShell.offsetHeight;
+    }
+  } */
+
+/*   import AppShellElement from '$lib/utils/AppShellElement';
+
+  onMount(() => {
+    if (typeof window !== 'undefined') {
+      if (!customElements.get('app-shell')) {
+        customElements.define('app-shell', AppShellElement);
+      }
+    }
+  }); */
+
+/*   onMount(() => {
+    if (typeof window !== 'undefined') {
+      Promise.all([
+        import('$lib/utils/AppShellElement')
+      ])
+      .then(([AppShellModule]) => {
+        const AppShellElement = AppShellModule.default;
+        
+        if (!customElements.get('app-shell')) {
+          customElements.define('app-shell', AppShellElement);
+        }
+        
+        initializeTooltips();
+        forceLayoutUpdate();
+      })
+      .catch((error: Error) => {
+        console.error('Error loading modules:', error);
+      });
+    }
+  });
+
+  function forceLayoutUpdate(): void {
+    const appShell = document.querySelector('app-shell') as HTMLElement;
+    if (appShell) {
+      appShell.offsetHeight;
+    }
+  } */
+
+
+
+/*   onMount(() => {
+    if (typeof window !== 'undefined') {
+      Promise.all([
+        import('$lib/utils/AppShellElement'),
+        //import('$lib/utils/IconElement'),
+        //import('$lib/utils/TooltipElement'),
+        //import('$lib/utils/DropdownElement'),
+        //import('$lib/utils/ModalElement')
       ])
       .then(() => {
         initializeTooltips();
@@ -26,7 +112,7 @@
     if (appShell) {
       appShell.offsetHeight;
     }
-  }
+  } */
 
 /*   const t: ToastSettings = {
 	  message: 'Lorem ipsum dolor sit amet consectetur adipisicing elit...',

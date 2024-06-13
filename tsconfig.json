@@ -8,14 +8,19 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "sourceMap": true,
-    "strict": true
+    "strict": true,
+    "baseUrl": ".",
+    "paths": {
+      "$lib/*": ["src/lib/*"],
+      "svelte-framework/*": ["node_modules/svelte-framework/src/*"]
+    }
   },
   "include": [
     "src/**/*.d.ts",
     "src/**/*.ts",
     "src/**/*.js",
     "src/**/*.svelte",
-    "src/declarations.d.ts" // Ensure this line is included
+    "src/declarations.d.ts"
   ],
   "exclude": ["node_modules"]
 }

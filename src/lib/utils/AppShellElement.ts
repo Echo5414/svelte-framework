@@ -386,6 +386,7 @@ class AppShellElement extends HTMLElement {
 }
 
 if (typeof window !== 'undefined' && !customElements.get('app-shell')) {
-	customElements.define('app-shell', AppShellElement);
+  customElements.define('app-shell', AppShellElement);
 }
-export {};
+
+export default AppShellElement;
