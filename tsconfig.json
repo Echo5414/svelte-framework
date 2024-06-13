@@ -12,7 +12,7 @@
     "baseUrl": ".",
     "paths": {
       "$lib/*": ["src/lib/*"],
-      "svelte-framework/*": ["node_modules/svelte-framework/src/*"]
+      "svelte-framework/*": ["src/lib/*"]
     }
   },
   "include": [

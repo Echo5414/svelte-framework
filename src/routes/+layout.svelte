@@ -1,8 +1,11 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { initializeTooltips } from '$lib/utils/TooltipElement';
+  
+  import { AppShellElement } from 'svelte-framework';
+/*   import { AppShellElement, IconElement, TooltipElement, DropdownElement, ModalElement } from 'svelte-framework'; */
 
-  import { AppShellElement, IconElement, TooltipElement, DropdownElement, ModalElement } from 'svelte-framework';
+
 
   onMount(() => {
     if (typeof window !== 'undefined') {
@@ -122,7 +125,7 @@
 </script>
 
 
-
+<AppShellElement />
 <app-shell theme="default">
 	<app-section slot="sidebar-left" col="4" gap="0" resize="true">
 		<nav id="home" app-col-xs="1-5">
