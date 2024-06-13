@@ -1,19 +1,13 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { initializeTooltips } from '$lib/utils/TooltipElement';
-  
-  import { AppShellElement } from 'svelte-framework';
-/*   import { AppShellElement, IconElement, TooltipElement, DropdownElement, ModalElement } from 'svelte-framework'; */
-
-
+/*   import { AppShellElement } from 'svelte-framework';
+  import { AppShellElement } from '$lib/utils/AppShellElement.js'; */
+  import AppShellElement from 'svelte-framework';
 
   onMount(() => {
     if (typeof window !== 'undefined') {
       if (!customElements.get('app-shell')) customElements.define('app-shell', AppShellElement);
-/*       if (!customElements.get('app-icon')) customElements.define('app-icon', IconElement);
-      if (!customElements.get('app-tooltip')) customElements.define('app-tooltip', TooltipElement);
-      if (!customElements.get('app-dropdown')) customElements.define('app-dropdown', DropdownElement);
-      if (!customElements.get('app-modal')) customElements.define('app-modal', ModalElement); */
     }
   });
 
@@ -23,6 +17,30 @@
       appShell.offsetHeight;
     }
   }
+
+
+
+/* 
+import { AppShellElement, IconElement, TooltipElement, DropdownElement, ModalElement } from 'svelte-framework';
+
+
+
+onMount(() => {
+    if (typeof window !== 'undefined') {
+    if (!customElements.get('app-shell')) customElements.define('app-shell', AppShellElement);
+    if (!customElements.get('app-icon')) customElements.define('app-icon', IconElement);
+    if (!customElements.get('app-tooltip')) customElements.define('app-tooltip', TooltipElement);
+    if (!customElements.get('app-dropdown')) customElements.define('app-dropdown', DropdownElement);
+    if (!customElements.get('app-modal')) customElements.define('app-modal', ModalElement);
+    }
+  });
+
+ function forceLayoutUpdate(): void {
+    const appShell = document.querySelector('app-shell') as HTMLElement;
+    if (appShell) {
+      appShell.offsetHeight;
+    }
+  } */
 
 /*   onMount(async () => {
     if (typeof window !== 'undefined') {

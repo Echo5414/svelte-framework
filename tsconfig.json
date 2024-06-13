@@ -1,6 +1,8 @@
 {
   "extends": "./.svelte-kit/tsconfig.json",
   "compilerOptions": {
+    "moduleResolution": "node16",
+    "module": "Node16",
     "allowJs": true,
     "checkJs": true,
     "esModuleInterop": true,
@@ -12,15 +14,16 @@
     "baseUrl": ".",
     "paths": {
       "$lib/*": ["src/lib/*"],
-      "svelte-framework/*": ["src/lib/*"]
-    }
+      "svelte-framework": ["src/lib"]
+    },
+    "types": ["node"]
   },
   "include": [
     "src/**/*.d.ts",
     "src/**/*.ts",
     "src/**/*.js",
     "src/**/*.svelte",
-    "src/declarations.d.ts"
+    "vite.config.ts"
   ],
   "exclude": ["node_modules"]
 }

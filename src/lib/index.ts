@@ -1,4 +1,6 @@
-export { default as AppShellElement } from './utils/AppShellElement';
+// src/lib/index.ts
+export { default as AppShellElement } from './utils/AppShellElement.js';
+
 
 /* export { default as IconElement } from './lib/utils/IconElement';
 export { default as TooltipElement } from './lib/utils/TooltipElement';
