@@ -1,6 +1,6 @@
-<nav class="mainHeader" ui-col-xs="1-13" ui-px-xs="16">
+<nav class="mainHeader" app-col-xs="1-13" app-px-xs="16">
   <ul>
-      <li ui-pr-xs="8">
+      <li app-pr-xs="8">
         <button tooltipDescription="Go back" tooltipPosition="right">
           <app-icon width="16" fill="white">icon-arrowLeft</app-icon>
         </button>
@@ -9,14 +9,14 @@
           <app-icon width="16" fill="white" >icon-arrowRight</app-icon>
         </button>
       </li>
-  </ul>
+  </ul> 
   <ul>
     <li>+</li>
-    <li>-></li>
+    <li>-</li>
   </ul>
 </nav>
-<h1 ui-col-xs="2-12">Guten Morgen</h1>
-<div ui-col-xs="2-12">
+<h1 app-col-xs="2-12">Guten Morgen</h1>
+<div app-col-xs="2-12">
   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. At ea magnam fuga, deleniti labore maiores blanditiis ipsa, quas provident consequatur expedita quaerat ad nisi vero obcaecati non! Natus, neque nihil.</p>
   <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.   
   

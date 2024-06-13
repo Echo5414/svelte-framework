@@ -39,6 +39,7 @@
 // <track> (default|kind|label|src|srclang)
 // <video> (autoplay|controls|crossorigin|height|loop|muted|playsinline|preload|src|width)
 
+
 // HTML5-Tags
 a, abbr, address, area, article, aside, audio,
 b, base, bdi, bdo, blockquote, body, br, button,
@@ -60,6 +61,21 @@ s, samp, script, section, select, small, source, span, strong, style, sub, summa
 table, tbody, td, template, textarea, tfoot, th, thead, time, title, tr, track,
 u, ul,
 var, video, wbr {}
+
+/* 
+  Pseudoklassen
+  :host
+  :host-context()
+  
+  Pseudoelemente
+  ::slotted()
+  ::part()
+
+  ???
+  :defined
+
+*/
+
 
 
 * {
@@ -160,7 +176,7 @@ a:focus, button:focus {
 // 1.0 Variables
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-$ui: "ui-";
+$prefix: "app-";
 
 // Grid
 $grid: "grid";
@@ -239,6 +255,7 @@ $grid-breakpoint-xl: 1440px;
   --primary-color: #6db4e4;
   --secondary-color: #12121c;
   --colorWhite: rgba(255,255,255,1);
+  --bgColor: rgba(18,18,18,1);
 
   // Diverse
   --buttonBorderRadius: 8px;
@@ -275,7 +292,7 @@ $grid-breakpoint-xl: 1440px;
   /* --grid-template-columns:  */
   //--icon-valid: url("...");
 }
-
+ 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // 1.3 Typography
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -376,6 +393,10 @@ hr {}
   }
 }
 
+button {
+  cursor: pointer;
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // 1.2 Custom Elements
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -398,15 +419,6 @@ app-shell:defined app-section[slot='header'] {
     left: 0;
     z-index: 10;
   }
-}
-
-app-shell:defined app-section[slot='main'] {
-  background-color: rgb(54, 56, 61);
-  border-radius: 8px;
-  overflow: auto;
-  display: grid;
-  grid-template-rows: min-content;
-  align-items: start;
 }
 
 app-shell:defined app-section[slot='main'] {
@@ -516,6 +528,69 @@ app-dropdown {
 } */
 
 
+// Modal
+
+app-modal[theme="default"] {
+  display: none;
+  border: 1px red solid;
+  background-color: red;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left:0;
+
+
+
+  header {
+    //background-color: red;
+
+    h1 { 
+      //color: brown; 
+    }
+
+  }
+
+  section {
+
+  }
+
+  footer {
+
+  }
+
+  &::part(dialog) {
+    border: none;
+    background-color: var(--bgColor);
+    box-shadow: 0 0 64px rgba(0,0,0,.25);
+    //width: var(--app-modal-width, 80%);
+    margin: auto;
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 12px;
+    color: var(--colorWhite);
+  }
+  
+  &::part(dialog-close-button) {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: rgb(0, 255, 247);
+  }
+}
+
+app-modal[open] {
+  display: block;
+} 
+
+/* &[theme="default"]::part(dialog) {
+  background-color: purple;
+} */
+
+
 
 app-icon, span {
   vertical-align: middle;
@@ -529,6 +604,7 @@ app-icon svg {
   max-height: 100%;
   display: block;
 }
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // 1.3 Classes
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -598,19 +674,19 @@ button.pill-rounded {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Flex Align
-[#{$ui}align="center"] {
+[#{$prefix}align="center"] {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-[#{$ui}align="col-between"] {
+[#{$prefix}align="col-between"] {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-[#{$ui}align="between"] {
+[#{$prefix}align="between"] {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -639,7 +715,7 @@ button.pill-rounded {
     @for $span from 1 through ($grid-columns-all - $start + 1) {
       $end: $start + $span;
 
-      [#{$ui}#{$column}#{$device}='#{$start}-#{$end}'] {
+      [#{$prefix}#{$column}#{$device}='#{$start}-#{$end}'] {
         grid-column: #{$start}/#{($start + $span)};
       }
     }
@@ -653,32 +729,32 @@ button.pill-rounded {
 @mixin helpers-padding($device:null) {
   @for $i from 0 through $step {
     // Padding: "all"
-    [#{$ui}#{$padding}#{$all}#{$device}="#{$unit * $i}"] {
+    [#{$prefix}#{$padding}#{$all}#{$device}="#{$unit * $i}"] {
       padding: ($unit * $i) + px; 
     }
     // Padding: "top"
-    [#{$ui}#{$padding}#{$top}#{$device}="#{$unit * $i}"] {
+    [#{$prefix}#{$padding}#{$top}#{$device}="#{$unit * $i}"] {
       padding-top: ($unit * $i) + px; 
     }
     // Padding: "right"
-    [#{$ui}#{$padding}#{$right}#{$device}="#{$unit * $i}"] {
+    [#{$prefix}#{$padding}#{$right}#{$device}="#{$unit * $i}"] {
       padding-right: ($unit * $i) + px; 
     }
     // Padding: "bottom"
-    [#{$ui}#{$padding}#{$bottom}#{$device}="#{$unit * $i}"] {
+    [#{$prefix}#{$padding}#{$bottom}#{$device}="#{$unit * $i}"] {
       padding-bottom: ($unit * $i) + px; 
     }
     // Padding: "left"
-    [#{$ui}#{$padding}#{$left}#{$device}="#{$unit * $i}"] {
+    [#{$prefix}#{$padding}#{$left}#{$device}="#{$unit * $i}"] {
       padding-left: ($unit * $i) + px; 
     }
     // Padding: "top", "bottom"
-    [#{$ui}#{$padding}#{$topbottom}#{$device}="#{$unit * $i}"] {
+    [#{$prefix}#{$padding}#{$topbottom}#{$device}="#{$unit * $i}"] {
       padding-top: ($unit * $i) + px; 
       padding-bottom: ($unit * $i) + px; 
     }
     // Padding: "right", "left"
-    [#{$ui}#{$padding}#{$leftright}#{$device}="#{$unit * $i}"] {
+    [#{$prefix}#{$padding}#{$leftright}#{$device}="#{$unit * $i}"] {
       padding-left: ($unit * $i) + px; 
       padding-right: ($unit * $i) + px; 
     } 
@@ -691,32 +767,32 @@ button.pill-rounded {
 @mixin helpers-margin($device:null) {
   @for $i from 0 through $step {
     // Margin: "all"
-    [#{$ui}#{$margin}#{$all}#{$device}="#{$unit * $i}"] {
+    [#{$prefix}#{$margin}#{$all}#{$device}="#{$unit * $i}"] {
       margin: ($unit * $i) + px; 
     }
     // Margin: "top"
-    [#{$ui}#{$margin}#{$top}#{$device}="#{$unit * $i}"] {
+    [#{$prefix}#{$margin}#{$top}#{$device}="#{$unit * $i}"] {
       margin-top: ($unit * $i) + px; 
     }
     // Margin: "right"
-    [#{$ui}#{$margin}#{$right}#{$device}="#{$unit * $i}"] {
+    [#{$prefix}#{$margin}#{$right}#{$device}="#{$unit * $i}"] {
       margin-right: ($unit * $i) + px; 
     }
     // Margin: "bottom"
-    [#{$ui}#{$margin}#{$bottom}#{$device}="#{$unit * $i}"] {
+    [#{$prefix}#{$margin}#{$bottom}#{$device}="#{$unit * $i}"] {
       margin-bottom: ($unit * $i) + px; 
     }
     // Margin: "left"
-    [#{$ui}#{$margin}#{$left}#{$device}="#{$unit * $i}"] {
+    [#{$prefix}#{$margin}#{$left}#{$device}="#{$unit * $i}"] {
       margin-left: ($unit * $i) + px; 
     }
     // Margin: "top", "bottom"
-    [#{$ui}#{$margin}#{$topbottom}#{$device}="#{$unit * $i}"] {
+    [#{$prefix}#{$margin}#{$topbottom}#{$device}="#{$unit * $i}"] {
       margin-top: ($unit * $i) + px; 
       margin-bottom: ($unit * $i) + px; 
     }
     // Margin: "right", "left"
-    [#{$ui}#{$margin}#{$leftright}#{$device}="#{$unit * $i}"] {
+    [#{$prefix}#{$margin}#{$leftright}#{$device}="#{$unit * $i}"] {
       margin-right: ($unit * $i) + px; 
       margin-left: ($unit * $i) + px; 
     }

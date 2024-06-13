@@ -1,8 +1,20 @@
+/* 
+  Pseudoklassen
+  :host
+  :host-context()
+
+  Pseudoelemente
+  ::slotted()
+  ::part()
+
+  ???
+  :defined
+
+*/
 * {
   margin: 0;
   padding: 0;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   outline: 0 !important;
   border: 0;
 }
@@ -22,8 +34,7 @@ ul, ol {
 }
 
 hr {
-  -webkit-box-sizing: content-box;
-          box-sizing: content-box;
+  box-sizing: content-box;
   height: 0;
   overflow: visible;
 }
@@ -71,7 +82,7 @@ button, select {
   text-transform: none;
 }
 
-button, [type="button"], [type="reset"], [type="submit"] {
+button, [type=button], [type=reset], [type=submit] {
   -webkit-appearance: button;
 }
 
@@ -96,6 +107,7 @@ a:focus, button:focus {
   --primary-color: #6db4e4;
   --secondary-color: #12121c;
   --colorWhite: rgba(255,255,255,1);
+  --bgColor: rgba(18,18,18,1);
   --buttonBorderRadius: 8px;
   --headerHeight: 120px !important;
   --headerMinHeight: 80px;
@@ -110,10 +122,10 @@ a:focus, button:focus {
   --footerMinHeight: 40px;
   --footerMaxHeight: 400px;
   --grid-template-rows: auto 1fr auto;
-  --grid-template-areas: 
-    'sidebar-left header sidebar-right' 
-    'sidebar-left main sidebar-right'
-    'footer footer sidebar-right';
+  --grid-template-areas:
+    "sidebar-left header sidebar-right"
+    "sidebar-left main sidebar-right"
+    "footer footer sidebar-right";
   --bodyBackgroundColor: rgba(0, 0, 0, 1);
   --bodyColor: rgba(200, 200, 200, 1);
   --tooltip-bg-color: #4e4d50;
@@ -122,12 +134,11 @@ a:focus, button:focus {
 }
 
 @font-face {
-  font-family: 'Circular';
+  font-family: "Circular";
   font-style: normal;
   font-weight: 600;
   src: url(../../../static/font/CircularStd-Medium.otf) format("otf");
 }
-
 /* @font-face {
   font-family: 'TT Hoves';
   src: url('../fonts/TTHoves-Bold.eot');
@@ -140,14 +151,14 @@ a:focus, button:focus {
   font-style: normal;
 } */
 h1 {
-  font-family: 'Circular', 'Arial';
+  font-family: "Circular", "Arial";
   font-weight: 600;
   font-style: normal;
   color: white;
 }
 
 small {
-  font-family: 'Circular', 'Arial';
+  font-family: "Circular", "Arial";
   font-weight: 600;
   font-style: normal;
   color: #a7a7a7;
@@ -168,14 +179,13 @@ body {
 
 main {
   /*   max-width: 1920px;
-  margin: 0 auto; */
+    margin: 0 auto; */
 }
 
 a, a:visited {
   color: inherit;
   text-decoration: none;
 }
-
 a:hover, a:visited:hover {
   text-decoration: none;
   color: inherit;
@@ -186,27 +196,27 @@ a:hover, a:visited:hover {
   background-color: transparent;
   cursor: pointer;
 }
-
 ::-webkit-scrollbar-thumb {
-  background-color: #c8c8c8;
+  background-color: rgb(200, 200, 200);
 }
-
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #e1e1e1;
+  background-color: rgb(225, 225, 225);
+}
+button {
+  cursor: pointer;
 }
 
-app-shell:defined app-section[slot='header'] {
-  background-color: #4000ff;
+app-shell:defined app-section[slot=header] {
+  background-color: rgb(64, 0, 255);
   min-height: var(--headerMinHeight);
   height: var(--headerHeight);
   border-radius: 8px;
 }
-
-app-shell:defined app-section[slot='header'][resize='true']::after {
-  content: '';
+app-shell:defined app-section[slot=header][resize=true]::after {
+  content: "";
   display: block;
   height: 10px;
-  background-color: black;
+  background-color: rgb(0, 0, 0);
   width: 100%;
   cursor: ns-resize;
   position: absolute;
@@ -215,32 +225,13 @@ app-shell:defined app-section[slot='header'][resize='true']::after {
   z-index: 10;
 }
 
-app-shell:defined app-section[slot='main'] {
-  background-color: #36383d;
+app-shell:defined app-section[slot=main] {
+  background-color: rgb(54, 56, 61);
   border-radius: 8px;
   overflow: auto;
-  display: -ms-grid;
   display: grid;
-  -ms-grid-rows: min-content;
-      grid-template-rows: -webkit-min-content;
-      grid-template-rows: min-content;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: start;
-}
-
-app-shell:defined app-section[slot='main'] {
-  background-color: #36383d;
-  border-radius: 8px;
-  overflow: auto;
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-rows: min-content;
-      grid-template-rows: -webkit-min-content;
-      grid-template-rows: min-content;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: start;
+  grid-template-rows: min-content;
+  align-items: start;
 }
 
 :root {
@@ -254,20 +245,16 @@ app-dropdown {
   cursor: default;
   z-index: 2;
 }
-
 app-dropdown nav {
-  background-color: #282828;
+  background-color: rgb(40, 40, 40);
   color: var(--colorWhite);
   border-radius: 8px;
-  -webkit-box-shadow: 0 16px 24px rgba(0, 0, 0, 0.3);
-          box-shadow: 0 16px 24px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 16px 24px rgba(0, 0, 0, 0.3);
   width: var(--navLibraryWidth);
 }
-
 app-dropdown nav ul li {
   position: relative;
 }
-
 app-dropdown nav ul li .right-align,
 app-dropdown nav ul li .left-align,
 app-dropdown nav ul li .bottom-align,
@@ -278,50 +265,41 @@ app-dropdown nav ul li .top-align {
   width: var(--subnavLibraryWidth);
   background-color: #12121c;
 }
-
 app-dropdown nav ul li:hover .right-align {
   display: block;
   left: calc(var(--navLibraryWidth));
   top: 0;
 }
-
 app-dropdown nav ul li:hover .left-align {
   display: block;
   left: calc(-1 * var(--subnavLibraryWidth));
   top: 0;
 }
-
 app-dropdown nav ul li:hover .bottom-align {
   display: block;
   top: calc(var(--navLiHeight));
 }
-
 app-dropdown nav ul li:hover .top-align {
   display: block;
-  top: calc(-100% - (var(--navLiHeight) * (var(--subnavLinksCount) - 1)));
+  top: calc(-100% - var(--navLiHeight) * (var(--subnavLinksCount) - 1));
 }
-
 app-dropdown nav ul li small {
   display: block;
   padding: 16px 0 0 12px;
 }
-
 app-dropdown nav ul li .selected {
   background-color: rgba(255, 255, 255, 0.1);
 }
-
 app-dropdown nav ul li a {
   display: block;
   height: 42px;
   padding: 12px;
 }
-
 app-dropdown nav ul li a:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
-
 app-dropdown nav ul li a::after {
-  content: '';
+  content: "";
   display: none;
 }
 
@@ -334,6 +312,43 @@ app-dropdown nav ul li a::after {
     }
   }
 
+} */
+app-modal[theme=default] {
+  display: none;
+  border: 1px red solid;
+  background-color: red;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+}
+app-modal[theme=default]::part(dialog) {
+  border: none;
+  background-color: var(--bgColor);
+  box-shadow: 0 0 64px rgba(0, 0, 0, 0.25);
+  margin: auto;
+  padding: 20px;
+  box-sizing: border-box;
+  border-radius: 12px;
+  color: var(--colorWhite);
+}
+app-modal[theme=default]::part(dialog-close-button) {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: rgb(0, 255, 247);
+}
+
+app-modal[open] {
+  display: block;
+}
+
+/* &[theme="default"]::part(dialog) {
+  background-color: purple;
 } */
 app-icon, span {
   vertical-align: middle;
@@ -348,17 +363,11 @@ app-icon svg {
   display: block;
 }
 
-button[theme="default"] {
-  background-color: #282828;
-  display: -webkit-box;
-  display: -ms-flexbox;
+button[theme=default] {
+  background-color: rgb(40, 40, 40);
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
   height: 32px;
   border-radius: 8px;
@@ -368,7 +377,6 @@ button[theme="default"] {
 }
 
 button.black-rounded {
-  display: -ms-grid;
   display: grid;
   place-items: center;
   background-color: black;
@@ -377,13 +385,11 @@ button.black-rounded {
   height: 32px;
   border-radius: 50%;
 }
-
 button.black-rounded:hover {
   background-color: grey;
 }
 
 button.transparent-rounded {
-  display: -ms-grid;
   display: grid;
   place-items: center;
   background-color: rgba(0, 0, 0, 0);
@@ -392,8112 +398,7668 @@ button.transparent-rounded {
   height: 32px;
   border-radius: 50%;
 }
-
 button.transparent-rounded:hover {
   background-color: rgba(0, 0, 0, 0.25);
 }
 
 button.pill-rounded {
-  display: -ms-grid;
   display: grid;
   place-items: center;
-  background-color: #4d4f53;
+  background-color: rgb(77, 79, 83);
   cursor: pointer;
   height: 32px;
   border-radius: 16px;
   color: inherit;
   padding: 4px 12px;
 }
-
 button.pill-rounded:hover {
-  background-color: #676767;
+  background-color: rgb(103, 103, 103);
 }
 
-[ui-align="center"] {
-  display: -webkit-box;
-  display: -ms-flexbox;
+[app-align=center] {
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  flex-direction: column;
+  justify-content: center;
 }
 
-[ui-align="col-between"] {
-  display: -webkit-box;
-  display: -ms-flexbox;
+[app-align=col-between] {
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-[ui-align="between"] {
-  display: -webkit-box;
-  display: -ms-flexbox;
+[app-align=between] {
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: space-between;
+  align-items: center;
 }
 
-[ui-col='1-2'] {
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 1;
+[app-col="1-2"] {
   grid-column: 1/2;
 }
 
-[ui-col='1-3'] {
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 2;
+[app-col="1-3"] {
   grid-column: 1/3;
 }
 
-[ui-col='1-4'] {
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 3;
+[app-col="1-4"] {
   grid-column: 1/4;
 }
 
-[ui-col='1-5'] {
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 4;
+[app-col="1-5"] {
   grid-column: 1/5;
 }
 
-[ui-col='1-6'] {
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 5;
+[app-col="1-6"] {
   grid-column: 1/6;
 }
 
-[ui-col='1-7'] {
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 6;
+[app-col="1-7"] {
   grid-column: 1/7;
 }
 
-[ui-col='1-8'] {
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 7;
+[app-col="1-8"] {
   grid-column: 1/8;
 }
 
-[ui-col='1-9'] {
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 8;
+[app-col="1-9"] {
   grid-column: 1/9;
 }
 
-[ui-col='1-10'] {
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 9;
+[app-col="1-10"] {
   grid-column: 1/10;
 }
 
-[ui-col='1-11'] {
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 10;
+[app-col="1-11"] {
   grid-column: 1/11;
 }
 
-[ui-col='1-12'] {
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 11;
+[app-col="1-12"] {
   grid-column: 1/12;
 }
 
-[ui-col='1-13'] {
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 12;
+[app-col="1-13"] {
   grid-column: 1/13;
 }
 
-[ui-col='1-14'] {
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 13;
+[app-col="1-14"] {
   grid-column: 1/14;
 }
 
-[ui-col='1-15'] {
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 14;
+[app-col="1-15"] {
   grid-column: 1/15;
 }
 
-[ui-col='2-3'] {
-  -ms-grid-column: 2;
-  -ms-grid-column-span: 1;
+[app-col="2-3"] {
   grid-column: 2/3;
 }
 
-[ui-col='2-4'] {
-  -ms-grid-column: 2;
-  -ms-grid-column-span: 2;
+[app-col="2-4"] {
   grid-column: 2/4;
 }
 
-[ui-col='2-5'] {
-  -ms-grid-column: 2;
-  -ms-grid-column-span: 3;
+[app-col="2-5"] {
   grid-column: 2/5;
 }
 
-[ui-col='2-6'] {
-  -ms-grid-column: 2;
-  -ms-grid-column-span: 4;
+[app-col="2-6"] {
   grid-column: 2/6;
 }
 
-[ui-col='2-7'] {
-  -ms-grid-column: 2;
-  -ms-grid-column-span: 5;
+[app-col="2-7"] {
   grid-column: 2/7;
 }
 
-[ui-col='2-8'] {
-  -ms-grid-column: 2;
-  -ms-grid-column-span: 6;
+[app-col="2-8"] {
   grid-column: 2/8;
 }
 
-[ui-col='2-9'] {
-  -ms-grid-column: 2;
-  -ms-grid-column-span: 7;
+[app-col="2-9"] {
   grid-column: 2/9;
 }
 
-[ui-col='2-10'] {
-  -ms-grid-column: 2;
-  -ms-grid-column-span: 8;
+[app-col="2-10"] {
   grid-column: 2/10;
 }
 
-[ui-col='2-11'] {
-  -ms-grid-column: 2;
-  -ms-grid-column-span: 9;
+[app-col="2-11"] {
   grid-column: 2/11;
 }
 
-[ui-col='2-12'] {
-  -ms-grid-column: 2;
-  -ms-grid-column-span: 10;
+[app-col="2-12"] {
   grid-column: 2/12;
 }
 
-[ui-col='2-13'] {
-  -ms-grid-column: 2;
-  -ms-grid-column-span: 11;
+[app-col="2-13"] {
   grid-column: 2/13;
 }
 
-[ui-col='2-14'] {
-  -ms-grid-column: 2;
-  -ms-grid-column-span: 12;
+[app-col="2-14"] {
   grid-column: 2/14;
 }
 
-[ui-col='2-15'] {
-  -ms-grid-column: 2;
-  -ms-grid-column-span: 13;
+[app-col="2-15"] {
   grid-column: 2/15;
 }
 
-[ui-col='3-4'] {
-  -ms-grid-column: 3;
-  -ms-grid-column-span: 1;
+[app-col="3-4"] {
   grid-column: 3/4;
 }
 
-[ui-col='3-5'] {
-  -ms-grid-column: 3;
-  -ms-grid-column-span: 2;
+[app-col="3-5"] {
   grid-column: 3/5;
 }
 
-[ui-col='3-6'] {
-  -ms-grid-column: 3;
-  -ms-grid-column-span: 3;
+[app-col="3-6"] {
   grid-column: 3/6;
 }
 
-[ui-col='3-7'] {
-  -ms-grid-column: 3;
-  -ms-grid-column-span: 4;
+[app-col="3-7"] {
   grid-column: 3/7;
 }
 
-[ui-col='3-8'] {
-  -ms-grid-column: 3;
-  -ms-grid-column-span: 5;
+[app-col="3-8"] {
   grid-column: 3/8;
 }
 
-[ui-col='3-9'] {
-  -ms-grid-column: 3;
-  -ms-grid-column-span: 6;
+[app-col="3-9"] {
   grid-column: 3/9;
 }
 
-[ui-col='3-10'] {
-  -ms-grid-column: 3;
-  -ms-grid-column-span: 7;
+[app-col="3-10"] {
   grid-column: 3/10;
 }
 
-[ui-col='3-11'] {
-  -ms-grid-column: 3;
-  -ms-grid-column-span: 8;
+[app-col="3-11"] {
   grid-column: 3/11;
 }
 
-[ui-col='3-12'] {
-  -ms-grid-column: 3;
-  -ms-grid-column-span: 9;
+[app-col="3-12"] {
   grid-column: 3/12;
 }
 
-[ui-col='3-13'] {
-  -ms-grid-column: 3;
-  -ms-grid-column-span: 10;
+[app-col="3-13"] {
   grid-column: 3/13;
 }
 
-[ui-col='3-14'] {
-  -ms-grid-column: 3;
-  -ms-grid-column-span: 11;
+[app-col="3-14"] {
   grid-column: 3/14;
 }
 
-[ui-col='3-15'] {
-  -ms-grid-column: 3;
-  -ms-grid-column-span: 12;
+[app-col="3-15"] {
   grid-column: 3/15;
 }
 
-[ui-col='4-5'] {
-  -ms-grid-column: 4;
-  -ms-grid-column-span: 1;
+[app-col="4-5"] {
   grid-column: 4/5;
 }
 
-[ui-col='4-6'] {
-  -ms-grid-column: 4;
-  -ms-grid-column-span: 2;
+[app-col="4-6"] {
   grid-column: 4/6;
 }
 
-[ui-col='4-7'] {
-  -ms-grid-column: 4;
-  -ms-grid-column-span: 3;
+[app-col="4-7"] {
   grid-column: 4/7;
 }
 
-[ui-col='4-8'] {
-  -ms-grid-column: 4;
-  -ms-grid-column-span: 4;
+[app-col="4-8"] {
   grid-column: 4/8;
 }
 
-[ui-col='4-9'] {
-  -ms-grid-column: 4;
-  -ms-grid-column-span: 5;
+[app-col="4-9"] {
   grid-column: 4/9;
 }
 
-[ui-col='4-10'] {
-  -ms-grid-column: 4;
-  -ms-grid-column-span: 6;
+[app-col="4-10"] {
   grid-column: 4/10;
 }
 
-[ui-col='4-11'] {
-  -ms-grid-column: 4;
-  -ms-grid-column-span: 7;
+[app-col="4-11"] {
   grid-column: 4/11;
 }
 
-[ui-col='4-12'] {
-  -ms-grid-column: 4;
-  -ms-grid-column-span: 8;
+[app-col="4-12"] {
   grid-column: 4/12;
 }
 
-[ui-col='4-13'] {
-  -ms-grid-column: 4;
-  -ms-grid-column-span: 9;
+[app-col="4-13"] {
   grid-column: 4/13;
 }
 
-[ui-col='4-14'] {
-  -ms-grid-column: 4;
-  -ms-grid-column-span: 10;
+[app-col="4-14"] {
   grid-column: 4/14;
 }
 
-[ui-col='4-15'] {
-  -ms-grid-column: 4;
-  -ms-grid-column-span: 11;
+[app-col="4-15"] {
   grid-column: 4/15;
 }
 
-[ui-col='5-6'] {
-  -ms-grid-column: 5;
-  -ms-grid-column-span: 1;
+[app-col="5-6"] {
   grid-column: 5/6;
 }
 
-[ui-col='5-7'] {
-  -ms-grid-column: 5;
-  -ms-grid-column-span: 2;
+[app-col="5-7"] {
   grid-column: 5/7;
 }
 
-[ui-col='5-8'] {
-  -ms-grid-column: 5;
-  -ms-grid-column-span: 3;
+[app-col="5-8"] {
   grid-column: 5/8;
 }
 
-[ui-col='5-9'] {
-  -ms-grid-column: 5;
-  -ms-grid-column-span: 4;
+[app-col="5-9"] {
   grid-column: 5/9;
 }
 
-[ui-col='5-10'] {
-  -ms-grid-column: 5;
-  -ms-grid-column-span: 5;
+[app-col="5-10"] {
   grid-column: 5/10;
 }
 
-[ui-col='5-11'] {
-  -ms-grid-column: 5;
-  -ms-grid-column-span: 6;
+[app-col="5-11"] {
   grid-column: 5/11;
 }
 
-[ui-col='5-12'] {
-  -ms-grid-column: 5;
-  -ms-grid-column-span: 7;
+[app-col="5-12"] {
   grid-column: 5/12;
 }
 
-[ui-col='5-13'] {
-  -ms-grid-column: 5;
-  -ms-grid-column-span: 8;
+[app-col="5-13"] {
   grid-column: 5/13;
 }
 
-[ui-col='5-14'] {
-  -ms-grid-column: 5;
-  -ms-grid-column-span: 9;
+[app-col="5-14"] {
   grid-column: 5/14;
 }
 
-[ui-col='5-15'] {
-  -ms-grid-column: 5;
-  -ms-grid-column-span: 10;
+[app-col="5-15"] {
   grid-column: 5/15;
 }
 
-[ui-col='6-7'] {
-  -ms-grid-column: 6;
-  -ms-grid-column-span: 1;
+[app-col="6-7"] {
   grid-column: 6/7;
 }
 
-[ui-col='6-8'] {
-  -ms-grid-column: 6;
-  -ms-grid-column-span: 2;
+[app-col="6-8"] {
   grid-column: 6/8;
 }
 
-[ui-col='6-9'] {
-  -ms-grid-column: 6;
-  -ms-grid-column-span: 3;
+[app-col="6-9"] {
   grid-column: 6/9;
 }
 
-[ui-col='6-10'] {
-  -ms-grid-column: 6;
-  -ms-grid-column-span: 4;
+[app-col="6-10"] {
   grid-column: 6/10;
 }
 
-[ui-col='6-11'] {
-  -ms-grid-column: 6;
-  -ms-grid-column-span: 5;
+[app-col="6-11"] {
   grid-column: 6/11;
 }
 
-[ui-col='6-12'] {
-  -ms-grid-column: 6;
-  -ms-grid-column-span: 6;
+[app-col="6-12"] {
   grid-column: 6/12;
 }
 
-[ui-col='6-13'] {
-  -ms-grid-column: 6;
-  -ms-grid-column-span: 7;
+[app-col="6-13"] {
   grid-column: 6/13;
 }
 
-[ui-col='6-14'] {
-  -ms-grid-column: 6;
-  -ms-grid-column-span: 8;
+[app-col="6-14"] {
   grid-column: 6/14;
 }
 
-[ui-col='6-15'] {
-  -ms-grid-column: 6;
-  -ms-grid-column-span: 9;
+[app-col="6-15"] {
   grid-column: 6/15;
 }
 
-[ui-col='7-8'] {
-  -ms-grid-column: 7;
-  -ms-grid-column-span: 1;
+[app-col="7-8"] {
   grid-column: 7/8;
 }
 
-[ui-col='7-9'] {
-  -ms-grid-column: 7;
-  -ms-grid-column-span: 2;
+[app-col="7-9"] {
   grid-column: 7/9;
 }
 
-[ui-col='7-10'] {
-  -ms-grid-column: 7;
-  -ms-grid-column-span: 3;
+[app-col="7-10"] {
   grid-column: 7/10;
 }
 
-[ui-col='7-11'] {
-  -ms-grid-column: 7;
-  -ms-grid-column-span: 4;
+[app-col="7-11"] {
   grid-column: 7/11;
 }
 
-[ui-col='7-12'] {
-  -ms-grid-column: 7;
-  -ms-grid-column-span: 5;
+[app-col="7-12"] {
   grid-column: 7/12;
 }
 
-[ui-col='7-13'] {
-  -ms-grid-column: 7;
-  -ms-grid-column-span: 6;
+[app-col="7-13"] {
   grid-column: 7/13;
 }
 
-[ui-col='7-14'] {
-  -ms-grid-column: 7;
-  -ms-grid-column-span: 7;
+[app-col="7-14"] {
   grid-column: 7/14;
 }
 
-[ui-col='7-15'] {
-  -ms-grid-column: 7;
-  -ms-grid-column-span: 8;
+[app-col="7-15"] {
   grid-column: 7/15;
 }
 
-[ui-col='8-9'] {
-  -ms-grid-column: 8;
-  -ms-grid-column-span: 1;
+[app-col="8-9"] {
   grid-column: 8/9;
 }
 
-[ui-col='8-10'] {
-  -ms-grid-column: 8;
-  -ms-grid-column-span: 2;
+[app-col="8-10"] {
   grid-column: 8/10;
 }
 
-[ui-col='8-11'] {
-  -ms-grid-column: 8;
-  -ms-grid-column-span: 3;
+[app-col="8-11"] {
   grid-column: 8/11;
 }
 
-[ui-col='8-12'] {
-  -ms-grid-column: 8;
-  -ms-grid-column-span: 4;
+[app-col="8-12"] {
   grid-column: 8/12;
 }
 
-[ui-col='8-13'] {
-  -ms-grid-column: 8;
-  -ms-grid-column-span: 5;
+[app-col="8-13"] {
   grid-column: 8/13;
 }
 
-[ui-col='8-14'] {
-  -ms-grid-column: 8;
-  -ms-grid-column-span: 6;
+[app-col="8-14"] {
   grid-column: 8/14;
 }
 
-[ui-col='8-15'] {
-  -ms-grid-column: 8;
-  -ms-grid-column-span: 7;
+[app-col="8-15"] {
   grid-column: 8/15;
 }
 
-[ui-col='9-10'] {
-  -ms-grid-column: 9;
-  -ms-grid-column-span: 1;
+[app-col="9-10"] {
   grid-column: 9/10;
 }
 
-[ui-col='9-11'] {
-  -ms-grid-column: 9;
-  -ms-grid-column-span: 2;
+[app-col="9-11"] {
   grid-column: 9/11;
 }
 
-[ui-col='9-12'] {
-  -ms-grid-column: 9;
-  -ms-grid-column-span: 3;
+[app-col="9-12"] {
   grid-column: 9/12;
 }
 
-[ui-col='9-13'] {
-  -ms-grid-column: 9;
-  -ms-grid-column-span: 4;
+[app-col="9-13"] {
   grid-column: 9/13;
 }
 
-[ui-col='9-14'] {
-  -ms-grid-column: 9;
-  -ms-grid-column-span: 5;
+[app-col="9-14"] {
   grid-column: 9/14;
 }
 
-[ui-col='9-15'] {
-  -ms-grid-column: 9;
-  -ms-grid-column-span: 6;
+[app-col="9-15"] {
   grid-column: 9/15;
 }
 
-[ui-col='10-11'] {
-  -ms-grid-column: 10;
-  -ms-grid-column-span: 1;
+[app-col="10-11"] {
   grid-column: 10/11;
 }
 
-[ui-col='10-12'] {
-  -ms-grid-column: 10;
-  -ms-grid-column-span: 2;
+[app-col="10-12"] {
   grid-column: 10/12;
 }
 
-[ui-col='10-13'] {
-  -ms-grid-column: 10;
-  -ms-grid-column-span: 3;
+[app-col="10-13"] {
   grid-column: 10/13;
 }
 
-[ui-col='10-14'] {
-  -ms-grid-column: 10;
-  -ms-grid-column-span: 4;
+[app-col="10-14"] {
   grid-column: 10/14;
 }
 
-[ui-col='10-15'] {
-  -ms-grid-column: 10;
-  -ms-grid-column-span: 5;
+[app-col="10-15"] {
   grid-column: 10/15;
 }
 
-[ui-col='11-12'] {
-  -ms-grid-column: 11;
-  -ms-grid-column-span: 1;
+[app-col="11-12"] {
   grid-column: 11/12;
 }
 
-[ui-col='11-13'] {
-  -ms-grid-column: 11;
-  -ms-grid-column-span: 2;
+[app-col="11-13"] {
   grid-column: 11/13;
 }
 
-[ui-col='11-14'] {
-  -ms-grid-column: 11;
-  -ms-grid-column-span: 3;
+[app-col="11-14"] {
   grid-column: 11/14;
 }
 
-[ui-col='11-15'] {
-  -ms-grid-column: 11;
-  -ms-grid-column-span: 4;
+[app-col="11-15"] {
   grid-column: 11/15;
 }
 
-[ui-col='12-13'] {
-  -ms-grid-column: 12;
-  -ms-grid-column-span: 1;
+[app-col="12-13"] {
   grid-column: 12/13;
 }
 
-[ui-col='12-14'] {
-  -ms-grid-column: 12;
-  -ms-grid-column-span: 2;
+[app-col="12-14"] {
   grid-column: 12/14;
 }
 
-[ui-col='12-15'] {
-  -ms-grid-column: 12;
-  -ms-grid-column-span: 3;
+[app-col="12-15"] {
   grid-column: 12/15;
 }
 
-[ui-col='13-14'] {
-  -ms-grid-column: 13;
-  -ms-grid-column-span: 1;
+[app-col="13-14"] {
   grid-column: 13/14;
 }
 
-[ui-col='13-15'] {
-  -ms-grid-column: 13;
-  -ms-grid-column-span: 2;
+[app-col="13-15"] {
   grid-column: 13/15;
 }
 
-[ui-col='14-15'] {
-  -ms-grid-column: 14;
-  -ms-grid-column-span: 1;
+[app-col="14-15"] {
   grid-column: 14/15;
 }
 
-[ui-pa="0"] {
+[app-pa="0"] {
   padding: 0px;
 }
 
-[ui-pt="0"] {
+[app-pt="0"] {
   padding-top: 0px;
 }
 
-[ui-pr="0"] {
+[app-pr="0"] {
   padding-right: 0px;
 }
 
-[ui-pb="0"] {
+[app-pb="0"] {
   padding-bottom: 0px;
 }
 
-[ui-pl="0"] {
+[app-pl="0"] {
   padding-left: 0px;
 }
 
-[ui-py="0"] {
+[app-py="0"] {
   padding-top: 0px;
   padding-bottom: 0px;
 }
 
-[ui-px="0"] {
+[app-px="0"] {
   padding-left: 0px;
   padding-right: 0px;
 }
 
-[ui-pa="4"] {
+[app-pa="4"] {
   padding: 4px;
 }
 
-[ui-pt="4"] {
+[app-pt="4"] {
   padding-top: 4px;
 }
 
-[ui-pr="4"] {
+[app-pr="4"] {
   padding-right: 4px;
 }
 
-[ui-pb="4"] {
+[app-pb="4"] {
   padding-bottom: 4px;
 }
 
-[ui-pl="4"] {
+[app-pl="4"] {
   padding-left: 4px;
 }
 
-[ui-py="4"] {
+[app-py="4"] {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-[ui-px="4"] {
+[app-px="4"] {
   padding-left: 4px;
   padding-right: 4px;
 }
 
-[ui-pa="8"] {
+[app-pa="8"] {
   padding: 8px;
 }
 
-[ui-pt="8"] {
+[app-pt="8"] {
   padding-top: 8px;
 }
 
-[ui-pr="8"] {
+[app-pr="8"] {
   padding-right: 8px;
 }
 
-[ui-pb="8"] {
+[app-pb="8"] {
   padding-bottom: 8px;
 }
 
-[ui-pl="8"] {
+[app-pl="8"] {
   padding-left: 8px;
 }
 
-[ui-py="8"] {
+[app-py="8"] {
   padding-top: 8px;
   padding-bottom: 8px;
 }
 
-[ui-px="8"] {
+[app-px="8"] {
   padding-left: 8px;
   padding-right: 8px;
 }
 
-[ui-pa="12"] {
+[app-pa="12"] {
   padding: 12px;
 }
 
-[ui-pt="12"] {
+[app-pt="12"] {
   padding-top: 12px;
 }
 
-[ui-pr="12"] {
+[app-pr="12"] {
   padding-right: 12px;
 }
 
-[ui-pb="12"] {
+[app-pb="12"] {
   padding-bottom: 12px;
 }
 
-[ui-pl="12"] {
+[app-pl="12"] {
   padding-left: 12px;
 }
 
-[ui-py="12"] {
+[app-py="12"] {
   padding-top: 12px;
   padding-bottom: 12px;
 }
 
-[ui-px="12"] {
+[app-px="12"] {
   padding-left: 12px;
   padding-right: 12px;
 }
 
-[ui-pa="16"] {
+[app-pa="16"] {
   padding: 16px;
 }
 
-[ui-pt="16"] {
+[app-pt="16"] {
   padding-top: 16px;
 }
 
-[ui-pr="16"] {
+[app-pr="16"] {
   padding-right: 16px;
 }
 
-[ui-pb="16"] {
+[app-pb="16"] {
   padding-bottom: 16px;
 }
 
-[ui-pl="16"] {
+[app-pl="16"] {
   padding-left: 16px;
 }
 
-[ui-py="16"] {
+[app-py="16"] {
   padding-top: 16px;
   padding-bottom: 16px;
 }
 
-[ui-px="16"] {
+[app-px="16"] {
   padding-left: 16px;
   padding-right: 16px;
 }
 
-[ui-pa="20"] {
+[app-pa="20"] {
   padding: 20px;
 }
 
-[ui-pt="20"] {
+[app-pt="20"] {
   padding-top: 20px;
 }
 
-[ui-pr="20"] {
+[app-pr="20"] {
   padding-right: 20px;
 }
 
-[ui-pb="20"] {
+[app-pb="20"] {
   padding-bottom: 20px;
 }
 
-[ui-pl="20"] {
+[app-pl="20"] {
   padding-left: 20px;
 }
 
-[ui-py="20"] {
+[app-py="20"] {
   padding-top: 20px;
   padding-bottom: 20px;
 }
 
-[ui-px="20"] {
+[app-px="20"] {
   padding-left: 20px;
   padding-right: 20px;
 }
 
-[ui-pa="24"] {
+[app-pa="24"] {
   padding: 24px;
 }
 
-[ui-pt="24"] {
+[app-pt="24"] {
   padding-top: 24px;
 }
 
-[ui-pr="24"] {
+[app-pr="24"] {
   padding-right: 24px;
 }
 
-[ui-pb="24"] {
+[app-pb="24"] {
   padding-bottom: 24px;
 }
 
-[ui-pl="24"] {
+[app-pl="24"] {
   padding-left: 24px;
 }
 
-[ui-py="24"] {
+[app-py="24"] {
   padding-top: 24px;
   padding-bottom: 24px;
 }
 
-[ui-px="24"] {
+[app-px="24"] {
   padding-left: 24px;
   padding-right: 24px;
 }
 
-[ui-pa="28"] {
+[app-pa="28"] {
   padding: 28px;
 }
 
-[ui-pt="28"] {
+[app-pt="28"] {
   padding-top: 28px;
 }
 
-[ui-pr="28"] {
+[app-pr="28"] {
   padding-right: 28px;
 }
 
-[ui-pb="28"] {
+[app-pb="28"] {
   padding-bottom: 28px;
 }
 
-[ui-pl="28"] {
+[app-pl="28"] {
   padding-left: 28px;
 }
 
-[ui-py="28"] {
+[app-py="28"] {
   padding-top: 28px;
   padding-bottom: 28px;
 }
 
-[ui-px="28"] {
+[app-px="28"] {
   padding-left: 28px;
   padding-right: 28px;
 }
 
-[ui-pa="32"] {
+[app-pa="32"] {
   padding: 32px;
 }
 
-[ui-pt="32"] {
+[app-pt="32"] {
   padding-top: 32px;
 }
 
-[ui-pr="32"] {
+[app-pr="32"] {
   padding-right: 32px;
 }
 
-[ui-pb="32"] {
+[app-pb="32"] {
   padding-bottom: 32px;
 }
 
-[ui-pl="32"] {
+[app-pl="32"] {
   padding-left: 32px;
 }
 
-[ui-py="32"] {
+[app-py="32"] {
   padding-top: 32px;
   padding-bottom: 32px;
 }
 
-[ui-px="32"] {
+[app-px="32"] {
   padding-left: 32px;
   padding-right: 32px;
 }
 
-[ui-pa="36"] {
+[app-pa="36"] {
   padding: 36px;
 }
 
-[ui-pt="36"] {
+[app-pt="36"] {
   padding-top: 36px;
 }
 
-[ui-pr="36"] {
+[app-pr="36"] {
   padding-right: 36px;
 }
 
-[ui-pb="36"] {
+[app-pb="36"] {
   padding-bottom: 36px;
 }
 
-[ui-pl="36"] {
+[app-pl="36"] {
   padding-left: 36px;
 }
 
-[ui-py="36"] {
+[app-py="36"] {
   padding-top: 36px;
   padding-bottom: 36px;
 }
 
-[ui-px="36"] {
+[app-px="36"] {
   padding-left: 36px;
   padding-right: 36px;
 }
 
-[ui-pa="40"] {
+[app-pa="40"] {
   padding: 40px;
 }
 
-[ui-pt="40"] {
+[app-pt="40"] {
   padding-top: 40px;
 }
 
-[ui-pr="40"] {
+[app-pr="40"] {
   padding-right: 40px;
 }
 
-[ui-pb="40"] {
+[app-pb="40"] {
   padding-bottom: 40px;
 }
 
-[ui-pl="40"] {
+[app-pl="40"] {
   padding-left: 40px;
 }
 
-[ui-py="40"] {
+[app-py="40"] {
   padding-top: 40px;
   padding-bottom: 40px;
 }
 
-[ui-px="40"] {
+[app-px="40"] {
   padding-left: 40px;
   padding-right: 40px;
 }
 
-[ui-pa="44"] {
+[app-pa="44"] {
   padding: 44px;
 }
 
-[ui-pt="44"] {
+[app-pt="44"] {
   padding-top: 44px;
 }
 
-[ui-pr="44"] {
+[app-pr="44"] {
   padding-right: 44px;
 }
 
-[ui-pb="44"] {
+[app-pb="44"] {
   padding-bottom: 44px;
 }
 
-[ui-pl="44"] {
+[app-pl="44"] {
   padding-left: 44px;
 }
 
-[ui-py="44"] {
+[app-py="44"] {
   padding-top: 44px;
   padding-bottom: 44px;
 }
 
-[ui-px="44"] {
+[app-px="44"] {
   padding-left: 44px;
   padding-right: 44px;
 }
 
-[ui-pa="48"] {
+[app-pa="48"] {
   padding: 48px;
 }
 
-[ui-pt="48"] {
+[app-pt="48"] {
   padding-top: 48px;
 }
 
-[ui-pr="48"] {
+[app-pr="48"] {
   padding-right: 48px;
 }
 
-[ui-pb="48"] {
+[app-pb="48"] {
   padding-bottom: 48px;
 }
 
-[ui-pl="48"] {
+[app-pl="48"] {
   padding-left: 48px;
 }
 
-[ui-py="48"] {
+[app-py="48"] {
   padding-top: 48px;
   padding-bottom: 48px;
 }
 
-[ui-px="48"] {
+[app-px="48"] {
   padding-left: 48px;
   padding-right: 48px;
 }
 
-[ui-pa="52"] {
+[app-pa="52"] {
   padding: 52px;
 }
 
-[ui-pt="52"] {
+[app-pt="52"] {
   padding-top: 52px;
 }
 
-[ui-pr="52"] {
+[app-pr="52"] {
   padding-right: 52px;
 }
 
-[ui-pb="52"] {
+[app-pb="52"] {
   padding-bottom: 52px;
 }
 
-[ui-pl="52"] {
+[app-pl="52"] {
   padding-left: 52px;
 }
 
-[ui-py="52"] {
+[app-py="52"] {
   padding-top: 52px;
   padding-bottom: 52px;
 }
 
-[ui-px="52"] {
+[app-px="52"] {
   padding-left: 52px;
   padding-right: 52px;
 }
 
-[ui-pa="56"] {
+[app-pa="56"] {
   padding: 56px;
 }
 
-[ui-pt="56"] {
+[app-pt="56"] {
   padding-top: 56px;
 }
 
-[ui-pr="56"] {
+[app-pr="56"] {
   padding-right: 56px;
 }
 
-[ui-pb="56"] {
+[app-pb="56"] {
   padding-bottom: 56px;
 }
 
-[ui-pl="56"] {
+[app-pl="56"] {
   padding-left: 56px;
 }
 
-[ui-py="56"] {
+[app-py="56"] {
   padding-top: 56px;
   padding-bottom: 56px;
 }
 
-[ui-px="56"] {
+[app-px="56"] {
   padding-left: 56px;
   padding-right: 56px;
 }
 
-[ui-pa="60"] {
+[app-pa="60"] {
   padding: 60px;
 }
 
-[ui-pt="60"] {
+[app-pt="60"] {
   padding-top: 60px;
 }
 
-[ui-pr="60"] {
+[app-pr="60"] {
   padding-right: 60px;
 }
 
-[ui-pb="60"] {
+[app-pb="60"] {
   padding-bottom: 60px;
 }
 
-[ui-pl="60"] {
+[app-pl="60"] {
   padding-left: 60px;
 }
 
-[ui-py="60"] {
+[app-py="60"] {
   padding-top: 60px;
   padding-bottom: 60px;
 }
 
-[ui-px="60"] {
+[app-px="60"] {
   padding-left: 60px;
   padding-right: 60px;
 }
 
-[ui-pa="64"] {
+[app-pa="64"] {
   padding: 64px;
 }
 
-[ui-pt="64"] {
+[app-pt="64"] {
   padding-top: 64px;
 }
 
-[ui-pr="64"] {
+[app-pr="64"] {
   padding-right: 64px;
 }
 
-[ui-pb="64"] {
+[app-pb="64"] {
   padding-bottom: 64px;
 }
 
-[ui-pl="64"] {
+[app-pl="64"] {
   padding-left: 64px;
 }
 
-[ui-py="64"] {
+[app-py="64"] {
   padding-top: 64px;
   padding-bottom: 64px;
 }
 
-[ui-px="64"] {
+[app-px="64"] {
   padding-left: 64px;
   padding-right: 64px;
 }
 
-[ui-pa="68"] {
+[app-pa="68"] {
   padding: 68px;
 }
 
-[ui-pt="68"] {
+[app-pt="68"] {
   padding-top: 68px;
 }
 
-[ui-pr="68"] {
+[app-pr="68"] {
   padding-right: 68px;
 }
 
-[ui-pb="68"] {
+[app-pb="68"] {
   padding-bottom: 68px;
 }
 
-[ui-pl="68"] {
+[app-pl="68"] {
   padding-left: 68px;
 }
 
-[ui-py="68"] {
+[app-py="68"] {
   padding-top: 68px;
   padding-bottom: 68px;
 }
 
-[ui-px="68"] {
+[app-px="68"] {
   padding-left: 68px;
   padding-right: 68px;
 }
 
-[ui-pa="72"] {
+[app-pa="72"] {
   padding: 72px;
 }
 
-[ui-pt="72"] {
+[app-pt="72"] {
   padding-top: 72px;
 }
 
-[ui-pr="72"] {
+[app-pr="72"] {
   padding-right: 72px;
 }
 
-[ui-pb="72"] {
+[app-pb="72"] {
   padding-bottom: 72px;
 }
 
-[ui-pl="72"] {
+[app-pl="72"] {
   padding-left: 72px;
 }
 
-[ui-py="72"] {
+[app-py="72"] {
   padding-top: 72px;
   padding-bottom: 72px;
 }
 
-[ui-px="72"] {
+[app-px="72"] {
   padding-left: 72px;
   padding-right: 72px;
 }
 
-[ui-pa="76"] {
+[app-pa="76"] {
   padding: 76px;
 }
 
-[ui-pt="76"] {
+[app-pt="76"] {
   padding-top: 76px;
 }
 
-[ui-pr="76"] {
+[app-pr="76"] {
   padding-right: 76px;
 }
 
-[ui-pb="76"] {
+[app-pb="76"] {
   padding-bottom: 76px;
 }
 
-[ui-pl="76"] {
+[app-pl="76"] {
   padding-left: 76px;
 }
 
-[ui-py="76"] {
+[app-py="76"] {
   padding-top: 76px;
   padding-bottom: 76px;
 }
 
-[ui-px="76"] {
+[app-px="76"] {
   padding-left: 76px;
   padding-right: 76px;
 }
 
-[ui-pa="80"] {
+[app-pa="80"] {
   padding: 80px;
 }
 
-[ui-pt="80"] {
+[app-pt="80"] {
   padding-top: 80px;
 }
 
-[ui-pr="80"] {
+[app-pr="80"] {
   padding-right: 80px;
 }
 
-[ui-pb="80"] {
+[app-pb="80"] {
   padding-bottom: 80px;
 }
 
-[ui-pl="80"] {
+[app-pl="80"] {
   padding-left: 80px;
 }
 
-[ui-py="80"] {
+[app-py="80"] {
   padding-top: 80px;
   padding-bottom: 80px;
 }
 
-[ui-px="80"] {
+[app-px="80"] {
   padding-left: 80px;
   padding-right: 80px;
 }
 
-[ui-pa="84"] {
+[app-pa="84"] {
   padding: 84px;
 }
 
-[ui-pt="84"] {
+[app-pt="84"] {
   padding-top: 84px;
 }
 
-[ui-pr="84"] {
+[app-pr="84"] {
   padding-right: 84px;
 }
 
-[ui-pb="84"] {
+[app-pb="84"] {
   padding-bottom: 84px;
 }
 
-[ui-pl="84"] {
+[app-pl="84"] {
   padding-left: 84px;
 }
 
-[ui-py="84"] {
+[app-py="84"] {
   padding-top: 84px;
   padding-bottom: 84px;
 }
 
-[ui-px="84"] {
+[app-px="84"] {
   padding-left: 84px;
   padding-right: 84px;
 }
 
-[ui-pa="88"] {
+[app-pa="88"] {
   padding: 88px;
 }
 
-[ui-pt="88"] {
+[app-pt="88"] {
   padding-top: 88px;
 }
 
-[ui-pr="88"] {
+[app-pr="88"] {
   padding-right: 88px;
 }
 
-[ui-pb="88"] {
+[app-pb="88"] {
   padding-bottom: 88px;
 }
 
-[ui-pl="88"] {
+[app-pl="88"] {
   padding-left: 88px;
 }
 
-[ui-py="88"] {
+[app-py="88"] {
   padding-top: 88px;
   padding-bottom: 88px;
 }
 
-[ui-px="88"] {
+[app-px="88"] {
   padding-left: 88px;
   padding-right: 88px;
 }
 
-[ui-pa="92"] {
+[app-pa="92"] {
   padding: 92px;
 }
 
-[ui-pt="92"] {
+[app-pt="92"] {
   padding-top: 92px;
 }
 
-[ui-pr="92"] {
+[app-pr="92"] {
   padding-right: 92px;
 }
 
-[ui-pb="92"] {
+[app-pb="92"] {
   padding-bottom: 92px;
 }
 
-[ui-pl="92"] {
+[app-pl="92"] {
   padding-left: 92px;
 }
 
-[ui-py="92"] {
+[app-py="92"] {
   padding-top: 92px;
   padding-bottom: 92px;
 }
 
-[ui-px="92"] {
+[app-px="92"] {
   padding-left: 92px;
   padding-right: 92px;
 }
 
-[ui-pa="96"] {
+[app-pa="96"] {
   padding: 96px;
 }
 
-[ui-pt="96"] {
+[app-pt="96"] {
   padding-top: 96px;
 }
 
-[ui-pr="96"] {
+[app-pr="96"] {
   padding-right: 96px;
 }
 
-[ui-pb="96"] {
+[app-pb="96"] {
   padding-bottom: 96px;
 }
 
-[ui-pl="96"] {
+[app-pl="96"] {
   padding-left: 96px;
 }
 
-[ui-py="96"] {
+[app-py="96"] {
   padding-top: 96px;
   padding-bottom: 96px;
 }
 
-[ui-px="96"] {
+[app-px="96"] {
   padding-left: 96px;
   padding-right: 96px;
 }
 
-[ui-pa="100"] {
+[app-pa="100"] {
   padding: 100px;
 }
 
-[ui-pt="100"] {
+[app-pt="100"] {
   padding-top: 100px;
 }
 
-[ui-pr="100"] {
+[app-pr="100"] {
   padding-right: 100px;
 }
 
-[ui-pb="100"] {
+[app-pb="100"] {
   padding-bottom: 100px;
 }
 
-[ui-pl="100"] {
+[app-pl="100"] {
   padding-left: 100px;
 }
 
-[ui-py="100"] {
+[app-py="100"] {
   padding-top: 100px;
   padding-bottom: 100px;
 }
 
-[ui-px="100"] {
+[app-px="100"] {
   padding-left: 100px;
   padding-right: 100px;
 }
 
-[ui-pa="104"] {
+[app-pa="104"] {
   padding: 104px;
 }
 
-[ui-pt="104"] {
+[app-pt="104"] {
   padding-top: 104px;
 }
 
-[ui-pr="104"] {
+[app-pr="104"] {
   padding-right: 104px;
 }
 
-[ui-pb="104"] {
+[app-pb="104"] {
   padding-bottom: 104px;
 }
 
-[ui-pl="104"] {
+[app-pl="104"] {
   padding-left: 104px;
 }
 
-[ui-py="104"] {
+[app-py="104"] {
   padding-top: 104px;
   padding-bottom: 104px;
 }
 
-[ui-px="104"] {
+[app-px="104"] {
   padding-left: 104px;
   padding-right: 104px;
 }
 
-[ui-pa="108"] {
+[app-pa="108"] {
   padding: 108px;
 }
 
-[ui-pt="108"] {
+[app-pt="108"] {
   padding-top: 108px;
 }
 
-[ui-pr="108"] {
+[app-pr="108"] {
   padding-right: 108px;
 }
 
-[ui-pb="108"] {
+[app-pb="108"] {
   padding-bottom: 108px;
 }
 
-[ui-pl="108"] {
+[app-pl="108"] {
   padding-left: 108px;
 }
 
-[ui-py="108"] {
+[app-py="108"] {
   padding-top: 108px;
   padding-bottom: 108px;
 }
 
-[ui-px="108"] {
+[app-px="108"] {
   padding-left: 108px;
   padding-right: 108px;
 }
 
-[ui-pa="112"] {
+[app-pa="112"] {
   padding: 112px;
 }
 
-[ui-pt="112"] {
+[app-pt="112"] {
   padding-top: 112px;
 }
 
-[ui-pr="112"] {
+[app-pr="112"] {
   padding-right: 112px;
 }
 
-[ui-pb="112"] {
+[app-pb="112"] {
   padding-bottom: 112px;
 }
 
-[ui-pl="112"] {
+[app-pl="112"] {
   padding-left: 112px;
 }
 
-[ui-py="112"] {
+[app-py="112"] {
   padding-top: 112px;
   padding-bottom: 112px;
 }
 
-[ui-px="112"] {
+[app-px="112"] {
   padding-left: 112px;
   padding-right: 112px;
 }
 
-[ui-pa="116"] {
+[app-pa="116"] {
   padding: 116px;
 }
 
-[ui-pt="116"] {
+[app-pt="116"] {
   padding-top: 116px;
 }
 
-[ui-pr="116"] {
+[app-pr="116"] {
   padding-right: 116px;
 }
 
-[ui-pb="116"] {
+[app-pb="116"] {
   padding-bottom: 116px;
 }
 
-[ui-pl="116"] {
+[app-pl="116"] {
   padding-left: 116px;
 }
 
-[ui-py="116"] {
+[app-py="116"] {
   padding-top: 116px;
   padding-bottom: 116px;
 }
 
-[ui-px="116"] {
+[app-px="116"] {
   padding-left: 116px;
   padding-right: 116px;
 }
 
-[ui-pa="120"] {
+[app-pa="120"] {
   padding: 120px;
 }
 
-[ui-pt="120"] {
+[app-pt="120"] {
   padding-top: 120px;
 }
 
-[ui-pr="120"] {
+[app-pr="120"] {
   padding-right: 120px;
 }
 
-[ui-pb="120"] {
+[app-pb="120"] {
   padding-bottom: 120px;
 }
 
-[ui-pl="120"] {
+[app-pl="120"] {
   padding-left: 120px;
 }
 
-[ui-py="120"] {
+[app-py="120"] {
   padding-top: 120px;
   padding-bottom: 120px;
 }
 
-[ui-px="120"] {
+[app-px="120"] {
   padding-left: 120px;
   padding-right: 120px;
 }
 
-[ui-pa="124"] {
+[app-pa="124"] {
   padding: 124px;
 }
 
-[ui-pt="124"] {
+[app-pt="124"] {
   padding-top: 124px;
 }
 
-[ui-pr="124"] {
+[app-pr="124"] {
   padding-right: 124px;
 }
 
-[ui-pb="124"] {
+[app-pb="124"] {
   padding-bottom: 124px;
 }
 
-[ui-pl="124"] {
+[app-pl="124"] {
   padding-left: 124px;
 }
 
-[ui-py="124"] {
+[app-py="124"] {
   padding-top: 124px;
   padding-bottom: 124px;
 }
 
-[ui-px="124"] {
+[app-px="124"] {
   padding-left: 124px;
   padding-right: 124px;
 }
 
-[ui-pa="128"] {
+[app-pa="128"] {
   padding: 128px;
 }
 
-[ui-pt="128"] {
+[app-pt="128"] {
   padding-top: 128px;
 }
 
-[ui-pr="128"] {
+[app-pr="128"] {
   padding-right: 128px;
 }
 
-[ui-pb="128"] {
+[app-pb="128"] {
   padding-bottom: 128px;
 }
 
-[ui-pl="128"] {
+[app-pl="128"] {
   padding-left: 128px;
 }
 
-[ui-py="128"] {
+[app-py="128"] {
   padding-top: 128px;
   padding-bottom: 128px;
 }
 
-[ui-px="128"] {
+[app-px="128"] {
   padding-left: 128px;
   padding-right: 128px;
 }
 
-[ui-pa="132"] {
+[app-pa="132"] {
   padding: 132px;
 }
 
-[ui-pt="132"] {
+[app-pt="132"] {
   padding-top: 132px;
 }
 
-[ui-pr="132"] {
+[app-pr="132"] {
   padding-right: 132px;
 }
 
-[ui-pb="132"] {
+[app-pb="132"] {
   padding-bottom: 132px;
 }
 
-[ui-pl="132"] {
+[app-pl="132"] {
   padding-left: 132px;
 }
 
-[ui-py="132"] {
+[app-py="132"] {
   padding-top: 132px;
   padding-bottom: 132px;
 }
 
-[ui-px="132"] {
+[app-px="132"] {
   padding-left: 132px;
   padding-right: 132px;
 }
 
-[ui-pa="136"] {
+[app-pa="136"] {
   padding: 136px;
 }
 
-[ui-pt="136"] {
+[app-pt="136"] {
   padding-top: 136px;
 }
 
-[ui-pr="136"] {
+[app-pr="136"] {
   padding-right: 136px;
 }
 
-[ui-pb="136"] {
+[app-pb="136"] {
   padding-bottom: 136px;
 }
 
-[ui-pl="136"] {
+[app-pl="136"] {
   padding-left: 136px;
 }
 
-[ui-py="136"] {
+[app-py="136"] {
   padding-top: 136px;
   padding-bottom: 136px;
 }
 
-[ui-px="136"] {
+[app-px="136"] {
   padding-left: 136px;
   padding-right: 136px;
 }
 
-[ui-pa="140"] {
+[app-pa="140"] {
   padding: 140px;
 }
 
-[ui-pt="140"] {
+[app-pt="140"] {
   padding-top: 140px;
 }
 
-[ui-pr="140"] {
+[app-pr="140"] {
   padding-right: 140px;
 }
 
-[ui-pb="140"] {
+[app-pb="140"] {
   padding-bottom: 140px;
 }
 
-[ui-pl="140"] {
+[app-pl="140"] {
   padding-left: 140px;
 }
 
-[ui-py="140"] {
+[app-py="140"] {
   padding-top: 140px;
   padding-bottom: 140px;
 }
 
-[ui-px="140"] {
+[app-px="140"] {
   padding-left: 140px;
   padding-right: 140px;
 }
 
-[ui-pa="144"] {
+[app-pa="144"] {
   padding: 144px;
 }
 
-[ui-pt="144"] {
+[app-pt="144"] {
   padding-top: 144px;
 }
 
-[ui-pr="144"] {
+[app-pr="144"] {
   padding-right: 144px;
 }
 
-[ui-pb="144"] {
+[app-pb="144"] {
   padding-bottom: 144px;
 }
 
-[ui-pl="144"] {
+[app-pl="144"] {
   padding-left: 144px;
 }
 
-[ui-py="144"] {
+[app-py="144"] {
   padding-top: 144px;
   padding-bottom: 144px;
 }
 
-[ui-px="144"] {
+[app-px="144"] {
   padding-left: 144px;
   padding-right: 144px;
 }
 
-[ui-pa="148"] {
+[app-pa="148"] {
   padding: 148px;
 }
 
-[ui-pt="148"] {
+[app-pt="148"] {
   padding-top: 148px;
 }
 
-[ui-pr="148"] {
+[app-pr="148"] {
   padding-right: 148px;
 }
 
-[ui-pb="148"] {
+[app-pb="148"] {
   padding-bottom: 148px;
 }
 
-[ui-pl="148"] {
+[app-pl="148"] {
   padding-left: 148px;
 }
 
-[ui-py="148"] {
+[app-py="148"] {
   padding-top: 148px;
   padding-bottom: 148px;
 }
 
-[ui-px="148"] {
+[app-px="148"] {
   padding-left: 148px;
   padding-right: 148px;
 }
 
-[ui-pa="152"] {
+[app-pa="152"] {
   padding: 152px;
 }
 
-[ui-pt="152"] {
+[app-pt="152"] {
   padding-top: 152px;
 }
 
-[ui-pr="152"] {
+[app-pr="152"] {
   padding-right: 152px;
 }
 
-[ui-pb="152"] {
+[app-pb="152"] {
   padding-bottom: 152px;
 }
 
-[ui-pl="152"] {
+[app-pl="152"] {
   padding-left: 152px;
 }
 
-[ui-py="152"] {
+[app-py="152"] {
   padding-top: 152px;
   padding-bottom: 152px;
 }
 
-[ui-px="152"] {
+[app-px="152"] {
   padding-left: 152px;
   padding-right: 152px;
 }
 
-[ui-pa="156"] {
+[app-pa="156"] {
   padding: 156px;
 }
 
-[ui-pt="156"] {
+[app-pt="156"] {
   padding-top: 156px;
 }
 
-[ui-pr="156"] {
+[app-pr="156"] {
   padding-right: 156px;
 }
 
-[ui-pb="156"] {
+[app-pb="156"] {
   padding-bottom: 156px;
 }
 
-[ui-pl="156"] {
+[app-pl="156"] {
   padding-left: 156px;
 }
 
-[ui-py="156"] {
+[app-py="156"] {
   padding-top: 156px;
   padding-bottom: 156px;
 }
 
-[ui-px="156"] {
+[app-px="156"] {
   padding-left: 156px;
   padding-right: 156px;
 }
 
-[ui-pa="160"] {
+[app-pa="160"] {
   padding: 160px;
 }
 
-[ui-pt="160"] {
+[app-pt="160"] {
   padding-top: 160px;
 }
 
-[ui-pr="160"] {
+[app-pr="160"] {
   padding-right: 160px;
 }
 
-[ui-pb="160"] {
+[app-pb="160"] {
   padding-bottom: 160px;
 }
 
-[ui-pl="160"] {
+[app-pl="160"] {
   padding-left: 160px;
 }
 
-[ui-py="160"] {
+[app-py="160"] {
   padding-top: 160px;
   padding-bottom: 160px;
 }
 
-[ui-px="160"] {
+[app-px="160"] {
   padding-left: 160px;
   padding-right: 160px;
 }
 
-[ui-pa="164"] {
+[app-pa="164"] {
   padding: 164px;
 }
 
-[ui-pt="164"] {
+[app-pt="164"] {
   padding-top: 164px;
 }
 
-[ui-pr="164"] {
+[app-pr="164"] {
   padding-right: 164px;
 }
 
-[ui-pb="164"] {
+[app-pb="164"] {
   padding-bottom: 164px;
 }
 
-[ui-pl="164"] {
+[app-pl="164"] {
   padding-left: 164px;
 }
 
-[ui-py="164"] {
+[app-py="164"] {
   padding-top: 164px;
   padding-bottom: 164px;
 }
 
-[ui-px="164"] {
+[app-px="164"] {
   padding-left: 164px;
   padding-right: 164px;
 }
 
-[ui-pa="168"] {
+[app-pa="168"] {
   padding: 168px;
 }
 
-[ui-pt="168"] {
+[app-pt="168"] {
   padding-top: 168px;
 }
 
-[ui-pr="168"] {
+[app-pr="168"] {
   padding-right: 168px;
 }
 
-[ui-pb="168"] {
+[app-pb="168"] {
   padding-bottom: 168px;
 }
 
-[ui-pl="168"] {
+[app-pl="168"] {
   padding-left: 168px;
 }
 
-[ui-py="168"] {
+[app-py="168"] {
   padding-top: 168px;
   padding-bottom: 168px;
 }
 
-[ui-px="168"] {
+[app-px="168"] {
   padding-left: 168px;
   padding-right: 168px;
 }
 
-[ui-pa="172"] {
+[app-pa="172"] {
   padding: 172px;
 }
 
-[ui-pt="172"] {
+[app-pt="172"] {
   padding-top: 172px;
 }
 
-[ui-pr="172"] {
+[app-pr="172"] {
   padding-right: 172px;
 }
 
-[ui-pb="172"] {
+[app-pb="172"] {
   padding-bottom: 172px;
 }
 
-[ui-pl="172"] {
+[app-pl="172"] {
   padding-left: 172px;
 }
 
-[ui-py="172"] {
+[app-py="172"] {
   padding-top: 172px;
   padding-bottom: 172px;
 }
 
-[ui-px="172"] {
+[app-px="172"] {
   padding-left: 172px;
   padding-right: 172px;
 }
 
-[ui-pa="176"] {
+[app-pa="176"] {
   padding: 176px;
 }
 
-[ui-pt="176"] {
+[app-pt="176"] {
   padding-top: 176px;
 }
 
-[ui-pr="176"] {
+[app-pr="176"] {
   padding-right: 176px;
 }
 
-[ui-pb="176"] {
+[app-pb="176"] {
   padding-bottom: 176px;
 }
 
-[ui-pl="176"] {
+[app-pl="176"] {
   padding-left: 176px;
 }
 
-[ui-py="176"] {
+[app-py="176"] {
   padding-top: 176px;
   padding-bottom: 176px;
 }
 
-[ui-px="176"] {
+[app-px="176"] {
   padding-left: 176px;
   padding-right: 176px;
 }
 
-[ui-pa="180"] {
+[app-pa="180"] {
   padding: 180px;
 }
 
-[ui-pt="180"] {
+[app-pt="180"] {
   padding-top: 180px;
 }
 
-[ui-pr="180"] {
+[app-pr="180"] {
   padding-right: 180px;
 }
 
-[ui-pb="180"] {
+[app-pb="180"] {
   padding-bottom: 180px;
 }
 
-[ui-pl="180"] {
+[app-pl="180"] {
   padding-left: 180px;
 }
 
-[ui-py="180"] {
+[app-py="180"] {
   padding-top: 180px;
   padding-bottom: 180px;
 }
 
-[ui-px="180"] {
+[app-px="180"] {
   padding-left: 180px;
   padding-right: 180px;
 }
 
-[ui-pa="184"] {
+[app-pa="184"] {
   padding: 184px;
 }
 
-[ui-pt="184"] {
+[app-pt="184"] {
   padding-top: 184px;
 }
 
-[ui-pr="184"] {
+[app-pr="184"] {
   padding-right: 184px;
 }
 
-[ui-pb="184"] {
+[app-pb="184"] {
   padding-bottom: 184px;
 }
 
-[ui-pl="184"] {
+[app-pl="184"] {
   padding-left: 184px;
 }
 
-[ui-py="184"] {
+[app-py="184"] {
   padding-top: 184px;
   padding-bottom: 184px;
 }
 
-[ui-px="184"] {
+[app-px="184"] {
   padding-left: 184px;
   padding-right: 184px;
 }
 
-[ui-pa="188"] {
+[app-pa="188"] {
   padding: 188px;
 }
 
-[ui-pt="188"] {
+[app-pt="188"] {
   padding-top: 188px;
 }
 
-[ui-pr="188"] {
+[app-pr="188"] {
   padding-right: 188px;
 }
 
-[ui-pb="188"] {
+[app-pb="188"] {
   padding-bottom: 188px;
 }
 
-[ui-pl="188"] {
+[app-pl="188"] {
   padding-left: 188px;
 }
 
-[ui-py="188"] {
+[app-py="188"] {
   padding-top: 188px;
   padding-bottom: 188px;
 }
 
-[ui-px="188"] {
+[app-px="188"] {
   padding-left: 188px;
   padding-right: 188px;
 }
 
-[ui-pa="192"] {
+[app-pa="192"] {
   padding: 192px;
 }
 
-[ui-pt="192"] {
+[app-pt="192"] {
   padding-top: 192px;
 }
 
-[ui-pr="192"] {
+[app-pr="192"] {
   padding-right: 192px;
 }
 
-[ui-pb="192"] {
+[app-pb="192"] {
   padding-bottom: 192px;
 }
 
-[ui-pl="192"] {
+[app-pl="192"] {
   padding-left: 192px;
 }
 
-[ui-py="192"] {
+[app-py="192"] {
   padding-top: 192px;
   padding-bottom: 192px;
 }
 
-[ui-px="192"] {
+[app-px="192"] {
   padding-left: 192px;
   padding-right: 192px;
 }
 
-[ui-pa="196"] {
+[app-pa="196"] {
   padding: 196px;
 }
 
-[ui-pt="196"] {
+[app-pt="196"] {
   padding-top: 196px;
 }
 
-[ui-pr="196"] {
+[app-pr="196"] {
   padding-right: 196px;
 }
 
-[ui-pb="196"] {
+[app-pb="196"] {
   padding-bottom: 196px;
 }
 
-[ui-pl="196"] {
+[app-pl="196"] {
   padding-left: 196px;
 }
 
-[ui-py="196"] {
+[app-py="196"] {
   padding-top: 196px;
   padding-bottom: 196px;
 }
 
-[ui-px="196"] {
+[app-px="196"] {
   padding-left: 196px;
   padding-right: 196px;
 }
 
-[ui-pa="200"] {
+[app-pa="200"] {
   padding: 200px;
 }
 
-[ui-pt="200"] {
+[app-pt="200"] {
   padding-top: 200px;
 }
 
-[ui-pr="200"] {
+[app-pr="200"] {
   padding-right: 200px;
 }
 
-[ui-pb="200"] {
+[app-pb="200"] {
   padding-bottom: 200px;
 }
 
-[ui-pl="200"] {
+[app-pl="200"] {
   padding-left: 200px;
 }
 
-[ui-py="200"] {
+[app-py="200"] {
   padding-top: 200px;
   padding-bottom: 200px;
 }
 
-[ui-px="200"] {
+[app-px="200"] {
   padding-left: 200px;
   padding-right: 200px;
 }
 
-[ui-pa="204"] {
+[app-pa="204"] {
   padding: 204px;
 }
 
-[ui-pt="204"] {
+[app-pt="204"] {
   padding-top: 204px;
 }
 
-[ui-pr="204"] {
+[app-pr="204"] {
   padding-right: 204px;
 }
 
-[ui-pb="204"] {
+[app-pb="204"] {
   padding-bottom: 204px;
 }
 
-[ui-pl="204"] {
+[app-pl="204"] {
   padding-left: 204px;
 }
 
-[ui-py="204"] {
+[app-py="204"] {
   padding-top: 204px;
   padding-bottom: 204px;
 }
 
-[ui-px="204"] {
+[app-px="204"] {
   padding-left: 204px;
   padding-right: 204px;
 }
 
-[ui-pa="208"] {
+[app-pa="208"] {
   padding: 208px;
 }
 
-[ui-pt="208"] {
+[app-pt="208"] {
   padding-top: 208px;
 }
 
-[ui-pr="208"] {
+[app-pr="208"] {
   padding-right: 208px;
 }
 
-[ui-pb="208"] {
+[app-pb="208"] {
   padding-bottom: 208px;
 }
 
-[ui-pl="208"] {
+[app-pl="208"] {
   padding-left: 208px;
 }
 
-[ui-py="208"] {
+[app-py="208"] {
   padding-top: 208px;
   padding-bottom: 208px;
 }
 
-[ui-px="208"] {
+[app-px="208"] {
   padding-left: 208px;
   padding-right: 208px;
 }
 
-[ui-pa="212"] {
+[app-pa="212"] {
   padding: 212px;
 }
 
-[ui-pt="212"] {
+[app-pt="212"] {
   padding-top: 212px;
 }
 
-[ui-pr="212"] {
+[app-pr="212"] {
   padding-right: 212px;
 }
 
-[ui-pb="212"] {
+[app-pb="212"] {
   padding-bottom: 212px;
 }
 
-[ui-pl="212"] {
+[app-pl="212"] {
   padding-left: 212px;
 }
 
-[ui-py="212"] {
+[app-py="212"] {
   padding-top: 212px;
   padding-bottom: 212px;
 }
 
-[ui-px="212"] {
+[app-px="212"] {
   padding-left: 212px;
   padding-right: 212px;
 }
 
-[ui-pa="216"] {
+[app-pa="216"] {
   padding: 216px;
 }
 
-[ui-pt="216"] {
+[app-pt="216"] {
   padding-top: 216px;
 }
 
-[ui-pr="216"] {
+[app-pr="216"] {
   padding-right: 216px;
 }
 
-[ui-pb="216"] {
+[app-pb="216"] {
   padding-bottom: 216px;
 }
 
-[ui-pl="216"] {
+[app-pl="216"] {
   padding-left: 216px;
 }
 
-[ui-py="216"] {
+[app-py="216"] {
   padding-top: 216px;
   padding-bottom: 216px;
 }
 
-[ui-px="216"] {
+[app-px="216"] {
   padding-left: 216px;
   padding-right: 216px;
 }
 
-[ui-pa="220"] {
+[app-pa="220"] {
   padding: 220px;
 }
 
-[ui-pt="220"] {
+[app-pt="220"] {
   padding-top: 220px;
 }
 
-[ui-pr="220"] {
+[app-pr="220"] {
   padding-right: 220px;
 }
 
-[ui-pb="220"] {
+[app-pb="220"] {
   padding-bottom: 220px;
 }
 
-[ui-pl="220"] {
+[app-pl="220"] {
   padding-left: 220px;
 }
 
-[ui-py="220"] {
+[app-py="220"] {
   padding-top: 220px;
   padding-bottom: 220px;
 }
 
-[ui-px="220"] {
+[app-px="220"] {
   padding-left: 220px;
   padding-right: 220px;
 }
 
-[ui-pa="224"] {
+[app-pa="224"] {
   padding: 224px;
 }
 
-[ui-pt="224"] {
+[app-pt="224"] {
   padding-top: 224px;
 }
 
-[ui-pr="224"] {
+[app-pr="224"] {
   padding-right: 224px;
 }
 
-[ui-pb="224"] {
+[app-pb="224"] {
   padding-bottom: 224px;
 }
 
-[ui-pl="224"] {
+[app-pl="224"] {
   padding-left: 224px;
 }
 
-[ui-py="224"] {
+[app-py="224"] {
   padding-top: 224px;
   padding-bottom: 224px;
 }
 
-[ui-px="224"] {
+[app-px="224"] {
   padding-left: 224px;
   padding-right: 224px;
 }
 
-[ui-pa="228"] {
+[app-pa="228"] {
   padding: 228px;
 }
 
-[ui-pt="228"] {
+[app-pt="228"] {
   padding-top: 228px;
 }
 
-[ui-pr="228"] {
+[app-pr="228"] {
   padding-right: 228px;
 }
 
-[ui-pb="228"] {
+[app-pb="228"] {
   padding-bottom: 228px;
 }
 
-[ui-pl="228"] {
+[app-pl="228"] {
   padding-left: 228px;
 }
 
-[ui-py="228"] {
+[app-py="228"] {
   padding-top: 228px;
   padding-bottom: 228px;
 }
 
-[ui-px="228"] {
+[app-px="228"] {
   padding-left: 228px;
   padding-right: 228px;
 }
 
-[ui-pa="232"] {
+[app-pa="232"] {
   padding: 232px;
 }
 
-[ui-pt="232"] {
+[app-pt="232"] {
   padding-top: 232px;
 }
 
-[ui-pr="232"] {
+[app-pr="232"] {
   padding-right: 232px;
 }
 
-[ui-pb="232"] {
+[app-pb="232"] {
   padding-bottom: 232px;
 }
 
-[ui-pl="232"] {
+[app-pl="232"] {
   padding-left: 232px;
 }
 
-[ui-py="232"] {
+[app-py="232"] {
   padding-top: 232px;
   padding-bottom: 232px;
 }
 
-[ui-px="232"] {
+[app-px="232"] {
   padding-left: 232px;
   padding-right: 232px;
 }
 
-[ui-pa="236"] {
+[app-pa="236"] {
   padding: 236px;
 }
 
-[ui-pt="236"] {
+[app-pt="236"] {
   padding-top: 236px;
 }
 
-[ui-pr="236"] {
+[app-pr="236"] {
   padding-right: 236px;
 }
 
-[ui-pb="236"] {
+[app-pb="236"] {
   padding-bottom: 236px;
 }
 
-[ui-pl="236"] {
+[app-pl="236"] {
   padding-left: 236px;
 }
 
-[ui-py="236"] {
+[app-py="236"] {
   padding-top: 236px;
   padding-bottom: 236px;
 }
 
-[ui-px="236"] {
+[app-px="236"] {
   padding-left: 236px;
   padding-right: 236px;
 }
 
-[ui-pa="240"] {
+[app-pa="240"] {
   padding: 240px;
 }
 
-[ui-pt="240"] {
+[app-pt="240"] {
   padding-top: 240px;
 }
 
-[ui-pr="240"] {
+[app-pr="240"] {
   padding-right: 240px;
 }
 
-[ui-pb="240"] {
+[app-pb="240"] {
   padding-bottom: 240px;
 }
 
-[ui-pl="240"] {
+[app-pl="240"] {
   padding-left: 240px;
 }
 
-[ui-py="240"] {
+[app-py="240"] {
   padding-top: 240px;
   padding-bottom: 240px;
 }
 
-[ui-px="240"] {
+[app-px="240"] {
   padding-left: 240px;
   padding-right: 240px;
 }
 
-[ui-pa="244"] {
+[app-pa="244"] {
   padding: 244px;
 }
 
-[ui-pt="244"] {
+[app-pt="244"] {
   padding-top: 244px;
 }
 
-[ui-pr="244"] {
+[app-pr="244"] {
   padding-right: 244px;
 }
 
-[ui-pb="244"] {
+[app-pb="244"] {
   padding-bottom: 244px;
 }
 
-[ui-pl="244"] {
+[app-pl="244"] {
   padding-left: 244px;
 }
 
-[ui-py="244"] {
+[app-py="244"] {
   padding-top: 244px;
   padding-bottom: 244px;
 }
 
-[ui-px="244"] {
+[app-px="244"] {
   padding-left: 244px;
   padding-right: 244px;
 }
 
-[ui-pa="248"] {
+[app-pa="248"] {
   padding: 248px;
 }
 
-[ui-pt="248"] {
+[app-pt="248"] {
   padding-top: 248px;
 }
 
-[ui-pr="248"] {
+[app-pr="248"] {
   padding-right: 248px;
 }
 
-[ui-pb="248"] {
+[app-pb="248"] {
   padding-bottom: 248px;
 }
 
-[ui-pl="248"] {
+[app-pl="248"] {
   padding-left: 248px;
 }
 
-[ui-py="248"] {
+[app-py="248"] {
   padding-top: 248px;
   padding-bottom: 248px;
 }
 
-[ui-px="248"] {
+[app-px="248"] {
   padding-left: 248px;
   padding-right: 248px;
 }
 
-[ui-pa="252"] {
+[app-pa="252"] {
   padding: 252px;
 }
 
-[ui-pt="252"] {
+[app-pt="252"] {
   padding-top: 252px;
 }
 
-[ui-pr="252"] {
+[app-pr="252"] {
   padding-right: 252px;
 }
 
-[ui-pb="252"] {
+[app-pb="252"] {
   padding-bottom: 252px;
 }
 
-[ui-pl="252"] {
+[app-pl="252"] {
   padding-left: 252px;
 }
 
-[ui-py="252"] {
+[app-py="252"] {
   padding-top: 252px;
   padding-bottom: 252px;
 }
 
-[ui-px="252"] {
+[app-px="252"] {
   padding-left: 252px;
   padding-right: 252px;
 }
 
-[ui-pa="256"] {
+[app-pa="256"] {
   padding: 256px;
 }
 
-[ui-pt="256"] {
+[app-pt="256"] {
   padding-top: 256px;
 }
 
-[ui-pr="256"] {
+[app-pr="256"] {
   padding-right: 256px;
 }
 
-[ui-pb="256"] {
+[app-pb="256"] {
   padding-bottom: 256px;
 }
 
-[ui-pl="256"] {
+[app-pl="256"] {
   padding-left: 256px;
 }
 
-[ui-py="256"] {
+[app-py="256"] {
   padding-top: 256px;
   padding-bottom: 256px;
 }
 
-[ui-px="256"] {
+[app-px="256"] {
   padding-left: 256px;
   padding-right: 256px;
 }
 
-[ui-ma="0"] {
+[app-ma="0"] {
   margin: 0px;
 }
 
-[ui-mt="0"] {
+[app-mt="0"] {
   margin-top: 0px;
 }
 
-[ui-mr="0"] {
+[app-mr="0"] {
   margin-right: 0px;
 }
 
-[ui-mb="0"] {
+[app-mb="0"] {
   margin-bottom: 0px;
 }
 
-[ui-ml="0"] {
+[app-ml="0"] {
   margin-left: 0px;
 }
 
-[ui-my="0"] {
+[app-my="0"] {
   margin-top: 0px;
   margin-bottom: 0px;
 }
 
-[ui-mx="0"] {
+[app-mx="0"] {
   margin-right: 0px;
   margin-left: 0px;
 }
 
-[ui-ma="4"] {
+[app-ma="4"] {
   margin: 4px;
 }
 
-[ui-mt="4"] {
+[app-mt="4"] {
   margin-top: 4px;
 }
 
-[ui-mr="4"] {
+[app-mr="4"] {
   margin-right: 4px;
 }
 
-[ui-mb="4"] {
+[app-mb="4"] {
   margin-bottom: 4px;
 }
 
-[ui-ml="4"] {
+[app-ml="4"] {
   margin-left: 4px;
 }
 
-[ui-my="4"] {
+[app-my="4"] {
   margin-top: 4px;
   margin-bottom: 4px;
 }
 
-[ui-mx="4"] {
+[app-mx="4"] {
   margin-right: 4px;
   margin-left: 4px;
 }
 
-[ui-ma="8"] {
+[app-ma="8"] {
   margin: 8px;
 }
 
-[ui-mt="8"] {
+[app-mt="8"] {
   margin-top: 8px;
 }
 
-[ui-mr="8"] {
+[app-mr="8"] {
   margin-right: 8px;
 }
 
-[ui-mb="8"] {
+[app-mb="8"] {
   margin-bottom: 8px;
 }
 
-[ui-ml="8"] {
+[app-ml="8"] {
   margin-left: 8px;
 }
 
-[ui-my="8"] {
+[app-my="8"] {
   margin-top: 8px;
   margin-bottom: 8px;
 }
 
-[ui-mx="8"] {
+[app-mx="8"] {
   margin-right: 8px;
   margin-left: 8px;
 }
 
-[ui-ma="12"] {
+[app-ma="12"] {
   margin: 12px;
 }
 
-[ui-mt="12"] {
+[app-mt="12"] {
   margin-top: 12px;
 }
 
-[ui-mr="12"] {
+[app-mr="12"] {
   margin-right: 12px;
 }
 
-[ui-mb="12"] {
+[app-mb="12"] {
   margin-bottom: 12px;
 }
 
-[ui-ml="12"] {
+[app-ml="12"] {
   margin-left: 12px;
 }
 
-[ui-my="12"] {
+[app-my="12"] {
   margin-top: 12px;
   margin-bottom: 12px;
 }
 
-[ui-mx="12"] {
+[app-mx="12"] {
   margin-right: 12px;
   margin-left: 12px;
 }
 
-[ui-ma="16"] {
+[app-ma="16"] {
   margin: 16px;
 }
 
-[ui-mt="16"] {
+[app-mt="16"] {
   margin-top: 16px;
 }
 
-[ui-mr="16"] {
+[app-mr="16"] {
   margin-right: 16px;
 }
 
-[ui-mb="16"] {
+[app-mb="16"] {
   margin-bottom: 16px;
 }
 
-[ui-ml="16"] {
+[app-ml="16"] {
   margin-left: 16px;
 }
 
-[ui-my="16"] {
+[app-my="16"] {
   margin-top: 16px;
   margin-bottom: 16px;
 }
 
-[ui-mx="16"] {
+[app-mx="16"] {
   margin-right: 16px;
   margin-left: 16px;
 }
 
-[ui-ma="20"] {
+[app-ma="20"] {
   margin: 20px;
 }
 
-[ui-mt="20"] {
+[app-mt="20"] {
   margin-top: 20px;
 }
 
-[ui-mr="20"] {
+[app-mr="20"] {
   margin-right: 20px;
 }
 
-[ui-mb="20"] {
+[app-mb="20"] {
   margin-bottom: 20px;
 }
 
-[ui-ml="20"] {
+[app-ml="20"] {
   margin-left: 20px;
 }
 
-[ui-my="20"] {
+[app-my="20"] {
   margin-top: 20px;
   margin-bottom: 20px;
 }
 
-[ui-mx="20"] {
+[app-mx="20"] {
   margin-right: 20px;
   margin-left: 20px;
 }
 
-[ui-ma="24"] {
+[app-ma="24"] {
   margin: 24px;
 }
 
-[ui-mt="24"] {
+[app-mt="24"] {
   margin-top: 24px;
 }
 
-[ui-mr="24"] {
+[app-mr="24"] {
   margin-right: 24px;
 }
 
-[ui-mb="24"] {
+[app-mb="24"] {
   margin-bottom: 24px;
 }
 
-[ui-ml="24"] {
+[app-ml="24"] {
   margin-left: 24px;
 }
 
-[ui-my="24"] {
+[app-my="24"] {
   margin-top: 24px;
   margin-bottom: 24px;
 }
 
-[ui-mx="24"] {
+[app-mx="24"] {
   margin-right: 24px;
   margin-left: 24px;
 }
 
-[ui-ma="28"] {
+[app-ma="28"] {
   margin: 28px;
 }
 
-[ui-mt="28"] {
+[app-mt="28"] {
   margin-top: 28px;
 }
 
-[ui-mr="28"] {
+[app-mr="28"] {
   margin-right: 28px;
 }
 
-[ui-mb="28"] {
+[app-mb="28"] {
   margin-bottom: 28px;
 }
 
-[ui-ml="28"] {
+[app-ml="28"] {
   margin-left: 28px;
 }
 
-[ui-my="28"] {
+[app-my="28"] {
   margin-top: 28px;
   margin-bottom: 28px;
 }
 
-[ui-mx="28"] {
+[app-mx="28"] {
   margin-right: 28px;
   margin-left: 28px;
 }
 
-[ui-ma="32"] {
+[app-ma="32"] {
   margin: 32px;
 }
 
-[ui-mt="32"] {
+[app-mt="32"] {
   margin-top: 32px;
 }
 
-[ui-mr="32"] {
+[app-mr="32"] {
   margin-right: 32px;
 }
 
-[ui-mb="32"] {
+[app-mb="32"] {
   margin-bottom: 32px;
 }
 
-[ui-ml="32"] {
+[app-ml="32"] {
   margin-left: 32px;
 }
 
-[ui-my="32"] {
+[app-my="32"] {
   margin-top: 32px;
   margin-bottom: 32px;
 }
 
-[ui-mx="32"] {
+[app-mx="32"] {
   margin-right: 32px;
   margin-left: 32px;
 }
 
-[ui-ma="36"] {
+[app-ma="36"] {
   margin: 36px;
 }
 
-[ui-mt="36"] {
+[app-mt="36"] {
   margin-top: 36px;
 }
 
-[ui-mr="36"] {
+[app-mr="36"] {
   margin-right: 36px;
 }
 
-[ui-mb="36"] {
+[app-mb="36"] {
   margin-bottom: 36px;
 }
 
-[ui-ml="36"] {
+[app-ml="36"] {
   margin-left: 36px;
 }
 
-[ui-my="36"] {
+[app-my="36"] {
   margin-top: 36px;
   margin-bottom: 36px;
 }
 
-[ui-mx="36"] {
+[app-mx="36"] {
   margin-right: 36px;
   margin-left: 36px;
 }
 
-[ui-ma="40"] {
+[app-ma="40"] {
   margin: 40px;
 }
 
-[ui-mt="40"] {
+[app-mt="40"] {
   margin-top: 40px;
 }
 
-[ui-mr="40"] {
+[app-mr="40"] {
   margin-right: 40px;
 }
 
-[ui-mb="40"] {
+[app-mb="40"] {
   margin-bottom: 40px;
 }
 
-[ui-ml="40"] {
+[app-ml="40"] {
   margin-left: 40px;
 }
 
-[ui-my="40"] {
+[app-my="40"] {
   margin-top: 40px;
   margin-bottom: 40px;
 }
 
-[ui-mx="40"] {
+[app-mx="40"] {
   margin-right: 40px;
   margin-left: 40px;
 }
 
-[ui-ma="44"] {
+[app-ma="44"] {
   margin: 44px;
 }
 
-[ui-mt="44"] {
+[app-mt="44"] {
   margin-top: 44px;
 }
 
-[ui-mr="44"] {
+[app-mr="44"] {
   margin-right: 44px;
 }
 
-[ui-mb="44"] {
+[app-mb="44"] {
   margin-bottom: 44px;
 }
 
-[ui-ml="44"] {
+[app-ml="44"] {
   margin-left: 44px;
 }
 
-[ui-my="44"] {
+[app-my="44"] {
   margin-top: 44px;
   margin-bottom: 44px;
 }
 
-[ui-mx="44"] {
+[app-mx="44"] {
   margin-right: 44px;
   margin-left: 44px;
 }
 
-[ui-ma="48"] {
+[app-ma="48"] {
   margin: 48px;
 }
 
-[ui-mt="48"] {
+[app-mt="48"] {
   margin-top: 48px;
 }
 
-[ui-mr="48"] {
+[app-mr="48"] {
   margin-right: 48px;
 }
 
-[ui-mb="48"] {
+[app-mb="48"] {
   margin-bottom: 48px;
 }
 
-[ui-ml="48"] {
+[app-ml="48"] {
   margin-left: 48px;
 }
 
-[ui-my="48"] {
+[app-my="48"] {
   margin-top: 48px;
   margin-bottom: 48px;
 }
 
-[ui-mx="48"] {
+[app-mx="48"] {
   margin-right: 48px;
   margin-left: 48px;
 }
 
-[ui-ma="52"] {
+[app-ma="52"] {
   margin: 52px;
 }
 
-[ui-mt="52"] {
+[app-mt="52"] {
   margin-top: 52px;
 }
 
-[ui-mr="52"] {
+[app-mr="52"] {
   margin-right: 52px;
 }
 
-[ui-mb="52"] {
+[app-mb="52"] {
   margin-bottom: 52px;
 }
 
-[ui-ml="52"] {
+[app-ml="52"] {
   margin-left: 52px;
 }
 
-[ui-my="52"] {
+[app-my="52"] {
   margin-top: 52px;
   margin-bottom: 52px;
 }
 
-[ui-mx="52"] {
+[app-mx="52"] {
   margin-right: 52px;
   margin-left: 52px;
 }
 
-[ui-ma="56"] {
+[app-ma="56"] {
   margin: 56px;
 }
 
-[ui-mt="56"] {
+[app-mt="56"] {
   margin-top: 56px;
 }
 
-[ui-mr="56"] {
+[app-mr="56"] {
   margin-right: 56px;
 }
 
-[ui-mb="56"] {
+[app-mb="56"] {
   margin-bottom: 56px;
 }
 
-[ui-ml="56"] {
+[app-ml="56"] {
   margin-left: 56px;
 }
 
-[ui-my="56"] {
+[app-my="56"] {
   margin-top: 56px;
   margin-bottom: 56px;
 }
 
-[ui-mx="56"] {
+[app-mx="56"] {
   margin-right: 56px;
   margin-left: 56px;
 }
 
-[ui-ma="60"] {
+[app-ma="60"] {
   margin: 60px;
 }
 
-[ui-mt="60"] {
+[app-mt="60"] {
   margin-top: 60px;
 }
 
-[ui-mr="60"] {
+[app-mr="60"] {
   margin-right: 60px;
 }
 
-[ui-mb="60"] {
+[app-mb="60"] {
   margin-bottom: 60px;
 }
 
-[ui-ml="60"] {
+[app-ml="60"] {
   margin-left: 60px;
 }
 
-[ui-my="60"] {
+[app-my="60"] {
   margin-top: 60px;
   margin-bottom: 60px;
 }
 
-[ui-mx="60"] {
+[app-mx="60"] {
   margin-right: 60px;
   margin-left: 60px;
 }
 
-[ui-ma="64"] {
+[app-ma="64"] {
   margin: 64px;
 }
 
-[ui-mt="64"] {
+[app-mt="64"] {
   margin-top: 64px;
 }
 
-[ui-mr="64"] {
+[app-mr="64"] {
   margin-right: 64px;
 }
 
-[ui-mb="64"] {
+[app-mb="64"] {
   margin-bottom: 64px;
 }
 
-[ui-ml="64"] {
+[app-ml="64"] {
   margin-left: 64px;
 }
 
-[ui-my="64"] {
+[app-my="64"] {
   margin-top: 64px;
   margin-bottom: 64px;
 }
 
-[ui-mx="64"] {
+[app-mx="64"] {
   margin-right: 64px;
   margin-left: 64px;
 }
 
-[ui-ma="68"] {
+[app-ma="68"] {
   margin: 68px;
 }
 
-[ui-mt="68"] {
+[app-mt="68"] {
   margin-top: 68px;
 }
 
-[ui-mr="68"] {
+[app-mr="68"] {
   margin-right: 68px;
 }
 
-[ui-mb="68"] {
+[app-mb="68"] {
   margin-bottom: 68px;
 }
 
-[ui-ml="68"] {
+[app-ml="68"] {
   margin-left: 68px;
 }
 
-[ui-my="68"] {
+[app-my="68"] {
   margin-top: 68px;
   margin-bottom: 68px;
 }
 
-[ui-mx="68"] {
+[app-mx="68"] {
   margin-right: 68px;
   margin-left: 68px;
 }
 
-[ui-ma="72"] {
+[app-ma="72"] {
   margin: 72px;
 }
 
-[ui-mt="72"] {
+[app-mt="72"] {
   margin-top: 72px;
 }
 
-[ui-mr="72"] {
+[app-mr="72"] {
   margin-right: 72px;
 }
 
-[ui-mb="72"] {
+[app-mb="72"] {
   margin-bottom: 72px;
 }
 
-[ui-ml="72"] {
+[app-ml="72"] {
   margin-left: 72px;
 }
 
-[ui-my="72"] {
+[app-my="72"] {
   margin-top: 72px;
   margin-bottom: 72px;
 }
 
-[ui-mx="72"] {
+[app-mx="72"] {
   margin-right: 72px;
   margin-left: 72px;
 }
 
-[ui-ma="76"] {
+[app-ma="76"] {
   margin: 76px;
 }
 
-[ui-mt="76"] {
+[app-mt="76"] {
   margin-top: 76px;
 }
 
-[ui-mr="76"] {
+[app-mr="76"] {
   margin-right: 76px;
 }
 
-[ui-mb="76"] {
+[app-mb="76"] {
   margin-bottom: 76px;
 }
 
-[ui-ml="76"] {
+[app-ml="76"] {
   margin-left: 76px;
 }
 
-[ui-my="76"] {
+[app-my="76"] {
   margin-top: 76px;
   margin-bottom: 76px;
 }
 
-[ui-mx="76"] {
+[app-mx="76"] {
   margin-right: 76px;
   margin-left: 76px;
 }
 
-[ui-ma="80"] {
+[app-ma="80"] {
   margin: 80px;
 }
 
-[ui-mt="80"] {
+[app-mt="80"] {
   margin-top: 80px;
 }
 
-[ui-mr="80"] {
+[app-mr="80"] {
   margin-right: 80px;
 }
 
-[ui-mb="80"] {
+[app-mb="80"] {
   margin-bottom: 80px;
 }
 
-[ui-ml="80"] {
+[app-ml="80"] {
   margin-left: 80px;
 }
 
-[ui-my="80"] {
+[app-my="80"] {
   margin-top: 80px;
   margin-bottom: 80px;
 }
 
-[ui-mx="80"] {
+[app-mx="80"] {
   margin-right: 80px;
   margin-left: 80px;
 }
 
-[ui-ma="84"] {
+[app-ma="84"] {
   margin: 84px;
 }
 
-[ui-mt="84"] {
+[app-mt="84"] {
   margin-top: 84px;
 }
 
-[ui-mr="84"] {
+[app-mr="84"] {
   margin-right: 84px;
 }
 
-[ui-mb="84"] {
+[app-mb="84"] {
   margin-bottom: 84px;
 }
 
-[ui-ml="84"] {
+[app-ml="84"] {
   margin-left: 84px;
 }
 
-[ui-my="84"] {
+[app-my="84"] {
   margin-top: 84px;
   margin-bottom: 84px;
 }
 
-[ui-mx="84"] {
+[app-mx="84"] {
   margin-right: 84px;
   margin-left: 84px;
 }
 
-[ui-ma="88"] {
+[app-ma="88"] {
   margin: 88px;
 }
 
-[ui-mt="88"] {
+[app-mt="88"] {
   margin-top: 88px;
 }
 
-[ui-mr="88"] {
+[app-mr="88"] {
   margin-right: 88px;
 }
 
-[ui-mb="88"] {
+[app-mb="88"] {
   margin-bottom: 88px;
 }
 
-[ui-ml="88"] {
+[app-ml="88"] {
   margin-left: 88px;
 }
 
-[ui-my="88"] {
+[app-my="88"] {
   margin-top: 88px;
   margin-bottom: 88px;
 }
 
-[ui-mx="88"] {
+[app-mx="88"] {
   margin-right: 88px;
   margin-left: 88px;
 }
 
-[ui-ma="92"] {
+[app-ma="92"] {
   margin: 92px;
 }
 
-[ui-mt="92"] {
+[app-mt="92"] {
   margin-top: 92px;
 }
 
-[ui-mr="92"] {
+[app-mr="92"] {
   margin-right: 92px;
 }
 
-[ui-mb="92"] {
+[app-mb="92"] {
   margin-bottom: 92px;
 }
 
-[ui-ml="92"] {
+[app-ml="92"] {
   margin-left: 92px;
 }
 
-[ui-my="92"] {
+[app-my="92"] {
   margin-top: 92px;
   margin-bottom: 92px;
 }
 
-[ui-mx="92"] {
+[app-mx="92"] {
   margin-right: 92px;
   margin-left: 92px;
 }
 
-[ui-ma="96"] {
+[app-ma="96"] {
   margin: 96px;
 }
 
-[ui-mt="96"] {
+[app-mt="96"] {
   margin-top: 96px;
 }
 
-[ui-mr="96"] {
+[app-mr="96"] {
   margin-right: 96px;
 }
 
-[ui-mb="96"] {
+[app-mb="96"] {
   margin-bottom: 96px;
 }
 
-[ui-ml="96"] {
+[app-ml="96"] {
   margin-left: 96px;
 }
 
-[ui-my="96"] {
+[app-my="96"] {
   margin-top: 96px;
   margin-bottom: 96px;
 }
 
-[ui-mx="96"] {
+[app-mx="96"] {
   margin-right: 96px;
   margin-left: 96px;
 }
 
-[ui-ma="100"] {
+[app-ma="100"] {
   margin: 100px;
 }
 
-[ui-mt="100"] {
+[app-mt="100"] {
   margin-top: 100px;
 }
 
-[ui-mr="100"] {
+[app-mr="100"] {
   margin-right: 100px;
 }
 
-[ui-mb="100"] {
+[app-mb="100"] {
   margin-bottom: 100px;
 }
 
-[ui-ml="100"] {
+[app-ml="100"] {
   margin-left: 100px;
 }
 
-[ui-my="100"] {
+[app-my="100"] {
   margin-top: 100px;
   margin-bottom: 100px;
 }
 
-[ui-mx="100"] {
+[app-mx="100"] {
   margin-right: 100px;
   margin-left: 100px;
 }
 
-[ui-ma="104"] {
+[app-ma="104"] {
   margin: 104px;
 }
 
-[ui-mt="104"] {
+[app-mt="104"] {
   margin-top: 104px;
 }
 
-[ui-mr="104"] {
+[app-mr="104"] {
   margin-right: 104px;
 }
 
-[ui-mb="104"] {
+[app-mb="104"] {
   margin-bottom: 104px;
 }
 
-[ui-ml="104"] {
+[app-ml="104"] {
   margin-left: 104px;
 }
 
-[ui-my="104"] {
+[app-my="104"] {
   margin-top: 104px;
   margin-bottom: 104px;
 }
 
-[ui-mx="104"] {
+[app-mx="104"] {
   margin-right: 104px;
   margin-left: 104px;
 }
 
-[ui-ma="108"] {
+[app-ma="108"] {
   margin: 108px;
 }
 
-[ui-mt="108"] {
+[app-mt="108"] {
   margin-top: 108px;
 }
 
-[ui-mr="108"] {
+[app-mr="108"] {
   margin-right: 108px;
 }
 
-[ui-mb="108"] {
+[app-mb="108"] {
   margin-bottom: 108px;
 }
 
-[ui-ml="108"] {
+[app-ml="108"] {
   margin-left: 108px;
 }
 
-[ui-my="108"] {
+[app-my="108"] {
   margin-top: 108px;
   margin-bottom: 108px;
 }
 
-[ui-mx="108"] {
+[app-mx="108"] {
   margin-right: 108px;
   margin-left: 108px;
 }
 
-[ui-ma="112"] {
+[app-ma="112"] {
   margin: 112px;
 }
 
-[ui-mt="112"] {
+[app-mt="112"] {
   margin-top: 112px;
 }
 
-[ui-mr="112"] {
+[app-mr="112"] {
   margin-right: 112px;
 }
 
-[ui-mb="112"] {
+[app-mb="112"] {
   margin-bottom: 112px;
 }
 
-[ui-ml="112"] {
+[app-ml="112"] {
   margin-left: 112px;
 }
 
-[ui-my="112"] {
+[app-my="112"] {
   margin-top: 112px;
   margin-bottom: 112px;
 }
 
-[ui-mx="112"] {
+[app-mx="112"] {
   margin-right: 112px;
   margin-left: 112px;
 }
 
-[ui-ma="116"] {
+[app-ma="116"] {
   margin: 116px;
 }
 
-[ui-mt="116"] {
+[app-mt="116"] {
   margin-top: 116px;
 }
 
-[ui-mr="116"] {
+[app-mr="116"] {
   margin-right: 116px;
 }
 
-[ui-mb="116"] {
+[app-mb="116"] {
   margin-bottom: 116px;
 }
 
-[ui-ml="116"] {
+[app-ml="116"] {
   margin-left: 116px;
 }
 
-[ui-my="116"] {
+[app-my="116"] {
   margin-top: 116px;
   margin-bottom: 116px;
 }
 
-[ui-mx="116"] {
+[app-mx="116"] {
   margin-right: 116px;
   margin-left: 116px;
 }
 
-[ui-ma="120"] {
+[app-ma="120"] {
   margin: 120px;
 }
 
-[ui-mt="120"] {
+[app-mt="120"] {
   margin-top: 120px;
 }
 
-[ui-mr="120"] {
+[app-mr="120"] {
   margin-right: 120px;
 }
 
-[ui-mb="120"] {
+[app-mb="120"] {
   margin-bottom: 120px;
 }
 
-[ui-ml="120"] {
+[app-ml="120"] {
   margin-left: 120px;
 }
 
-[ui-my="120"] {
+[app-my="120"] {
   margin-top: 120px;
   margin-bottom: 120px;
 }
 
-[ui-mx="120"] {
+[app-mx="120"] {
   margin-right: 120px;
   margin-left: 120px;
 }
 
-[ui-ma="124"] {
+[app-ma="124"] {
   margin: 124px;
 }
 
-[ui-mt="124"] {
+[app-mt="124"] {
   margin-top: 124px;
 }
 
-[ui-mr="124"] {
+[app-mr="124"] {
   margin-right: 124px;
 }
 
-[ui-mb="124"] {
+[app-mb="124"] {
   margin-bottom: 124px;
 }
 
-[ui-ml="124"] {
+[app-ml="124"] {
   margin-left: 124px;
 }
 
-[ui-my="124"] {
+[app-my="124"] {
   margin-top: 124px;
   margin-bottom: 124px;
 }
 
-[ui-mx="124"] {
+[app-mx="124"] {
   margin-right: 124px;
   margin-left: 124px;
 }
 
-[ui-ma="128"] {
+[app-ma="128"] {
   margin: 128px;
 }
 
-[ui-mt="128"] {
+[app-mt="128"] {
   margin-top: 128px;
 }
 
-[ui-mr="128"] {
+[app-mr="128"] {
   margin-right: 128px;
 }
 
-[ui-mb="128"] {
+[app-mb="128"] {
   margin-bottom: 128px;
 }
 
-[ui-ml="128"] {
+[app-ml="128"] {
   margin-left: 128px;
 }
 
-[ui-my="128"] {
+[app-my="128"] {
   margin-top: 128px;
   margin-bottom: 128px;
 }
 
-[ui-mx="128"] {
+[app-mx="128"] {
   margin-right: 128px;
   margin-left: 128px;
 }
 
-[ui-ma="132"] {
+[app-ma="132"] {
   margin: 132px;
 }
 
-[ui-mt="132"] {
+[app-mt="132"] {
   margin-top: 132px;
 }
 
-[ui-mr="132"] {
+[app-mr="132"] {
   margin-right: 132px;
 }
 
-[ui-mb="132"] {
+[app-mb="132"] {
   margin-bottom: 132px;
 }
 
-[ui-ml="132"] {
+[app-ml="132"] {
   margin-left: 132px;
 }
 
-[ui-my="132"] {
+[app-my="132"] {
   margin-top: 132px;
   margin-bottom: 132px;
 }
 
-[ui-mx="132"] {
+[app-mx="132"] {
   margin-right: 132px;
   margin-left: 132px;
 }
 
-[ui-ma="136"] {
+[app-ma="136"] {
   margin: 136px;
 }
 
-[ui-mt="136"] {
+[app-mt="136"] {
   margin-top: 136px;
 }
 
-[ui-mr="136"] {
+[app-mr="136"] {
   margin-right: 136px;
 }
 
-[ui-mb="136"] {
+[app-mb="136"] {
   margin-bottom: 136px;
 }
 
-[ui-ml="136"] {
+[app-ml="136"] {
   margin-left: 136px;
 }
 
-[ui-my="136"] {
+[app-my="136"] {
   margin-top: 136px;
   margin-bottom: 136px;
 }
 
-[ui-mx="136"] {
+[app-mx="136"] {
   margin-right: 136px;
   margin-left: 136px;
 }
 
-[ui-ma="140"] {
+[app-ma="140"] {
   margin: 140px;
 }
 
-[ui-mt="140"] {
+[app-mt="140"] {
   margin-top: 140px;
 }
 
-[ui-mr="140"] {
+[app-mr="140"] {
   margin-right: 140px;
 }
 
-[ui-mb="140"] {
+[app-mb="140"] {
   margin-bottom: 140px;
 }
 
-[ui-ml="140"] {
+[app-ml="140"] {
   margin-left: 140px;
 }
 
-[ui-my="140"] {
+[app-my="140"] {
   margin-top: 140px;
   margin-bottom: 140px;
 }
 
-[ui-mx="140"] {
+[app-mx="140"] {
   margin-right: 140px;
   margin-left: 140px;
 }
 
-[ui-ma="144"] {
+[app-ma="144"] {
   margin: 144px;
 }
 
-[ui-mt="144"] {
+[app-mt="144"] {
   margin-top: 144px;
 }
 
-[ui-mr="144"] {
+[app-mr="144"] {
   margin-right: 144px;
 }
 
-[ui-mb="144"] {
+[app-mb="144"] {
   margin-bottom: 144px;
 }
 
-[ui-ml="144"] {
+[app-ml="144"] {
   margin-left: 144px;
 }
 
-[ui-my="144"] {
+[app-my="144"] {
   margin-top: 144px;
   margin-bottom: 144px;
 }
 
-[ui-mx="144"] {
+[app-mx="144"] {
   margin-right: 144px;
   margin-left: 144px;
 }
 
-[ui-ma="148"] {
+[app-ma="148"] {
   margin: 148px;
 }
 
-[ui-mt="148"] {
+[app-mt="148"] {
   margin-top: 148px;
 }
 
-[ui-mr="148"] {
+[app-mr="148"] {
   margin-right: 148px;
 }
 
-[ui-mb="148"] {
+[app-mb="148"] {
   margin-bottom: 148px;
 }
 
-[ui-ml="148"] {
+[app-ml="148"] {
   margin-left: 148px;
 }
 
-[ui-my="148"] {
+[app-my="148"] {
   margin-top: 148px;
   margin-bottom: 148px;
 }
 
-[ui-mx="148"] {
+[app-mx="148"] {
   margin-right: 148px;
   margin-left: 148px;
 }
 
-[ui-ma="152"] {
+[app-ma="152"] {
   margin: 152px;
 }
 
-[ui-mt="152"] {
+[app-mt="152"] {
   margin-top: 152px;
 }
 
-[ui-mr="152"] {
+[app-mr="152"] {
   margin-right: 152px;
 }
 
-[ui-mb="152"] {
+[app-mb="152"] {
   margin-bottom: 152px;
 }
 
-[ui-ml="152"] {
+[app-ml="152"] {
   margin-left: 152px;
 }
 
-[ui-my="152"] {
+[app-my="152"] {
   margin-top: 152px;
   margin-bottom: 152px;
 }
 
-[ui-mx="152"] {
+[app-mx="152"] {
   margin-right: 152px;
   margin-left: 152px;
 }
 
-[ui-ma="156"] {
+[app-ma="156"] {
   margin: 156px;
 }
 
-[ui-mt="156"] {
+[app-mt="156"] {
   margin-top: 156px;
 }
 
-[ui-mr="156"] {
+[app-mr="156"] {
   margin-right: 156px;
 }
 
-[ui-mb="156"] {
+[app-mb="156"] {
   margin-bottom: 156px;
 }
 
-[ui-ml="156"] {
+[app-ml="156"] {
   margin-left: 156px;
 }
 
-[ui-my="156"] {
+[app-my="156"] {
   margin-top: 156px;
   margin-bottom: 156px;
 }
 
-[ui-mx="156"] {
+[app-mx="156"] {
   margin-right: 156px;
   margin-left: 156px;
 }
 
-[ui-ma="160"] {
+[app-ma="160"] {
   margin: 160px;
 }
 
-[ui-mt="160"] {
+[app-mt="160"] {
   margin-top: 160px;
 }
 
-[ui-mr="160"] {
+[app-mr="160"] {
   margin-right: 160px;
 }
 
-[ui-mb="160"] {
+[app-mb="160"] {
   margin-bottom: 160px;
 }
 
-[ui-ml="160"] {
+[app-ml="160"] {
   margin-left: 160px;
 }
 
-[ui-my="160"] {
+[app-my="160"] {
   margin-top: 160px;
   margin-bottom: 160px;
 }
 
-[ui-mx="160"] {
+[app-mx="160"] {
   margin-right: 160px;
   margin-left: 160px;
 }
 
-[ui-ma="164"] {
+[app-ma="164"] {
   margin: 164px;
 }
 
-[ui-mt="164"] {
+[app-mt="164"] {
   margin-top: 164px;
 }
 
-[ui-mr="164"] {
+[app-mr="164"] {
   margin-right: 164px;
 }
 
-[ui-mb="164"] {
+[app-mb="164"] {
   margin-bottom: 164px;
 }
 
-[ui-ml="164"] {
+[app-ml="164"] {
   margin-left: 164px;
 }
 
-[ui-my="164"] {
+[app-my="164"] {
   margin-top: 164px;
   margin-bottom: 164px;
 }
 
-[ui-mx="164"] {
+[app-mx="164"] {
   margin-right: 164px;
   margin-left: 164px;
 }
 
-[ui-ma="168"] {
+[app-ma="168"] {
   margin: 168px;
 }
 
-[ui-mt="168"] {
+[app-mt="168"] {
   margin-top: 168px;
 }
 
-[ui-mr="168"] {
+[app-mr="168"] {
   margin-right: 168px;
 }
 
-[ui-mb="168"] {
+[app-mb="168"] {
   margin-bottom: 168px;
 }
 
-[ui-ml="168"] {
+[app-ml="168"] {
   margin-left: 168px;
 }
 
-[ui-my="168"] {
+[app-my="168"] {
   margin-top: 168px;
   margin-bottom: 168px;
 }
 
-[ui-mx="168"] {
+[app-mx="168"] {
   margin-right: 168px;
   margin-left: 168px;
 }
 
-[ui-ma="172"] {
+[app-ma="172"] {
   margin: 172px;
 }
 
-[ui-mt="172"] {
+[app-mt="172"] {
   margin-top: 172px;
 }
 
-[ui-mr="172"] {
+[app-mr="172"] {
   margin-right: 172px;
 }
 
-[ui-mb="172"] {
+[app-mb="172"] {
   margin-bottom: 172px;
 }
 
-[ui-ml="172"] {
+[app-ml="172"] {
   margin-left: 172px;
 }
 
-[ui-my="172"] {
+[app-my="172"] {
   margin-top: 172px;
   margin-bottom: 172px;
 }
 
-[ui-mx="172"] {
+[app-mx="172"] {
   margin-right: 172px;
   margin-left: 172px;
 }
 
-[ui-ma="176"] {
+[app-ma="176"] {
   margin: 176px;
 }
 
-[ui-mt="176"] {
+[app-mt="176"] {
   margin-top: 176px;
 }
 
-[ui-mr="176"] {
+[app-mr="176"] {
   margin-right: 176px;
 }
 
-[ui-mb="176"] {
+[app-mb="176"] {
   margin-bottom: 176px;
 }
 
-[ui-ml="176"] {
+[app-ml="176"] {
   margin-left: 176px;
 }
 
-[ui-my="176"] {
+[app-my="176"] {
   margin-top: 176px;
   margin-bottom: 176px;
 }
 
-[ui-mx="176"] {
+[app-mx="176"] {
   margin-right: 176px;
   margin-left: 176px;
 }
 
-[ui-ma="180"] {
+[app-ma="180"] {
   margin: 180px;
 }
 
-[ui-mt="180"] {
+[app-mt="180"] {
   margin-top: 180px;
 }
 
-[ui-mr="180"] {
+[app-mr="180"] {
   margin-right: 180px;
 }
 
-[ui-mb="180"] {
+[app-mb="180"] {
   margin-bottom: 180px;
 }
 
-[ui-ml="180"] {
+[app-ml="180"] {
   margin-left: 180px;
 }
 
-[ui-my="180"] {
+[app-my="180"] {
   margin-top: 180px;
   margin-bottom: 180px;
 }
 
-[ui-mx="180"] {
+[app-mx="180"] {
   margin-right: 180px;
   margin-left: 180px;
 }
 
-[ui-ma="184"] {
+[app-ma="184"] {
   margin: 184px;
 }
 
-[ui-mt="184"] {
+[app-mt="184"] {
   margin-top: 184px;
 }
 
-[ui-mr="184"] {
+[app-mr="184"] {
   margin-right: 184px;
 }
 
-[ui-mb="184"] {
+[app-mb="184"] {
   margin-bottom: 184px;
 }
 
-[ui-ml="184"] {
+[app-ml="184"] {
   margin-left: 184px;
 }
 
-[ui-my="184"] {
+[app-my="184"] {
   margin-top: 184px;
   margin-bottom: 184px;
 }
 
-[ui-mx="184"] {
+[app-mx="184"] {
   margin-right: 184px;
   margin-left: 184px;
 }
 
-[ui-ma="188"] {
+[app-ma="188"] {
   margin: 188px;
 }
 
-[ui-mt="188"] {
+[app-mt="188"] {
   margin-top: 188px;
 }
 
-[ui-mr="188"] {
+[app-mr="188"] {
   margin-right: 188px;
 }
 
-[ui-mb="188"] {
+[app-mb="188"] {
   margin-bottom: 188px;
 }
 
-[ui-ml="188"] {
+[app-ml="188"] {
   margin-left: 188px;
 }
 
-[ui-my="188"] {
+[app-my="188"] {
   margin-top: 188px;
   margin-bottom: 188px;
 }
 
-[ui-mx="188"] {
+[app-mx="188"] {
   margin-right: 188px;
   margin-left: 188px;
 }
 
-[ui-ma="192"] {
+[app-ma="192"] {
   margin: 192px;
 }
 
-[ui-mt="192"] {
+[app-mt="192"] {
   margin-top: 192px;
 }
 
-[ui-mr="192"] {
+[app-mr="192"] {
   margin-right: 192px;
 }
 
-[ui-mb="192"] {
+[app-mb="192"] {
   margin-bottom: 192px;
 }
 
-[ui-ml="192"] {
+[app-ml="192"] {
   margin-left: 192px;
 }
 
-[ui-my="192"] {
+[app-my="192"] {
   margin-top: 192px;
   margin-bottom: 192px;
 }
 
-[ui-mx="192"] {
+[app-mx="192"] {
   margin-right: 192px;
   margin-left: 192px;
 }
 
-[ui-ma="196"] {
+[app-ma="196"] {
   margin: 196px;
 }
 
-[ui-mt="196"] {
+[app-mt="196"] {
   margin-top: 196px;
 }
 
-[ui-mr="196"] {
+[app-mr="196"] {
   margin-right: 196px;
 }
 
-[ui-mb="196"] {
+[app-mb="196"] {
   margin-bottom: 196px;
 }
 
-[ui-ml="196"] {
+[app-ml="196"] {
   margin-left: 196px;
 }
 
-[ui-my="196"] {
+[app-my="196"] {
   margin-top: 196px;
   margin-bottom: 196px;
 }
 
-[ui-mx="196"] {
+[app-mx="196"] {
   margin-right: 196px;
   margin-left: 196px;
 }
 
-[ui-ma="200"] {
+[app-ma="200"] {
   margin: 200px;
 }
 
-[ui-mt="200"] {
+[app-mt="200"] {
   margin-top: 200px;
 }
 
-[ui-mr="200"] {
+[app-mr="200"] {
   margin-right: 200px;
 }
 
-[ui-mb="200"] {
+[app-mb="200"] {
   margin-bottom: 200px;
 }
 
-[ui-ml="200"] {
+[app-ml="200"] {
   margin-left: 200px;
 }
 
-[ui-my="200"] {
+[app-my="200"] {
   margin-top: 200px;
   margin-bottom: 200px;
 }
 
-[ui-mx="200"] {
+[app-mx="200"] {
   margin-right: 200px;
   margin-left: 200px;
 }
 
-[ui-ma="204"] {
+[app-ma="204"] {
   margin: 204px;
 }
 
-[ui-mt="204"] {
+[app-mt="204"] {
   margin-top: 204px;
 }
 
-[ui-mr="204"] {
+[app-mr="204"] {
   margin-right: 204px;
 }
 
-[ui-mb="204"] {
+[app-mb="204"] {
   margin-bottom: 204px;
 }
 
-[ui-ml="204"] {
+[app-ml="204"] {
   margin-left: 204px;
 }
 
-[ui-my="204"] {
+[app-my="204"] {
   margin-top: 204px;
   margin-bottom: 204px;
 }
 
-[ui-mx="204"] {
+[app-mx="204"] {
   margin-right: 204px;
   margin-left: 204px;
 }
 
-[ui-ma="208"] {
+[app-ma="208"] {
   margin: 208px;
 }
 
-[ui-mt="208"] {
+[app-mt="208"] {
   margin-top: 208px;
 }
 
-[ui-mr="208"] {
+[app-mr="208"] {
   margin-right: 208px;
 }
 
-[ui-mb="208"] {
+[app-mb="208"] {
   margin-bottom: 208px;
 }
 
-[ui-ml="208"] {
+[app-ml="208"] {
   margin-left: 208px;
 }
 
-[ui-my="208"] {
+[app-my="208"] {
   margin-top: 208px;
   margin-bottom: 208px;
 }
 
-[ui-mx="208"] {
+[app-mx="208"] {
   margin-right: 208px;
   margin-left: 208px;
 }
 
-[ui-ma="212"] {
+[app-ma="212"] {
   margin: 212px;
 }
 
-[ui-mt="212"] {
+[app-mt="212"] {
   margin-top: 212px;
 }
 
-[ui-mr="212"] {
+[app-mr="212"] {
   margin-right: 212px;
 }
 
-[ui-mb="212"] {
+[app-mb="212"] {
   margin-bottom: 212px;
 }
 
-[ui-ml="212"] {
+[app-ml="212"] {
   margin-left: 212px;
 }
 
-[ui-my="212"] {
+[app-my="212"] {
   margin-top: 212px;
   margin-bottom: 212px;
 }
 
-[ui-mx="212"] {
+[app-mx="212"] {
   margin-right: 212px;
   margin-left: 212px;
 }
 
-[ui-ma="216"] {
+[app-ma="216"] {
   margin: 216px;
 }
 
-[ui-mt="216"] {
+[app-mt="216"] {
   margin-top: 216px;
 }
 
-[ui-mr="216"] {
+[app-mr="216"] {
   margin-right: 216px;
 }
 
-[ui-mb="216"] {
+[app-mb="216"] {
   margin-bottom: 216px;
 }
 
-[ui-ml="216"] {
+[app-ml="216"] {
   margin-left: 216px;
 }
 
-[ui-my="216"] {
+[app-my="216"] {
   margin-top: 216px;
   margin-bottom: 216px;
 }
 
-[ui-mx="216"] {
+[app-mx="216"] {
   margin-right: 216px;
   margin-left: 216px;
 }
 
-[ui-ma="220"] {
+[app-ma="220"] {
   margin: 220px;
 }
 
-[ui-mt="220"] {
+[app-mt="220"] {
   margin-top: 220px;
 }
 
-[ui-mr="220"] {
+[app-mr="220"] {
   margin-right: 220px;
 }
 
-[ui-mb="220"] {
+[app-mb="220"] {
   margin-bottom: 220px;
 }
 
-[ui-ml="220"] {
+[app-ml="220"] {
   margin-left: 220px;
 }
 
-[ui-my="220"] {
+[app-my="220"] {
   margin-top: 220px;
   margin-bottom: 220px;
 }
 
-[ui-mx="220"] {
+[app-mx="220"] {
   margin-right: 220px;
   margin-left: 220px;
 }
 
-[ui-ma="224"] {
+[app-ma="224"] {
   margin: 224px;
 }
 
-[ui-mt="224"] {
+[app-mt="224"] {
   margin-top: 224px;
 }
 
-[ui-mr="224"] {
+[app-mr="224"] {
   margin-right: 224px;
 }
 
-[ui-mb="224"] {
+[app-mb="224"] {
   margin-bottom: 224px;
 }
 
-[ui-ml="224"] {
+[app-ml="224"] {
   margin-left: 224px;
 }
 
-[ui-my="224"] {
+[app-my="224"] {
   margin-top: 224px;
   margin-bottom: 224px;
 }
 
-[ui-mx="224"] {
+[app-mx="224"] {
   margin-right: 224px;
   margin-left: 224px;
 }
 
-[ui-ma="228"] {
+[app-ma="228"] {
   margin: 228px;
 }
 
-[ui-mt="228"] {
+[app-mt="228"] {
   margin-top: 228px;
 }
 
-[ui-mr="228"] {
+[app-mr="228"] {
   margin-right: 228px;
 }
 
-[ui-mb="228"] {
+[app-mb="228"] {
   margin-bottom: 228px;
 }
 
-[ui-ml="228"] {
+[app-ml="228"] {
   margin-left: 228px;
 }
 
-[ui-my="228"] {
+[app-my="228"] {
   margin-top: 228px;
   margin-bottom: 228px;
 }
 
-[ui-mx="228"] {
+[app-mx="228"] {
   margin-right: 228px;
   margin-left: 228px;
 }
 
-[ui-ma="232"] {
+[app-ma="232"] {
   margin: 232px;
 }
 
-[ui-mt="232"] {
+[app-mt="232"] {
   margin-top: 232px;
 }
 
-[ui-mr="232"] {
+[app-mr="232"] {
   margin-right: 232px;
 }
 
-[ui-mb="232"] {
+[app-mb="232"] {
   margin-bottom: 232px;
 }
 
-[ui-ml="232"] {
+[app-ml="232"] {
   margin-left: 232px;
 }
 
-[ui-my="232"] {
+[app-my="232"] {
   margin-top: 232px;
   margin-bottom: 232px;
 }
 
-[ui-mx="232"] {
+[app-mx="232"] {
   margin-right: 232px;
   margin-left: 232px;
 }
 
-[ui-ma="236"] {
+[app-ma="236"] {
   margin: 236px;
 }
 
-[ui-mt="236"] {
+[app-mt="236"] {
   margin-top: 236px;
 }
 
-[ui-mr="236"] {
+[app-mr="236"] {
   margin-right: 236px;
 }
 
-[ui-mb="236"] {
+[app-mb="236"] {
   margin-bottom: 236px;
 }
 
-[ui-ml="236"] {
+[app-ml="236"] {
   margin-left: 236px;
 }
 
-[ui-my="236"] {
+[app-my="236"] {
   margin-top: 236px;
   margin-bottom: 236px;
 }
 
-[ui-mx="236"] {
+[app-mx="236"] {
   margin-right: 236px;
   margin-left: 236px;
 }
 
-[ui-ma="240"] {
+[app-ma="240"] {
   margin: 240px;
 }
 
-[ui-mt="240"] {
+[app-mt="240"] {
   margin-top: 240px;
 }
 
-[ui-mr="240"] {
+[app-mr="240"] {
   margin-right: 240px;
 }
 
-[ui-mb="240"] {
+[app-mb="240"] {
   margin-bottom: 240px;
 }
 
-[ui-ml="240"] {
+[app-ml="240"] {
   margin-left: 240px;
 }
 
-[ui-my="240"] {
+[app-my="240"] {
   margin-top: 240px;
   margin-bottom: 240px;
 }
 
-[ui-mx="240"] {
+[app-mx="240"] {
   margin-right: 240px;
   margin-left: 240px;
 }
 
-[ui-ma="244"] {
+[app-ma="244"] {
   margin: 244px;
 }
 
-[ui-mt="244"] {
+[app-mt="244"] {
   margin-top: 244px;
 }
 
-[ui-mr="244"] {
+[app-mr="244"] {
   margin-right: 244px;
 }
 
-[ui-mb="244"] {
+[app-mb="244"] {
   margin-bottom: 244px;
 }
 
-[ui-ml="244"] {
+[app-ml="244"] {
   margin-left: 244px;
 }
 
-[ui-my="244"] {
+[app-my="244"] {
   margin-top: 244px;
   margin-bottom: 244px;
 }
 
-[ui-mx="244"] {
+[app-mx="244"] {
   margin-right: 244px;
   margin-left: 244px;
 }
 
-[ui-ma="248"] {
+[app-ma="248"] {
   margin: 248px;
 }
 
-[ui-mt="248"] {
+[app-mt="248"] {
   margin-top: 248px;
 }
 
-[ui-mr="248"] {
+[app-mr="248"] {
   margin-right: 248px;
 }
 
-[ui-mb="248"] {
+[app-mb="248"] {
   margin-bottom: 248px;
 }
 
-[ui-ml="248"] {
+[app-ml="248"] {
   margin-left: 248px;
 }
 
-[ui-my="248"] {
+[app-my="248"] {
   margin-top: 248px;
   margin-bottom: 248px;
 }
 
-[ui-mx="248"] {
+[app-mx="248"] {
   margin-right: 248px;
   margin-left: 248px;
 }
 
-[ui-ma="252"] {
+[app-ma="252"] {
   margin: 252px;
 }
 
-[ui-mt="252"] {
+[app-mt="252"] {
   margin-top: 252px;
 }
 
-[ui-mr="252"] {
+[app-mr="252"] {
   margin-right: 252px;
 }
 
-[ui-mb="252"] {
+[app-mb="252"] {
   margin-bottom: 252px;
 }
 
-[ui-ml="252"] {
+[app-ml="252"] {
   margin-left: 252px;
 }
 
-[ui-my="252"] {
+[app-my="252"] {
   margin-top: 252px;
   margin-bottom: 252px;
 }
 
-[ui-mx="252"] {
+[app-mx="252"] {
   margin-right: 252px;
   margin-left: 252px;
 }
 
-[ui-ma="256"] {
+[app-ma="256"] {
   margin: 256px;
 }
 
-[ui-mt="256"] {
+[app-mt="256"] {
   margin-top: 256px;
 }
 
-[ui-mr="256"] {
+[app-mr="256"] {
   margin-right: 256px;
 }
 
-[ui-mb="256"] {
+[app-mb="256"] {
   margin-bottom: 256px;
 }
 
-[ui-ml="256"] {
+[app-ml="256"] {
   margin-left: 256px;
 }
 
-[ui-my="256"] {
+[app-my="256"] {
   margin-top: 256px;
   margin-bottom: 256px;
 }
 
-[ui-mx="256"] {
+[app-mx="256"] {
   margin-right: 256px;
   margin-left: 256px;
 }
 
 @media only screen and (min-width: 0px) {
   /* START */
-  [ui-col-xs='1-2'] {
-    -ms-grid-column: 1;
-    -ms-grid-column-span: 1;
+  [app-col-xs="1-2"] {
     grid-column: 1/2;
   }
-  [ui-col-xs='1-3'] {
-    -ms-grid-column: 1;
-    -ms-grid-column-span: 2;
+  [app-col-xs="1-3"] {
     grid-column: 1/3;
   }
-  [ui-col-xs='1-4'] {
-    -ms-grid-column: 1;
-    -ms-grid-column-span: 3;
+  [app-col-xs="1-4"] {
     grid-column: 1/4;
   }
-  [ui-col-xs='1-5'] {
-    -ms-grid-column: 1;
-    -ms-grid-column-span: 4;
+  [app-col-xs="1-5"] {
     grid-column: 1/5;
   }
-  [ui-col-xs='1-6'] {
-    -ms-grid-column: 1;
-    -ms-grid-column-span: 5;
+  [app-col-xs="1-6"] {
     grid-column: 1/6;
   }
-  [ui-col-xs='1-7'] {
-    -ms-grid-column: 1;
-    -ms-grid-column-span: 6;
+  [app-col-xs="1-7"] {
     grid-column: 1/7;
   }
-  [ui-col-xs='1-8'] {
-    -ms-grid-column: 1;
-    -ms-grid-column-span: 7;
+  [app-col-xs="1-8"] {
     grid-column: 1/8;
   }
-  [ui-col-xs='1-9'] {
-    -ms-grid-column: 1;
-    -ms-grid-column-span: 8;
+  [app-col-xs="1-9"] {
     grid-column: 1/9;
   }
-  [ui-col-xs='1-10'] {
-    -ms-grid-column: 1;
-    -ms-grid-column-span: 9;
+  [app-col-xs="1-10"] {
     grid-column: 1/10;
   }
-  [ui-col-xs='1-11'] {
-    -ms-grid-column: 1;
-    -ms-grid-column-span: 10;
+  [app-col-xs="1-11"] {
     grid-column: 1/11;
   }
-  [ui-col-xs='1-12'] {
-    -ms-grid-column: 1;
-    -ms-grid-column-span: 11;
+  [app-col-xs="1-12"] {
     grid-column: 1/12;
   }
-  [ui-col-xs='1-13'] {
-    -ms-grid-column: 1;
-    -ms-grid-column-span: 12;
+  [app-col-xs="1-13"] {
     grid-column: 1/13;
   }
-  [ui-col-xs='1-14'] {
-    -ms-grid-column: 1;
-    -ms-grid-column-span: 13;
+  [app-col-xs="1-14"] {
     grid-column: 1/14;
   }
-  [ui-col-xs='1-15'] {
-    -ms-grid-column: 1;
-    -ms-grid-column-span: 14;
+  [app-col-xs="1-15"] {
     grid-column: 1/15;
   }
-  [ui-col-xs='2-3'] {
-    -ms-grid-column: 2;
-    -ms-grid-column-span: 1;
+  [app-col-xs="2-3"] {
     grid-column: 2/3;
   }
-  [ui-col-xs='2-4'] {
-    -ms-grid-column: 2;
-    -ms-grid-column-span: 2;
+  [app-col-xs="2-4"] {
     grid-column: 2/4;
   }
-  [ui-col-xs='2-5'] {
-    -ms-grid-column: 2;
-    -ms-grid-column-span: 3;
+  [app-col-xs="2-5"] {
     grid-column: 2/5;
   }
-  [ui-col-xs='2-6'] {
-    -ms-grid-column: 2;
-    -ms-grid-column-span: 4;
+  [app-col-xs="2-6"] {
     grid-column: 2/6;
   }
-  [ui-col-xs='2-7'] {
-    -ms-grid-column: 2;
-    -ms-grid-column-span: 5;
+  [app-col-xs="2-7"] {
     grid-column: 2/7;
   }
-  [ui-col-xs='2-8'] {
-    -ms-grid-column: 2;
-    -ms-grid-column-span: 6;
+  [app-col-xs="2-8"] {
     grid-column: 2/8;
   }
-  [ui-col-xs='2-9'] {
-    -ms-grid-column: 2;
-    -ms-grid-column-span: 7;
+  [app-col-xs="2-9"] {
     grid-column: 2/9;
   }
-  [ui-col-xs='2-10'] {
-    -ms-grid-column: 2;
-    -ms-grid-column-span: 8;
+  [app-col-xs="2-10"] {
     grid-column: 2/10;
   }
-  [ui-col-xs='2-11'] {
-    -ms-grid-column: 2;
-    -ms-grid-column-span: 9;
+  [app-col-xs="2-11"] {
     grid-column: 2/11;
   }
-  [ui-col-xs='2-12'] {
-    -ms-grid-column: 2;
-    -ms-grid-column-span: 10;
+  [app-col-xs="2-12"] {
     grid-column: 2/12;
   }
-  [ui-col-xs='2-13'] {
-    -ms-grid-column: 2;
-    -ms-grid-column-span: 11;
+  [app-col-xs="2-13"] {
     grid-column: 2/13;
   }
-  [ui-col-xs='2-14'] {
-    -ms-grid-column: 2;
-    -ms-grid-column-span: 12;
+  [app-col-xs="2-14"] {
     grid-column: 2/14;
   }
-  [ui-col-xs='2-15'] {
-    -ms-grid-column: 2;
-    -ms-grid-column-span: 13;
+  [app-col-xs="2-15"] {
     grid-column: 2/15;
   }
-  [ui-col-xs='3-4'] {
-    -ms-grid-column: 3;
-    -ms-grid-column-span: 1;
+  [app-col-xs="3-4"] {
     grid-column: 3/4;
   }
-  [ui-col-xs='3-5'] {
-    -ms-grid-column: 3;
-    -ms-grid-column-span: 2;
+  [app-col-xs="3-5"] {
     grid-column: 3/5;
   }
-  [ui-col-xs='3-6'] {
-    -ms-grid-column: 3;
-    -ms-grid-column-span: 3;
+  [app-col-xs="3-6"] {
     grid-column: 3/6;
   }
-  [ui-col-xs='3-7'] {
-    -ms-grid-column: 3;
-    -ms-grid-column-span: 4;
+  [app-col-xs="3-7"] {
     grid-column: 3/7;
   }
-  [ui-col-xs='3-8'] {
-    -ms-grid-column: 3;
-    -ms-grid-column-span: 5;
+  [app-col-xs="3-8"] {
     grid-column: 3/8;
   }
-  [ui-col-xs='3-9'] {
-    -ms-grid-column: 3;
-    -ms-grid-column-span: 6;
+  [app-col-xs="3-9"] {
     grid-column: 3/9;
   }
-  [ui-col-xs='3-10'] {
-    -ms-grid-column: 3;
-    -ms-grid-column-span: 7;
+  [app-col-xs="3-10"] {
     grid-column: 3/10;
   }
-  [ui-col-xs='3-11'] {
-    -ms-grid-column: 3;
-    -ms-grid-column-span: 8;
+  [app-col-xs="3-11"] {
     grid-column: 3/11;
   }
-  [ui-col-xs='3-12'] {
-    -ms-grid-column: 3;
-    -ms-grid-column-span: 9;
+  [app-col-xs="3-12"] {
     grid-column: 3/12;
   }
-  [ui-col-xs='3-13'] {
-    -ms-grid-column: 3;
-    -ms-grid-column-span: 10;
+  [app-col-xs="3-13"] {
     grid-column: 3/13;
   }
-  [ui-col-xs='3-14'] {
-    -ms-grid-column: 3;
-    -ms-grid-column-span: 11;
+  [app-col-xs="3-14"] {
     grid-column: 3/14;
   }
-  [ui-col-xs='3-15'] {
-    -ms-grid-column: 3;
-    -ms-grid-column-span: 12;
+  [app-col-xs="3-15"] {
     grid-column: 3/15;
   }
-  [ui-col-xs='4-5'] {
-    -ms-grid-column: 4;
-    -ms-grid-column-span: 1;
+  [app-col-xs="4-5"] {
     grid-column: 4/5;
   }
-  [ui-col-xs='4-6'] {
-    -ms-grid-column: 4;
-    -ms-grid-column-span: 2;
+  [app-col-xs="4-6"] {
     grid-column: 4/6;
   }
-  [ui-col-xs='4-7'] {
-    -ms-grid-column: 4;
-    -ms-grid-column-span: 3;
+  [app-col-xs="4-7"] {
     grid-column: 4/7;
   }
-  [ui-col-xs='4-8'] {
-    -ms-grid-column: 4;
-    -ms-grid-column-span: 4;
+  [app-col-xs="4-8"] {
     grid-column: 4/8;
   }
-  [ui-col-xs='4-9'] {
-    -ms-grid-column: 4;
-    -ms-grid-column-span: 5;
+  [app-col-xs="4-9"] {
     grid-column: 4/9;
   }
-  [ui-col-xs='4-10'] {
-    -ms-grid-column: 4;
-    -ms-grid-column-span: 6;
+  [app-col-xs="4-10"] {
     grid-column: 4/10;
   }
-  [ui-col-xs='4-11'] {
-    -ms-grid-column: 4;
-    -ms-grid-column-span: 7;
+  [app-col-xs="4-11"] {
     grid-column: 4/11;
   }
-  [ui-col-xs='4-12'] {
-    -ms-grid-column: 4;
-    -ms-grid-column-span: 8;
+  [app-col-xs="4-12"] {
     grid-column: 4/12;
   }
-  [ui-col-xs='4-13'] {
-    -ms-grid-column: 4;
-    -ms-grid-column-span: 9;
+  [app-col-xs="4-13"] {
     grid-column: 4/13;
   }
-  [ui-col-xs='4-14'] {
-    -ms-grid-column: 4;
-    -ms-grid-column-span: 10;
+  [app-col-xs="4-14"] {
     grid-column: 4/14;
   }
-  [ui-col-xs='4-15'] {
-    -ms-grid-column: 4;
-    -ms-grid-column-span: 11;
+  [app-col-xs="4-15"] {
     grid-column: 4/15;
   }
-  [ui-col-xs='5-6'] {
-    -ms-grid-column: 5;
-    -ms-grid-column-span: 1;
+  [app-col-xs="5-6"] {
     grid-column: 5/6;
   }
-  [ui-col-xs='5-7'] {
-    -ms-grid-column: 5;
-    -ms-grid-column-span: 2;
+  [app-col-xs="5-7"] {
     grid-column: 5/7;
   }
-  [ui-col-xs='5-8'] {
-    -ms-grid-column: 5;
-    -ms-grid-column-span: 3;
+  [app-col-xs="5-8"] {
     grid-column: 5/8;
   }
-  [ui-col-xs='5-9'] {
-    -ms-grid-column: 5;
-    -ms-grid-column-span: 4;
+  [app-col-xs="5-9"] {
     grid-column: 5/9;
   }
-  [ui-col-xs='5-10'] {
-    -ms-grid-column: 5;
-    -ms-grid-column-span: 5;
+  [app-col-xs="5-10"] {
     grid-column: 5/10;
   }
-  [ui-col-xs='5-11'] {
-    -ms-grid-column: 5;
-    -ms-grid-column-span: 6;
+  [app-col-xs="5-11"] {
     grid-column: 5/11;
   }
-  [ui-col-xs='5-12'] {
-    -ms-grid-column: 5;
-    -ms-grid-column-span: 7;
+  [app-col-xs="5-12"] {
     grid-column: 5/12;
   }
-  [ui-col-xs='5-13'] {
-    -ms-grid-column: 5;
-    -ms-grid-column-span: 8;
+  [app-col-xs="5-13"] {
     grid-column: 5/13;
   }
-  [ui-col-xs='5-14'] {
-    -ms-grid-column: 5;
-    -ms-grid-column-span: 9;
+  [app-col-xs="5-14"] {
     grid-column: 5/14;
   }
-  [ui-col-xs='5-15'] {
-    -ms-grid-column: 5;
-    -ms-grid-column-span: 10;
+  [app-col-xs="5-15"] {
     grid-column: 5/15;
   }
-  [ui-col-xs='6-7'] {
-    -ms-grid-column: 6;
-    -ms-grid-column-span: 1;
+  [app-col-xs="6-7"] {
     grid-column: 6/7;
   }
-  [ui-col-xs='6-8'] {
-    -ms-grid-column: 6;
-    -ms-grid-column-span: 2;
+  [app-col-xs="6-8"] {
     grid-column: 6/8;
   }
-  [ui-col-xs='6-9'] {
-    -ms-grid-column: 6;
-    -ms-grid-column-span: 3;
+  [app-col-xs="6-9"] {
     grid-column: 6/9;
   }
-  [ui-col-xs='6-10'] {
-    -ms-grid-column: 6;
-    -ms-grid-column-span: 4;
+  [app-col-xs="6-10"] {
     grid-column: 6/10;
   }
-  [ui-col-xs='6-11'] {
-    -ms-grid-column: 6;
-    -ms-grid-column-span: 5;
+  [app-col-xs="6-11"] {
     grid-column: 6/11;
   }
-  [ui-col-xs='6-12'] {
-    -ms-grid-column: 6;
-    -ms-grid-column-span: 6;
+  [app-col-xs="6-12"] {
     grid-column: 6/12;
   }
-  [ui-col-xs='6-13'] {
-    -ms-grid-column: 6;
-    -ms-grid-column-span: 7;
+  [app-col-xs="6-13"] {
     grid-column: 6/13;
   }
-  [ui-col-xs='6-14'] {
-    -ms-grid-column: 6;
-    -ms-grid-column-span: 8;
+  [app-col-xs="6-14"] {
     grid-column: 6/14;
   }
-  [ui-col-xs='6-15'] {
-    -ms-grid-column: 6;
-    -ms-grid-column-span: 9;
+  [app-col-xs="6-15"] {
     grid-column: 6/15;
   }
-  [ui-col-xs='7-8'] {
-    -ms-grid-column: 7;
-    -ms-grid-column-span: 1;
+  [app-col-xs="7-8"] {
     grid-column: 7/8;
   }
-  [ui-col-xs='7-9'] {
-    -ms-grid-column: 7;
-    -ms-grid-column-span: 2;
+  [app-col-xs="7-9"] {
     grid-column: 7/9;
   }
-  [ui-col-xs='7-10'] {
-    -ms-grid-column: 7;
-    -ms-grid-column-span: 3;
+  [app-col-xs="7-10"] {
     grid-column: 7/10;
   }
-  [ui-col-xs='7-11'] {
-    -ms-grid-column: 7;
-    -ms-grid-column-span: 4;
+  [app-col-xs="7-11"] {
     grid-column: 7/11;
   }
-  [ui-col-xs='7-12'] {
-    -ms-grid-column: 7;
-    -ms-grid-column-span: 5;
+  [app-col-xs="7-12"] {
     grid-column: 7/12;
   }
-  [ui-col-xs='7-13'] {
-    -ms-grid-column: 7;
-    -ms-grid-column-span: 6;
+  [app-col-xs="7-13"] {
     grid-column: 7/13;
   }
-  [ui-col-xs='7-14'] {
-    -ms-grid-column: 7;
-    -ms-grid-column-span: 7;
+  [app-col-xs="7-14"] {
     grid-column: 7/14;
   }
-  [ui-col-xs='7-15'] {
-    -ms-grid-column: 7;
-    -ms-grid-column-span: 8;
+  [app-col-xs="7-15"] {
     grid-column: 7/15;
   }
-  [ui-col-xs='8-9'] {
-    -ms-grid-column: 8;
-    -ms-grid-column-span: 1;
+  [app-col-xs="8-9"] {
     grid-column: 8/9;
   }
-  [ui-col-xs='8-10'] {
-    -ms-grid-column: 8;
-    -ms-grid-column-span: 2;
+  [app-col-xs="8-10"] {
     grid-column: 8/10;
   }
-  [ui-col-xs='8-11'] {
-    -ms-grid-column: 8;
-    -ms-grid-column-span: 3;
+  [app-col-xs="8-11"] {
     grid-column: 8/11;
   }
-  [ui-col-xs='8-12'] {
-    -ms-grid-column: 8;
-    -ms-grid-column-span: 4;
+  [app-col-xs="8-12"] {
     grid-column: 8/12;
   }
-  [ui-col-xs='8-13'] {
-    -ms-grid-column: 8;
-    -ms-grid-column-span: 5;
+  [app-col-xs="8-13"] {
     grid-column: 8/13;
   }
-  [ui-col-xs='8-14'] {
-    -ms-grid-column: 8;
-    -ms-grid-column-span: 6;
+  [app-col-xs="8-14"] {
     grid-column: 8/14;
   }
-  [ui-col-xs='8-15'] {
-    -ms-grid-column: 8;
-    -ms-grid-column-span: 7;
+  [app-col-xs="8-15"] {
     grid-column: 8/15;
   }
-  [ui-col-xs='9-10'] {
-    -ms-grid-column: 9;
-    -ms-grid-column-span: 1;
+  [app-col-xs="9-10"] {
     grid-column: 9/10;
   }
-  [ui-col-xs='9-11'] {
-    -ms-grid-column: 9;
-    -ms-grid-column-span: 2;
+  [app-col-xs="9-11"] {
     grid-column: 9/11;
   }
-  [ui-col-xs='9-12'] {
-    -ms-grid-column: 9;
-    -ms-grid-column-span: 3;
+  [app-col-xs="9-12"] {
     grid-column: 9/12;
   }
-  [ui-col-xs='9-13'] {
-    -ms-grid-column: 9;
-    -ms-grid-column-span: 4;
+  [app-col-xs="9-13"] {
     grid-column: 9/13;
   }
-  [ui-col-xs='9-14'] {
-    -ms-grid-column: 9;
-    -ms-grid-column-span: 5;
+  [app-col-xs="9-14"] {
     grid-column: 9/14;
   }
-  [ui-col-xs='9-15'] {
-    -ms-grid-column: 9;
-    -ms-grid-column-span: 6;
+  [app-col-xs="9-15"] {
     grid-column: 9/15;
   }
-  [ui-col-xs='10-11'] {
-    -ms-grid-column: 10;
-    -ms-grid-column-span: 1;
+  [app-col-xs="10-11"] {
     grid-column: 10/11;
   }
-  [ui-col-xs='10-12'] {
-    -ms-grid-column: 10;
-    -ms-grid-column-span: 2;
+  [app-col-xs="10-12"] {
     grid-column: 10/12;
   }
-  [ui-col-xs='10-13'] {
-    -ms-grid-column: 10;
-    -ms-grid-column-span: 3;
+  [app-col-xs="10-13"] {
     grid-column: 10/13;
   }
-  [ui-col-xs='10-14'] {
-    -ms-grid-column: 10;
-    -ms-grid-column-span: 4;
+  [app-col-xs="10-14"] {
     grid-column: 10/14;
   }
-  [ui-col-xs='10-15'] {
-    -ms-grid-column: 10;
-    -ms-grid-column-span: 5;
+  [app-col-xs="10-15"] {
     grid-column: 10/15;
   }
-  [ui-col-xs='11-12'] {
-    -ms-grid-column: 11;
-    -ms-grid-column-span: 1;
+  [app-col-xs="11-12"] {
     grid-column: 11/12;
   }
-  [ui-col-xs='11-13'] {
-    -ms-grid-column: 11;
-    -ms-grid-column-span: 2;
+  [app-col-xs="11-13"] {
     grid-column: 11/13;
   }
-  [ui-col-xs='11-14'] {
-    -ms-grid-column: 11;
-    -ms-grid-column-span: 3;
+  [app-col-xs="11-14"] {
     grid-column: 11/14;
   }
-  [ui-col-xs='11-15'] {
-    -ms-grid-column: 11;
-    -ms-grid-column-span: 4;
+  [app-col-xs="11-15"] {
     grid-column: 11/15;
   }
-  [ui-col-xs='12-13'] {
-    -ms-grid-column: 12;
-    -ms-grid-column-span: 1;
+  [app-col-xs="12-13"] {
     grid-column: 12/13;
   }
-  [ui-col-xs='12-14'] {
-    -ms-grid-column: 12;
-    -ms-grid-column-span: 2;
+  [app-col-xs="12-14"] {
     grid-column: 12/14;
   }
-  [ui-col-xs='12-15'] {
-    -ms-grid-column: 12;
-    -ms-grid-column-span: 3;
+  [app-col-xs="12-15"] {
     grid-column: 12/15;
   }
-  [ui-col-xs='13-14'] {
-    -ms-grid-column: 13;
-    -ms-grid-column-span: 1;
+  [app-col-xs="13-14"] {
     grid-column: 13/14;
   }
-  [ui-col-xs='13-15'] {
-    -ms-grid-column: 13;
-    -ms-grid-column-span: 2;
+  [app-col-xs="13-15"] {
     grid-column: 13/15;
   }
-  [ui-col-xs='14-15'] {
-    -ms-grid-column: 14;
-    -ms-grid-column-span: 1;
+  [app-col-xs="14-15"] {
     grid-column: 14/15;
   }
   /* END */
-  [ui-ma-xs="0"] {
+  [app-ma-xs="0"] {
     margin: 0px;
   }
-  [ui-mt-xs="0"] {
+  [app-mt-xs="0"] {
     margin-top: 0px;
   }
-  [ui-mr-xs="0"] {
+  [app-mr-xs="0"] {
     margin-right: 0px;
   }
-  [ui-mb-xs="0"] {
+  [app-mb-xs="0"] {
     margin-bottom: 0px;
   }
-  [ui-ml-xs="0"] {
+  [app-ml-xs="0"] {
     margin-left: 0px;
   }
-  [ui-my-xs="0"] {
+  [app-my-xs="0"] {
     margin-top: 0px;
     margin-bottom: 0px;
   }
-  [ui-mx-xs="0"] {
+  [app-mx-xs="0"] {
     margin-right: 0px;
     margin-left: 0px;
   }
-  [ui-ma-xs="4"] {
+  [app-ma-xs="4"] {
     margin: 4px;
   }
-  [ui-mt-xs="4"] {
+  [app-mt-xs="4"] {
     margin-top: 4px;
   }
-  [ui-mr-xs="4"] {
+  [app-mr-xs="4"] {
     margin-right: 4px;
   }
-  [ui-mb-xs="4"] {
+  [app-mb-xs="4"] {
     margin-bottom: 4px;
   }
-  [ui-ml-xs="4"] {
+  [app-ml-xs="4"] {
     margin-left: 4px;
   }
-  [ui-my-xs="4"] {
+  [app-my-xs="4"] {
     margin-top: 4px;
     margin-bottom: 4px;
   }
-  [ui-mx-xs="4"] {
+  [app-mx-xs="4"] {
     margin-right: 4px;
     margin-left: 4px;
   }
-  [ui-ma-xs="8"] {
+  [app-ma-xs="8"] {
     margin: 8px;
   }
-  [ui-mt-xs="8"] {
+  [app-mt-xs="8"] {
     margin-top: 8px;
   }
-  [ui-mr-xs="8"] {
+  [app-mr-xs="8"] {
     margin-right: 8px;
   }
-  [ui-mb-xs="8"] {
+  [app-mb-xs="8"] {
     margin-bottom: 8px;
   }
-  [ui-ml-xs="8"] {
+  [app-ml-xs="8"] {
     margin-left: 8px;
   }
-  [ui-my-xs="8"] {
+  [app-my-xs="8"] {
     margin-top: 8px;
     margin-bottom: 8px;
   }
-  [ui-mx-xs="8"] {
+  [app-mx-xs="8"] {
     margin-right: 8px;
     margin-left: 8px;
   }
-  [ui-ma-xs="12"] {
+  [app-ma-xs="12"] {
     margin: 12px;
   }
-  [ui-mt-xs="12"] {
+  [app-mt-xs="12"] {
     margin-top: 12px;
   }
-  [ui-mr-xs="12"] {
+  [app-mr-xs="12"] {
     margin-right: 12px;
   }
-  [ui-mb-xs="12"] {
+  [app-mb-xs="12"] {
     margin-bottom: 12px;
   }
-  [ui-ml-xs="12"] {
+  [app-ml-xs="12"] {
     margin-left: 12px;
   }
-  [ui-my-xs="12"] {
+  [app-my-xs="12"] {
     margin-top: 12px;
     margin-bottom: 12px;
   }
-  [ui-mx-xs="12"] {
+  [app-mx-xs="12"] {
     margin-right: 12px;
     margin-left: 12px;
   }
-  [ui-ma-xs="16"] {
+  [app-ma-xs="16"] {
     margin: 16px;
   }
-  [ui-mt-xs="16"] {
+  [app-mt-xs="16"] {
     margin-top: 16px;
   }
-  [ui-mr-xs="16"] {
+  [app-mr-xs="16"] {
     margin-right: 16px;
   }
-  [ui-mb-xs="16"] {
+  [app-mb-xs="16"] {
     margin-bottom: 16px;
   }
-  [ui-ml-xs="16"] {
+  [app-ml-xs="16"] {
     margin-left: 16px;
   }
-  [ui-my-xs="16"] {
+  [app-my-xs="16"] {
     margin-top: 16px;
     margin-bottom: 16px;
   }
-  [ui-mx-xs="16"] {
+  [app-mx-xs="16"] {
     margin-right: 16px;
     margin-left: 16px;
   }
-  [ui-ma-xs="20"] {
+  [app-ma-xs="20"] {
     margin: 20px;
   }
-  [ui-mt-xs="20"] {
+  [app-mt-xs="20"] {
     margin-top: 20px;
   }
-  [ui-mr-xs="20"] {
+  [app-mr-xs="20"] {
     margin-right: 20px;
   }
-  [ui-mb-xs="20"] {
+  [app-mb-xs="20"] {
     margin-bottom: 20px;
   }
-  [ui-ml-xs="20"] {
+  [app-ml-xs="20"] {
     margin-left: 20px;
   }
-  [ui-my-xs="20"] {
+  [app-my-xs="20"] {
     margin-top: 20px;
     margin-bottom: 20px;
   }
-  [ui-mx-xs="20"] {
+  [app-mx-xs="20"] {
     margin-right: 20px;
     margin-left: 20px;
   }
-  [ui-ma-xs="24"] {
+  [app-ma-xs="24"] {
     margin: 24px;
   }
-  [ui-mt-xs="24"] {
+  [app-mt-xs="24"] {
     margin-top: 24px;
   }
-  [ui-mr-xs="24"] {
+  [app-mr-xs="24"] {
     margin-right: 24px;
   }
-  [ui-mb-xs="24"] {
+  [app-mb-xs="24"] {
     margin-bottom: 24px;
   }
-  [ui-ml-xs="24"] {
+  [app-ml-xs="24"] {
     margin-left: 24px;
   }
-  [ui-my-xs="24"] {
+  [app-my-xs="24"] {
     margin-top: 24px;
     margin-bottom: 24px;
   }
-  [ui-mx-xs="24"] {
+  [app-mx-xs="24"] {
     margin-right: 24px;
     margin-left: 24px;
   }
-  [ui-ma-xs="28"] {
+  [app-ma-xs="28"] {
     margin: 28px;
   }
-  [ui-mt-xs="28"] {
+  [app-mt-xs="28"] {
     margin-top: 28px;
   }
-  [ui-mr-xs="28"] {
+  [app-mr-xs="28"] {
     margin-right: 28px;
   }
-  [ui-mb-xs="28"] {
+  [app-mb-xs="28"] {
     margin-bottom: 28px;
   }
-  [ui-ml-xs="28"] {
+  [app-ml-xs="28"] {
     margin-left: 28px;
   }
-  [ui-my-xs="28"] {
+  [app-my-xs="28"] {
     margin-top: 28px;
     margin-bottom: 28px;
   }
-  [ui-mx-xs="28"] {
+  [app-mx-xs="28"] {
     margin-right: 28px;
     margin-left: 28px;
   }
-  [ui-ma-xs="32"] {
+  [app-ma-xs="32"] {
     margin: 32px;
   }
-  [ui-mt-xs="32"] {
+  [app-mt-xs="32"] {
     margin-top: 32px;
   }
-  [ui-mr-xs="32"] {
+  [app-mr-xs="32"] {
     margin-right: 32px;
   }
-  [ui-mb-xs="32"] {
+  [app-mb-xs="32"] {
     margin-bottom: 32px;
   }
-  [ui-ml-xs="32"] {
+  [app-ml-xs="32"] {
     margin-left: 32px;
   }
-  [ui-my-xs="32"] {
+  [app-my-xs="32"] {
     margin-top: 32px;
     margin-bottom: 32px;
   }
-  [ui-mx-xs="32"] {
+  [app-mx-xs="32"] {
     margin-right: 32px;
     margin-left: 32px;
   }
-  [ui-ma-xs="36"] {
+  [app-ma-xs="36"] {
     margin: 36px;
   }
-  [ui-mt-xs="36"] {
+  [app-mt-xs="36"] {
     margin-top: 36px;
   }
-  [ui-mr-xs="36"] {
+  [app-mr-xs="36"] {
     margin-right: 36px;
   }
-  [ui-mb-xs="36"] {
+  [app-mb-xs="36"] {
     margin-bottom: 36px;
   }
-  [ui-ml-xs="36"] {
+  [app-ml-xs="36"] {
     margin-left: 36px;
   }
-  [ui-my-xs="36"] {
+  [app-my-xs="36"] {
     margin-top: 36px;
     margin-bottom: 36px;
   }
-  [ui-mx-xs="36"] {
+  [app-mx-xs="36"] {
     margin-right: 36px;
     margin-left: 36px;
   }
-  [ui-ma-xs="40"] {
+  [app-ma-xs="40"] {
     margin: 40px;
   }
-  [ui-mt-xs="40"] {
+  [app-mt-xs="40"] {
     margin-top: 40px;
   }
-  [ui-mr-xs="40"] {
+  [app-mr-xs="40"] {
     margin-right: 40px;
   }
-  [ui-mb-xs="40"] {
+  [app-mb-xs="40"] {
     margin-bottom: 40px;
   }
-  [ui-ml-xs="40"] {
+  [app-ml-xs="40"] {
     margin-left: 40px;
   }
-  [ui-my-xs="40"] {
+  [app-my-xs="40"] {
     margin-top: 40px;
     margin-bottom: 40px;
   }
-  [ui-mx-xs="40"] {
+  [app-mx-xs="40"] {
     margin-right: 40px;
     margin-left: 40px;
   }
-  [ui-ma-xs="44"] {
+  [app-ma-xs="44"] {
     margin: 44px;
   }
-  [ui-mt-xs="44"] {
+  [app-mt-xs="44"] {
     margin-top: 44px;
   }
-  [ui-mr-xs="44"] {
+  [app-mr-xs="44"] {
     margin-right: 44px;
   }
-  [ui-mb-xs="44"] {
+  [app-mb-xs="44"] {
     margin-bottom: 44px;
   }
-  [ui-ml-xs="44"] {
+  [app-ml-xs="44"] {
     margin-left: 44px;
   }
-  [ui-my-xs="44"] {
+  [app-my-xs="44"] {
     margin-top: 44px;
     margin-bottom: 44px;
   }
-  [ui-mx-xs="44"] {
+  [app-mx-xs="44"] {
     margin-right: 44px;
     margin-left: 44px;
   }
-  [ui-ma-xs="48"] {
+  [app-ma-xs="48"] {
     margin: 48px;
   }
-  [ui-mt-xs="48"] {
+  [app-mt-xs="48"] {
     margin-top: 48px;
   }
-  [ui-mr-xs="48"] {
+  [app-mr-xs="48"] {
     margin-right: 48px;
   }
-  [ui-mb-xs="48"] {
+  [app-mb-xs="48"] {
     margin-bottom: 48px;
   }
-  [ui-ml-xs="48"] {
+  [app-ml-xs="48"] {
     margin-left: 48px;
   }
-  [ui-my-xs="48"] {
+  [app-my-xs="48"] {
     margin-top: 48px;
     margin-bottom: 48px;
   }
-  [ui-mx-xs="48"] {
+  [app-mx-xs="48"] {
     margin-right: 48px;
     margin-left: 48px;
   }
-  [ui-ma-xs="52"] {
+  [app-ma-xs="52"] {
     margin: 52px;
   }
-  [ui-mt-xs="52"] {
+  [app-mt-xs="52"] {
     margin-top: 52px;
   }
-  [ui-mr-xs="52"] {
+  [app-mr-xs="52"] {
     margin-right: 52px;
   }
-  [ui-mb-xs="52"] {
+  [app-mb-xs="52"] {
     margin-bottom: 52px;
   }
-  [ui-ml-xs="52"] {
+  [app-ml-xs="52"] {
     margin-left: 52px;
   }
-  [ui-my-xs="52"] {
+  [app-my-xs="52"] {
     margin-top: 52px;
     margin-bottom: 52px;
   }
-  [ui-mx-xs="52"] {
+  [app-mx-xs="52"] {
     margin-right: 52px;
     margin-left: 52px;
   }
-  [ui-ma-xs="56"] {
+  [app-ma-xs="56"] {
     margin: 56px;
   }
-  [ui-mt-xs="56"] {
+  [app-mt-xs="56"] {
     margin-top: 56px;
   }
-  [ui-mr-xs="56"] {
+  [app-mr-xs="56"] {
     margin-right: 56px;
   }
-  [ui-mb-xs="56"] {
+  [app-mb-xs="56"] {
     margin-bottom: 56px;
   }
-  [ui-ml-xs="56"] {
+  [app-ml-xs="56"] {
     margin-left: 56px;
   }
-  [ui-my-xs="56"] {
+  [app-my-xs="56"] {
     margin-top: 56px;
     margin-bottom: 56px;
   }
-  [ui-mx-xs="56"] {
+  [app-mx-xs="56"] {
     margin-right: 56px;
     margin-left: 56px;
   }
-  [ui-ma-xs="60"] {
+  [app-ma-xs="60"] {
     margin: 60px;
   }
-  [ui-mt-xs="60"] {
+  [app-mt-xs="60"] {
     margin-top: 60px;
   }
-  [ui-mr-xs="60"] {
+  [app-mr-xs="60"] {
     margin-right: 60px;
   }
-  [ui-mb-xs="60"] {
+  [app-mb-xs="60"] {
     margin-bottom: 60px;
   }
-  [ui-ml-xs="60"] {
+  [app-ml-xs="60"] {
     margin-left: 60px;
   }
-  [ui-my-xs="60"] {
+  [app-my-xs="60"] {
     margin-top: 60px;
     margin-bottom: 60px;
   }
-  [ui-mx-xs="60"] {
+  [app-mx-xs="60"] {
     margin-right: 60px;
     margin-left: 60px;
   }
-  [ui-ma-xs="64"] {
+  [app-ma-xs="64"] {
     margin: 64px;
   }
-  [ui-mt-xs="64"] {
+  [app-mt-xs="64"] {
     margin-top: 64px;
   }
-  [ui-mr-xs="64"] {
+  [app-mr-xs="64"] {
     margin-right: 64px;
   }
-  [ui-mb-xs="64"] {
+  [app-mb-xs="64"] {
     margin-bottom: 64px;
   }
-  [ui-ml-xs="64"] {
+  [app-ml-xs="64"] {
     margin-left: 64px;
   }
-  [ui-my-xs="64"] {
+  [app-my-xs="64"] {
     margin-top: 64px;
     margin-bottom: 64px;
   }
-  [ui-mx-xs="64"] {
+  [app-mx-xs="64"] {
     margin-right: 64px;
     margin-left: 64px;
   }
-  [ui-ma-xs="68"] {
+  [app-ma-xs="68"] {
     margin: 68px;
   }
-  [ui-mt-xs="68"] {
+  [app-mt-xs="68"] {
     margin-top: 68px;
   }
-  [ui-mr-xs="68"] {
+  [app-mr-xs="68"] {
     margin-right: 68px;
   }
-  [ui-mb-xs="68"] {
+  [app-mb-xs="68"] {
     margin-bottom: 68px;
   }
-  [ui-ml-xs="68"] {
+  [app-ml-xs="68"] {
     margin-left: 68px;
   }
-  [ui-my-xs="68"] {
+  [app-my-xs="68"] {
     margin-top: 68px;
     margin-bottom: 68px;
   }
-  [ui-mx-xs="68"] {
+  [app-mx-xs="68"] {
     margin-right: 68px;
     margin-left: 68px;
   }
-  [ui-ma-xs="72"] {
+  [app-ma-xs="72"] {
     margin: 72px;
   }
-  [ui-mt-xs="72"] {
+  [app-mt-xs="72"] {
     margin-top: 72px;
   }
-  [ui-mr-xs="72"] {
+  [app-mr-xs="72"] {
     margin-right: 72px;
   }
-  [ui-mb-xs="72"] {
+  [app-mb-xs="72"] {
     margin-bottom: 72px;
   }
-  [ui-ml-xs="72"] {
+  [app-ml-xs="72"] {
     margin-left: 72px;
   }
-  [ui-my-xs="72"] {
+  [app-my-xs="72"] {
     margin-top: 72px;
     margin-bottom: 72px;
   }
-  [ui-mx-xs="72"] {
+  [app-mx-xs="72"] {
     margin-right: 72px;
     margin-left: 72px;
   }
-  [ui-ma-xs="76"] {
+  [app-ma-xs="76"] {
     margin: 76px;
   }
-  [ui-mt-xs="76"] {
+  [app-mt-xs="76"] {
     margin-top: 76px;
   }
-  [ui-mr-xs="76"] {
+  [app-mr-xs="76"] {
     margin-right: 76px;
   }
-  [ui-mb-xs="76"] {
+  [app-mb-xs="76"] {
     margin-bottom: 76px;
   }
-  [ui-ml-xs="76"] {
+  [app-ml-xs="76"] {
     margin-left: 76px;
   }
-  [ui-my-xs="76"] {
+  [app-my-xs="76"] {
     margin-top: 76px;
     margin-bottom: 76px;
   }
-  [ui-mx-xs="76"] {
+  [app-mx-xs="76"] {
     margin-right: 76px;
     margin-left: 76px;
   }
-  [ui-ma-xs="80"] {
+  [app-ma-xs="80"] {
     margin: 80px;
   }
-  [ui-mt-xs="80"] {
+  [app-mt-xs="80"] {
     margin-top: 80px;
   }
-  [ui-mr-xs="80"] {
+  [app-mr-xs="80"] {
     margin-right: 80px;
   }
-  [ui-mb-xs="80"] {
+  [app-mb-xs="80"] {
     margin-bottom: 80px;
   }
-  [ui-ml-xs="80"] {
+  [app-ml-xs="80"] {
     margin-left: 80px;
   }
-  [ui-my-xs="80"] {
+  [app-my-xs="80"] {
     margin-top: 80px;
     margin-bottom: 80px;
   }
-  [ui-mx-xs="80"] {
+  [app-mx-xs="80"] {
     margin-right: 80px;
     margin-left: 80px;
   }
-  [ui-ma-xs="84"] {
+  [app-ma-xs="84"] {
     margin: 84px;
   }
-  [ui-mt-xs="84"] {
+  [app-mt-xs="84"] {
     margin-top: 84px;
   }
-  [ui-mr-xs="84"] {
+  [app-mr-xs="84"] {
     margin-right: 84px;
   }
-  [ui-mb-xs="84"] {
+  [app-mb-xs="84"] {
     margin-bottom: 84px;
   }
-  [ui-ml-xs="84"] {
+  [app-ml-xs="84"] {
     margin-left: 84px;
   }
-  [ui-my-xs="84"] {
+  [app-my-xs="84"] {
     margin-top: 84px;
     margin-bottom: 84px;
   }
-  [ui-mx-xs="84"] {
+  [app-mx-xs="84"] {
     margin-right: 84px;
     margin-left: 84px;
   }
-  [ui-ma-xs="88"] {
+  [app-ma-xs="88"] {
     margin: 88px;
   }
-  [ui-mt-xs="88"] {
+  [app-mt-xs="88"] {
     margin-top: 88px;
   }
-  [ui-mr-xs="88"] {
+  [app-mr-xs="88"] {
     margin-right: 88px;
   }
-  [ui-mb-xs="88"] {
+  [app-mb-xs="88"] {
     margin-bottom: 88px;
   }
-  [ui-ml-xs="88"] {
+  [app-ml-xs="88"] {
     margin-left: 88px;
   }
-  [ui-my-xs="88"] {
+  [app-my-xs="88"] {
     margin-top: 88px;
     margin-bottom: 88px;
   }
-  [ui-mx-xs="88"] {
+  [app-mx-xs="88"] {
     margin-right: 88px;
     margin-left: 88px;
   }
-  [ui-ma-xs="92"] {
+  [app-ma-xs="92"] {
     margin: 92px;
   }
-  [ui-mt-xs="92"] {
+  [app-mt-xs="92"] {
     margin-top: 92px;
   }
-  [ui-mr-xs="92"] {
+  [app-mr-xs="92"] {
     margin-right: 92px;
   }
-  [ui-mb-xs="92"] {
+  [app-mb-xs="92"] {
     margin-bottom: 92px;
   }
-  [ui-ml-xs="92"] {
+  [app-ml-xs="92"] {
     margin-left: 92px;
   }
-  [ui-my-xs="92"] {
+  [app-my-xs="92"] {
     margin-top: 92px;
     margin-bottom: 92px;
   }
-  [ui-mx-xs="92"] {
+  [app-mx-xs="92"] {
     margin-right: 92px;
     margin-left: 92px;
   }
-  [ui-ma-xs="96"] {
+  [app-ma-xs="96"] {
     margin: 96px;
   }
-  [ui-mt-xs="96"] {
+  [app-mt-xs="96"] {
     margin-top: 96px;
   }
-  [ui-mr-xs="96"] {
+  [app-mr-xs="96"] {
     margin-right: 96px;
   }
-  [ui-mb-xs="96"] {
+  [app-mb-xs="96"] {
     margin-bottom: 96px;
   }
-  [ui-ml-xs="96"] {
+  [app-ml-xs="96"] {
     margin-left: 96px;
   }
-  [ui-my-xs="96"] {
+  [app-my-xs="96"] {
     margin-top: 96px;
     margin-bottom: 96px;
   }
-  [ui-mx-xs="96"] {
+  [app-mx-xs="96"] {
     margin-right: 96px;
     margin-left: 96px;
   }
-  [ui-ma-xs="100"] {
+  [app-ma-xs="100"] {
     margin: 100px;
   }
-  [ui-mt-xs="100"] {
+  [app-mt-xs="100"] {
     margin-top: 100px;
   }
-  [ui-mr-xs="100"] {
+  [app-mr-xs="100"] {
     margin-right: 100px;
   }
-  [ui-mb-xs="100"] {
+  [app-mb-xs="100"] {
     margin-bottom: 100px;
   }
-  [ui-ml-xs="100"] {
+  [app-ml-xs="100"] {
     margin-left: 100px;
   }
-  [ui-my-xs="100"] {
+  [app-my-xs="100"] {
     margin-top: 100px;
     margin-bottom: 100px;
   }
-  [ui-mx-xs="100"] {
+  [app-mx-xs="100"] {
     margin-right: 100px;
     margin-left: 100px;
   }
-  [ui-ma-xs="104"] {
+  [app-ma-xs="104"] {
     margin: 104px;
   }
-  [ui-mt-xs="104"] {
+  [app-mt-xs="104"] {
     margin-top: 104px;
   }
-  [ui-mr-xs="104"] {
+  [app-mr-xs="104"] {
     margin-right: 104px;
   }
-  [ui-mb-xs="104"] {
+  [app-mb-xs="104"] {
     margin-bottom: 104px;
   }
-  [ui-ml-xs="104"] {
+  [app-ml-xs="104"] {
     margin-left: 104px;
   }
-  [ui-my-xs="104"] {
+  [app-my-xs="104"] {
     margin-top: 104px;
     margin-bottom: 104px;
   }
-  [ui-mx-xs="104"] {
+  [app-mx-xs="104"] {
     margin-right: 104px;
     margin-left: 104px;
   }
-  [ui-ma-xs="108"] {
+  [app-ma-xs="108"] {
     margin: 108px;
   }
-  [ui-mt-xs="108"] {
+  [app-mt-xs="108"] {
     margin-top: 108px;
   }
-  [ui-mr-xs="108"] {
+  [app-mr-xs="108"] {
     margin-right: 108px;
   }
-  [ui-mb-xs="108"] {
+  [app-mb-xs="108"] {
     margin-bottom: 108px;
   }
-  [ui-ml-xs="108"] {
+  [app-ml-xs="108"] {
     margin-left: 108px;
   }
-  [ui-my-xs="108"] {
+  [app-my-xs="108"] {
     margin-top: 108px;
     margin-bottom: 108px;
   }
-  [ui-mx-xs="108"] {
+  [app-mx-xs="108"] {
     margin-right: 108px;
     margin-left: 108px;
   }
-  [ui-ma-xs="112"] {
+  [app-ma-xs="112"] {
     margin: 112px;
   }
-  [ui-mt-xs="112"] {
+  [app-mt-xs="112"] {
     margin-top: 112px;
   }
-  [ui-mr-xs="112"] {
+  [app-mr-xs="112"] {
     margin-right: 112px;
   }
-  [ui-mb-xs="112"] {
+  [app-mb-xs="112"] {
     margin-bottom: 112px;
   }
-  [ui-ml-xs="112"] {
+  [app-ml-xs="112"] {
     margin-left: 112px;
   }
-  [ui-my-xs="112"] {
+  [app-my-xs="112"] {
     margin-top: 112px;
     margin-bottom: 112px;
   }
-  [ui-mx-xs="112"] {
+  [app-mx-xs="112"] {
     margin-right: 112px;
     margin-left: 112px;
   }
-  [ui-ma-xs="116"] {
+  [app-ma-xs="116"] {
     margin: 116px;
   }
-  [ui-mt-xs="116"] {
+  [app-mt-xs="116"] {
     margin-top: 116px;
   }
-  [ui-mr-xs="116"] {
+  [app-mr-xs="116"] {
     margin-right: 116px;
   }
-  [ui-mb-xs="116"] {
+  [app-mb-xs="116"] {
     margin-bottom: 116px;
   }
-  [ui-ml-xs="116"] {
+  [app-ml-xs="116"] {
     margin-left: 116px;
   }
-  [ui-my-xs="116"] {
+  [app-my-xs="116"] {
     margin-top: 116px;
     margin-bottom: 116px;
   }
-  [ui-mx-xs="116"] {
+  [app-mx-xs="116"] {
     margin-right: 116px;
     margin-left: 116px;
   }
-  [ui-ma-xs="120"] {
+  [app-ma-xs="120"] {
     margin: 120px;
   }
-  [ui-mt-xs="120"] {
+  [app-mt-xs="120"] {
     margin-top: 120px;
   }
-  [ui-mr-xs="120"] {
+  [app-mr-xs="120"] {
     margin-right: 120px;
   }
-  [ui-mb-xs="120"] {
+  [app-mb-xs="120"] {
     margin-bottom: 120px;
   }
-  [ui-ml-xs="120"] {
+  [app-ml-xs="120"] {
     margin-left: 120px;
   }
-  [ui-my-xs="120"] {
+  [app-my-xs="120"] {
     margin-top: 120px;
     margin-bottom: 120px;
   }
-  [ui-mx-xs="120"] {
+  [app-mx-xs="120"] {
     margin-right: 120px;
     margin-left: 120px;
   }
-  [ui-ma-xs="124"] {
+  [app-ma-xs="124"] {
     margin: 124px;
   }
-  [ui-mt-xs="124"] {
+  [app-mt-xs="124"] {
     margin-top: 124px;
   }
-  [ui-mr-xs="124"] {
+  [app-mr-xs="124"] {
     margin-right: 124px;
   }
-  [ui-mb-xs="124"] {
+  [app-mb-xs="124"] {
     margin-bottom: 124px;
   }
-  [ui-ml-xs="124"] {
+  [app-ml-xs="124"] {
     margin-left: 124px;
   }
-  [ui-my-xs="124"] {
+  [app-my-xs="124"] {
     margin-top: 124px;
     margin-bottom: 124px;
   }
-  [ui-mx-xs="124"] {
+  [app-mx-xs="124"] {
     margin-right: 124px;
     margin-left: 124px;
   }
-  [ui-ma-xs="128"] {
+  [app-ma-xs="128"] {
     margin: 128px;
   }
-  [ui-mt-xs="128"] {
+  [app-mt-xs="128"] {
     margin-top: 128px;
   }
-  [ui-mr-xs="128"] {
+  [app-mr-xs="128"] {
     margin-right: 128px;
   }
-  [ui-mb-xs="128"] {
+  [app-mb-xs="128"] {
     margin-bottom: 128px;
   }
-  [ui-ml-xs="128"] {
+  [app-ml-xs="128"] {
     margin-left: 128px;
   }
-  [ui-my-xs="128"] {
+  [app-my-xs="128"] {
     margin-top: 128px;
     margin-bottom: 128px;
   }
-  [ui-mx-xs="128"] {
+  [app-mx-xs="128"] {
     margin-right: 128px;
     margin-left: 128px;
   }
-  [ui-ma-xs="132"] {
+  [app-ma-xs="132"] {
     margin: 132px;
   }
-  [ui-mt-xs="132"] {
+  [app-mt-xs="132"] {
     margin-top: 132px;
   }
-  [ui-mr-xs="132"] {
+  [app-mr-xs="132"] {
     margin-right: 132px;
   }
-  [ui-mb-xs="132"] {
+  [app-mb-xs="132"] {
     margin-bottom: 132px;
   }
-  [ui-ml-xs="132"] {
+  [app-ml-xs="132"] {
     margin-left: 132px;
   }
-  [ui-my-xs="132"] {
+  [app-my-xs="132"] {
     margin-top: 132px;
     margin-bottom: 132px;
   }
-  [ui-mx-xs="132"] {
+  [app-mx-xs="132"] {
     margin-right: 132px;
     margin-left: 132px;
   }
-  [ui-ma-xs="136"] {
+  [app-ma-xs="136"] {
     margin: 136px;
   }
-  [ui-mt-xs="136"] {
+  [app-mt-xs="136"] {
     margin-top: 136px;
   }
-  [ui-mr-xs="136"] {
+  [app-mr-xs="136"] {
     margin-right: 136px;
   }
-  [ui-mb-xs="136"] {
+  [app-mb-xs="136"] {
     margin-bottom: 136px;
   }
-  [ui-ml-xs="136"] {
+  [app-ml-xs="136"] {
     margin-left: 136px;
   }
-  [ui-my-xs="136"] {
+  [app-my-xs="136"] {
     margin-top: 136px;
     margin-bottom: 136px;
   }
-  [ui-mx-xs="136"] {
+  [app-mx-xs="136"] {
     margin-right: 136px;
     margin-left: 136px;
   }
-  [ui-ma-xs="140"] {
+  [app-ma-xs="140"] {
     margin: 140px;
   }
-  [ui-mt-xs="140"] {
+  [app-mt-xs="140"] {
     margin-top: 140px;
   }
-  [ui-mr-xs="140"] {
+  [app-mr-xs="140"] {
     margin-right: 140px;
   }
-  [ui-mb-xs="140"] {
+  [app-mb-xs="140"] {
     margin-bottom: 140px;
   }
-  [ui-ml-xs="140"] {
+  [app-ml-xs="140"] {
     margin-left: 140px;
   }
-  [ui-my-xs="140"] {
+  [app-my-xs="140"] {
     margin-top: 140px;
     margin-bottom: 140px;
   }
-  [ui-mx-xs="140"] {
+  [app-mx-xs="140"] {
     margin-right: 140px;
     margin-left: 140px;
   }
-  [ui-ma-xs="144"] {
+  [app-ma-xs="144"] {
     margin: 144px;
   }
-  [ui-mt-xs="144"] {
+  [app-mt-xs="144"] {
     margin-top: 144px;
   }
-  [ui-mr-xs="144"] {
+  [app-mr-xs="144"] {
     margin-right: 144px;
   }
-  [ui-mb-xs="144"] {
+  [app-mb-xs="144"] {
     margin-bottom: 144px;
   }
-  [ui-ml-xs="144"] {
+  [app-ml-xs="144"] {
     margin-left: 144px;
   }
-  [ui-my-xs="144"] {
+  [app-my-xs="144"] {
     margin-top: 144px;
     margin-bottom: 144px;
   }
-  [ui-mx-xs="144"] {
+  [app-mx-xs="144"] {
     margin-right: 144px;
     margin-left: 144px;
   }
-  [ui-ma-xs="148"] {
+  [app-ma-xs="148"] {
     margin: 148px;
   }
-  [ui-mt-xs="148"] {
+  [app-mt-xs="148"] {
     margin-top: 148px;
   }
-  [ui-mr-xs="148"] {
+  [app-mr-xs="148"] {
     margin-right: 148px;
   }
-  [ui-mb-xs="148"] {
+  [app-mb-xs="148"] {
     margin-bottom: 148px;
   }
-  [ui-ml-xs="148"] {
+  [app-ml-xs="148"] {
     margin-left: 148px;
   }
-  [ui-my-xs="148"] {
+  [app-my-xs="148"] {
     margin-top: 148px;
     margin-bottom: 148px;
   }
-  [ui-mx-xs="148"] {
+  [app-mx-xs="148"] {
     margin-right: 148px;
     margin-left: 148px;
   }
-  [ui-ma-xs="152"] {
+  [app-ma-xs="152"] {
     margin: 152px;
   }
-  [ui-mt-xs="152"] {
+  [app-mt-xs="152"] {
     margin-top: 152px;
   }
-  [ui-mr-xs="152"] {
+  [app-mr-xs="152"] {
     margin-right: 152px;
   }
-  [ui-mb-xs="152"] {
+  [app-mb-xs="152"] {
     margin-bottom: 152px;
   }
-  [ui-ml-xs="152"] {
+  [app-ml-xs="152"] {
     margin-left: 152px;
   }
-  [ui-my-xs="152"] {
+  [app-my-xs="152"] {
     margin-top: 152px;
     margin-bottom: 152px;
   }
-  [ui-mx-xs="152"] {
+  [app-mx-xs="152"] {
     margin-right: 152px;
     margin-left: 152px;
   }
-  [ui-ma-xs="156"] {
+  [app-ma-xs="156"] {
     margin: 156px;
   }
-  [ui-mt-xs="156"] {
+  [app-mt-xs="156"] {
     margin-top: 156px;
   }
-  [ui-mr-xs="156"] {
+  [app-mr-xs="156"] {
     margin-right: 156px;
   }
-  [ui-mb-xs="156"] {
+  [app-mb-xs="156"] {
     margin-bottom: 156px;
   }
-  [ui-ml-xs="156"] {
+  [app-ml-xs="156"] {
     margin-left: 156px;
   }
-  [ui-my-xs="156"] {
+  [app-my-xs="156"] {
     margin-top: 156px;
     margin-bottom: 156px;
   }
-  [ui-mx-xs="156"] {
+  [app-mx-xs="156"] {
     margin-right: 156px;
     margin-left: 156px;
   }
-  [ui-ma-xs="160"] {
+  [app-ma-xs="160"] {
     margin: 160px;
   }
-  [ui-mt-xs="160"] {
+  [app-mt-xs="160"] {
     margin-top: 160px;
   }
-  [ui-mr-xs="160"] {
+  [app-mr-xs="160"] {
     margin-right: 160px;
   }
-  [ui-mb-xs="160"] {
+  [app-mb-xs="160"] {
     margin-bottom: 160px;
   }
-  [ui-ml-xs="160"] {
+  [app-ml-xs="160"] {
     margin-left: 160px;
   }
-  [ui-my-xs="160"] {
+  [app-my-xs="160"] {
     margin-top: 160px;
     margin-bottom: 160px;
   }
-  [ui-mx-xs="160"] {
+  [app-mx-xs="160"] {
     margin-right: 160px;
     margin-left: 160px;
   }
-  [ui-ma-xs="164"] {
+  [app-ma-xs="164"] {
     margin: 164px;
   }
-  [ui-mt-xs="164"] {
+  [app-mt-xs="164"] {
     margin-top: 164px;
   }
-  [ui-mr-xs="164"] {
+  [app-mr-xs="164"] {
     margin-right: 164px;
   }
-  [ui-mb-xs="164"] {
+  [app-mb-xs="164"] {
     margin-bottom: 164px;
   }
-  [ui-ml-xs="164"] {
+  [app-ml-xs="164"] {
     margin-left: 164px;
   }
-  [ui-my-xs="164"] {
+  [app-my-xs="164"] {
     margin-top: 164px;
     margin-bottom: 164px;
   }
-  [ui-mx-xs="164"] {
+  [app-mx-xs="164"] {
     margin-right: 164px;
     margin-left: 164px;
   }
-  [ui-ma-xs="168"] {
+  [app-ma-xs="168"] {
     margin: 168px;
   }
-  [ui-mt-xs="168"] {
+  [app-mt-xs="168"] {
     margin-top: 168px;
   }
-  [ui-mr-xs="168"] {
+  [app-mr-xs="168"] {
     margin-right: 168px;
   }
-  [ui-mb-xs="168"] {
+  [app-mb-xs="168"] {
     margin-bottom: 168px;
   }
-  [ui-ml-xs="168"] {
+  [app-ml-xs="168"] {
     margin-left: 168px;
   }
-  [ui-my-xs="168"] {
+  [app-my-xs="168"] {
     margin-top: 168px;
     margin-bottom: 168px;
   }
-  [ui-mx-xs="168"] {
+  [app-mx-xs="168"] {
     margin-right: 168px;
     margin-left: 168px;
   }
-  [ui-ma-xs="172"] {
+  [app-ma-xs="172"] {
     margin: 172px;
   }
-  [ui-mt-xs="172"] {
+  [app-mt-xs="172"] {
     margin-top: 172px;
   }
-  [ui-mr-xs="172"] {
+  [app-mr-xs="172"] {
     margin-right: 172px;
   }
-  [ui-mb-xs="172"] {
+  [app-mb-xs="172"] {
     margin-bottom: 172px;
   }
-  [ui-ml-xs="172"] {
+  [app-ml-xs="172"] {
     margin-left: 172px;
   }
-  [ui-my-xs="172"] {
+  [app-my-xs="172"] {
     margin-top: 172px;
     margin-bottom: 172px;
   }
-  [ui-mx-xs="172"] {
+  [app-mx-xs="172"] {
     margin-right: 172px;
     margin-left: 172px;
   }
-  [ui-ma-xs="176"] {
+  [app-ma-xs="176"] {
     margin: 176px;
   }
-  [ui-mt-xs="176"] {
+  [app-mt-xs="176"] {
     margin-top: 176px;
   }
-  [ui-mr-xs="176"] {
+  [app-mr-xs="176"] {
     margin-right: 176px;
   }
-  [ui-mb-xs="176"] {
+  [app-mb-xs="176"] {
     margin-bottom: 176px;
   }
-  [ui-ml-xs="176"] {
+  [app-ml-xs="176"] {
     margin-left: 176px;
   }
-  [ui-my-xs="176"] {
+  [app-my-xs="176"] {
     margin-top: 176px;
     margin-bottom: 176px;
   }
-  [ui-mx-xs="176"] {
+  [app-mx-xs="176"] {
     margin-right: 176px;
     margin-left: 176px;
   }
-  [ui-ma-xs="180"] {
+  [app-ma-xs="180"] {
     margin: 180px;
   }
-  [ui-mt-xs="180"] {
+  [app-mt-xs="180"] {
     margin-top: 180px;
   }
-  [ui-mr-xs="180"] {
+  [app-mr-xs="180"] {
     margin-right: 180px;
   }
-  [ui-mb-xs="180"] {
+  [app-mb-xs="180"] {
     margin-bottom: 180px;
   }
-  [ui-ml-xs="180"] {
+  [app-ml-xs="180"] {
     margin-left: 180px;
   }
-  [ui-my-xs="180"] {
+  [app-my-xs="180"] {
     margin-top: 180px;
     margin-bottom: 180px;
   }
-  [ui-mx-xs="180"] {
+  [app-mx-xs="180"] {
     margin-right: 180px;
     margin-left: 180px;
   }
-  [ui-ma-xs="184"] {
+  [app-ma-xs="184"] {
     margin: 184px;
   }
-  [ui-mt-xs="184"] {
+  [app-mt-xs="184"] {
     margin-top: 184px;
   }
-  [ui-mr-xs="184"] {
+  [app-mr-xs="184"] {
     margin-right: 184px;
   }
-  [ui-mb-xs="184"] {
+  [app-mb-xs="184"] {
     margin-bottom: 184px;
   }
-  [ui-ml-xs="184"] {
+  [app-ml-xs="184"] {
     margin-left: 184px;
   }
-  [ui-my-xs="184"] {
+  [app-my-xs="184"] {
     margin-top: 184px;
     margin-bottom: 184px;
   }
-  [ui-mx-xs="184"] {
+  [app-mx-xs="184"] {
     margin-right: 184px;
     margin-left: 184px;
   }
-  [ui-ma-xs="188"] {
+  [app-ma-xs="188"] {
     margin: 188px;
   }
-  [ui-mt-xs="188"] {
+  [app-mt-xs="188"] {
     margin-top: 188px;
   }
-  [ui-mr-xs="188"] {
+  [app-mr-xs="188"] {
     margin-right: 188px;
   }
-  [ui-mb-xs="188"] {
+  [app-mb-xs="188"] {
     margin-bottom: 188px;
   }
-  [ui-ml-xs="188"] {
+  [app-ml-xs="188"] {
     margin-left: 188px;
   }
-  [ui-my-xs="188"] {
+  [app-my-xs="188"] {
     margin-top: 188px;
     margin-bottom: 188px;
   }
-  [ui-mx-xs="188"] {
+  [app-mx-xs="188"] {
     margin-right: 188px;
     margin-left: 188px;
   }
-  [ui-ma-xs="192"] {
+  [app-ma-xs="192"] {
     margin: 192px;
   }
-  [ui-mt-xs="192"] {
+  [app-mt-xs="192"] {
     margin-top: 192px;
   }
-  [ui-mr-xs="192"] {
+  [app-mr-xs="192"] {
     margin-right: 192px;
   }
-  [ui-mb-xs="192"] {
+  [app-mb-xs="192"] {
     margin-bottom: 192px;
   }
-  [ui-ml-xs="192"] {
+  [app-ml-xs="192"] {
     margin-left: 192px;
   }
-  [ui-my-xs="192"] {
+  [app-my-xs="192"] {
     margin-top: 192px;
     margin-bottom: 192px;
   }
-  [ui-mx-xs="192"] {
+  [app-mx-xs="192"] {
     margin-right: 192px;
     margin-left: 192px;
   }
-  [ui-ma-xs="196"] {
+  [app-ma-xs="196"] {
     margin: 196px;
   }
-  [ui-mt-xs="196"] {
+  [app-mt-xs="196"] {
     margin-top: 196px;
   }
-  [ui-mr-xs="196"] {
+  [app-mr-xs="196"] {
     margin-right: 196px;
   }
-  [ui-mb-xs="196"] {
+  [app-mb-xs="196"] {
     margin-bottom: 196px;
   }
-  [ui-ml-xs="196"] {
+  [app-ml-xs="196"] {
     margin-left: 196px;
   }
-  [ui-my-xs="196"] {
+  [app-my-xs="196"] {
     margin-top: 196px;
     margin-bottom: 196px;
   }
-  [ui-mx-xs="196"] {
+  [app-mx-xs="196"] {
     margin-right: 196px;
     margin-left: 196px;
   }
-  [ui-ma-xs="200"] {
+  [app-ma-xs="200"] {
     margin: 200px;
   }
-  [ui-mt-xs="200"] {
+  [app-mt-xs="200"] {
     margin-top: 200px;
   }
-  [ui-mr-xs="200"] {
+  [app-mr-xs="200"] {
     margin-right: 200px;
   }
-  [ui-mb-xs="200"] {
+  [app-mb-xs="200"] {
     margin-bottom: 200px;
   }
-  [ui-ml-xs="200"] {
+  [app-ml-xs="200"] {
     margin-left: 200px;
   }
-  [ui-my-xs="200"] {
+  [app-my-xs="200"] {
     margin-top: 200px;
     margin-bottom: 200px;
   }
-  [ui-mx-xs="200"] {
+  [app-mx-xs="200"] {
     margin-right: 200px;
     margin-left: 200px;
   }
-  [ui-ma-xs="204"] {
+  [app-ma-xs="204"] {
     margin: 204px;
   }
-  [ui-mt-xs="204"] {
+  [app-mt-xs="204"] {
     margin-top: 204px;
   }
-  [ui-mr-xs="204"] {
+  [app-mr-xs="204"] {
     margin-right: 204px;
   }
-  [ui-mb-xs="204"] {
+  [app-mb-xs="204"] {
     margin-bottom: 204px;
   }
-  [ui-ml-xs="204"] {
+  [app-ml-xs="204"] {
     margin-left: 204px;
   }
-  [ui-my-xs="204"] {
+  [app-my-xs="204"] {
     margin-top: 204px;
     margin-bottom: 204px;
   }
-  [ui-mx-xs="204"] {
+  [app-mx-xs="204"] {
     margin-right: 204px;
     margin-left: 204px;
   }
-  [ui-ma-xs="208"] {
+  [app-ma-xs="208"] {
     margin: 208px;
   }
-  [ui-mt-xs="208"] {
+  [app-mt-xs="208"] {
     margin-top: 208px;
   }
-  [ui-mr-xs="208"] {
+  [app-mr-xs="208"] {
     margin-right: 208px;
   }
-  [ui-mb-xs="208"] {
+  [app-mb-xs="208"] {
     margin-bottom: 208px;
   }
-  [ui-ml-xs="208"] {
+  [app-ml-xs="208"] {
     margin-left: 208px;
   }
-  [ui-my-xs="208"] {
+  [app-my-xs="208"] {
     margin-top: 208px;
     margin-bottom: 208px;
   }
-  [ui-mx-xs="208"] {
+  [app-mx-xs="208"] {
     margin-right: 208px;
     margin-left: 208px;
   }
-  [ui-ma-xs="212"] {
+  [app-ma-xs="212"] {
     margin: 212px;
   }
-  [ui-mt-xs="212"] {
+  [app-mt-xs="212"] {
     margin-top: 212px;
   }
-  [ui-mr-xs="212"] {
+  [app-mr-xs="212"] {
     margin-right: 212px;
   }
-  [ui-mb-xs="212"] {
+  [app-mb-xs="212"] {
     margin-bottom: 212px;
   }
-  [ui-ml-xs="212"] {
+  [app-ml-xs="212"] {
     margin-left: 212px;
   }
-  [ui-my-xs="212"] {
+  [app-my-xs="212"] {
     margin-top: 212px;
     margin-bottom: 212px;
   }
-  [ui-mx-xs="212"] {
+  [app-mx-xs="212"] {
     margin-right: 212px;
     margin-left: 212px;
   }
-  [ui-ma-xs="216"] {
+  [app-ma-xs="216"] {
     margin: 216px;
   }
-  [ui-mt-xs="216"] {
+  [app-mt-xs="216"] {
     margin-top: 216px;
   }
-  [ui-mr-xs="216"] {
+  [app-mr-xs="216"] {
     margin-right: 216px;
   }
-  [ui-mb-xs="216"] {
+  [app-mb-xs="216"] {
     margin-bottom: 216px;
   }
-  [ui-ml-xs="216"] {
+  [app-ml-xs="216"] {
     margin-left: 216px;
   }
-  [ui-my-xs="216"] {
+  [app-my-xs="216"] {
     margin-top: 216px;
     margin-bottom: 216px;
   }
-  [ui-mx-xs="216"] {
+  [app-mx-xs="216"] {
     margin-right: 216px;
     margin-left: 216px;
   }
-  [ui-ma-xs="220"] {
+  [app-ma-xs="220"] {
     margin: 220px;
   }
-  [ui-mt-xs="220"] {
+  [app-mt-xs="220"] {
     margin-top: 220px;
   }
-  [ui-mr-xs="220"] {
+  [app-mr-xs="220"] {
     margin-right: 220px;
   }
-  [ui-mb-xs="220"] {
+  [app-mb-xs="220"] {
     margin-bottom: 220px;
   }
-  [ui-ml-xs="220"] {
+  [app-ml-xs="220"] {
     margin-left: 220px;
   }
-  [ui-my-xs="220"] {
+  [app-my-xs="220"] {
     margin-top: 220px;
     margin-bottom: 220px;
   }
-  [ui-mx-xs="220"] {
+  [app-mx-xs="220"] {
     margin-right: 220px;
     margin-left: 220px;
   }
-  [ui-ma-xs="224"] {
+  [app-ma-xs="224"] {
     margin: 224px;
   }
-  [ui-mt-xs="224"] {
+  [app-mt-xs="224"] {
     margin-top: 224px;
   }
-  [ui-mr-xs="224"] {
+  [app-mr-xs="224"] {
     margin-right: 224px;
   }
-  [ui-mb-xs="224"] {
+  [app-mb-xs="224"] {
     margin-bottom: 224px;
   }
-  [ui-ml-xs="224"] {
+  [app-ml-xs="224"] {
     margin-left: 224px;
   }
-  [ui-my-xs="224"] {
+  [app-my-xs="224"] {
     margin-top: 224px;
     margin-bottom: 224px;
   }
-  [ui-mx-xs="224"] {
+  [app-mx-xs="224"] {
     margin-right: 224px;
     margin-left: 224px;
   }
-  [ui-ma-xs="228"] {
+  [app-ma-xs="228"] {
     margin: 228px;
   }
-  [ui-mt-xs="228"] {
+  [app-mt-xs="228"] {
     margin-top: 228px;
   }
-  [ui-mr-xs="228"] {
+  [app-mr-xs="228"] {
     margin-right: 228px;
   }
-  [ui-mb-xs="228"] {
+  [app-mb-xs="228"] {
     margin-bottom: 228px;
   }
-  [ui-ml-xs="228"] {
+  [app-ml-xs="228"] {
     margin-left: 228px;
   }
-  [ui-my-xs="228"] {
+  [app-my-xs="228"] {
     margin-top: 228px;
     margin-bottom: 228px;
   }
-  [ui-mx-xs="228"] {
+  [app-mx-xs="228"] {
     margin-right: 228px;
     margin-left: 228px;
   }
-  [ui-ma-xs="232"] {
+  [app-ma-xs="232"] {
     margin: 232px;
   }
-  [ui-mt-xs="232"] {
+  [app-mt-xs="232"] {
     margin-top: 232px;
   }
-  [ui-mr-xs="232"] {
+  [app-mr-xs="232"] {
     margin-right: 232px;
   }
-  [ui-mb-xs="232"] {
+  [app-mb-xs="232"] {
     margin-bottom: 232px;
   }
-  [ui-ml-xs="232"] {
+  [app-ml-xs="232"] {
     margin-left: 232px;
   }
-  [ui-my-xs="232"] {
+  [app-my-xs="232"] {
     margin-top: 232px;
     margin-bottom: 232px;
   }
-  [ui-mx-xs="232"] {
+  [app-mx-xs="232"] {
     margin-right: 232px;
     margin-left: 232px;
   }
-  [ui-ma-xs="236"] {
+  [app-ma-xs="236"] {
     margin: 236px;
   }
-  [ui-mt-xs="236"] {
+  [app-mt-xs="236"] {
     margin-top: 236px;
   }
-  [ui-mr-xs="236"] {
+  [app-mr-xs="236"] {
     margin-right: 236px;
   }
-  [ui-mb-xs="236"] {
+  [app-mb-xs="236"] {
     margin-bottom: 236px;
   }
-  [ui-ml-xs="236"] {
+  [app-ml-xs="236"] {
     margin-left: 236px;
   }
-  [ui-my-xs="236"] {
+  [app-my-xs="236"] {
     margin-top: 236px;
     margin-bottom: 236px;
   }
-  [ui-mx-xs="236"] {
+  [app-mx-xs="236"] {
     margin-right: 236px;
     margin-left: 236px;
   }
-  [ui-ma-xs="240"] {
+  [app-ma-xs="240"] {
     margin: 240px;
   }
-  [ui-mt-xs="240"] {
+  [app-mt-xs="240"] {
     margin-top: 240px;
   }
-  [ui-mr-xs="240"] {
+  [app-mr-xs="240"] {
     margin-right: 240px;
   }
-  [ui-mb-xs="240"] {
+  [app-mb-xs="240"] {
     margin-bottom: 240px;
   }
-  [ui-ml-xs="240"] {
+  [app-ml-xs="240"] {
     margin-left: 240px;
   }
-  [ui-my-xs="240"] {
+  [app-my-xs="240"] {
     margin-top: 240px;
     margin-bottom: 240px;
   }
-  [ui-mx-xs="240"] {
+  [app-mx-xs="240"] {
     margin-right: 240px;
     margin-left: 240px;
   }
-  [ui-ma-xs="244"] {
+  [app-ma-xs="244"] {
     margin: 244px;
   }
-  [ui-mt-xs="244"] {
+  [app-mt-xs="244"] {
     margin-top: 244px;
   }
-  [ui-mr-xs="244"] {
+  [app-mr-xs="244"] {
     margin-right: 244px;
   }
-  [ui-mb-xs="244"] {
+  [app-mb-xs="244"] {
     margin-bottom: 244px;
   }
-  [ui-ml-xs="244"] {
+  [app-ml-xs="244"] {
     margin-left: 244px;
   }
-  [ui-my-xs="244"] {
+  [app-my-xs="244"] {
     margin-top: 244px;
     margin-bottom: 244px;
   }
-  [ui-mx-xs="244"] {
+  [app-mx-xs="244"] {
     margin-right: 244px;
     margin-left: 244px;
   }
-  [ui-ma-xs="248"] {
+  [app-ma-xs="248"] {
     margin: 248px;
   }
-  [ui-mt-xs="248"] {
+  [app-mt-xs="248"] {
     margin-top: 248px;
   }
-  [ui-mr-xs="248"] {
+  [app-mr-xs="248"] {
     margin-right: 248px;
   }
-  [ui-mb-xs="248"] {
+  [app-mb-xs="248"] {
     margin-bottom: 248px;
   }
-  [ui-ml-xs="248"] {
+  [app-ml-xs="248"] {
     margin-left: 248px;
   }
-  [ui-my-xs="248"] {
+  [app-my-xs="248"] {
     margin-top: 248px;
     margin-bottom: 248px;
   }
-  [ui-mx-xs="248"] {
+  [app-mx-xs="248"] {
     margin-right: 248px;
     margin-left: 248px;
   }
-  [ui-ma-xs="252"] {
+  [app-ma-xs="252"] {
     margin: 252px;
   }
-  [ui-mt-xs="252"] {
+  [app-mt-xs="252"] {
     margin-top: 252px;
   }
-  [ui-mr-xs="252"] {
+  [app-mr-xs="252"] {
     margin-right: 252px;
   }
-  [ui-mb-xs="252"] {
+  [app-mb-xs="252"] {
     margin-bottom: 252px;
   }
-  [ui-ml-xs="252"] {
+  [app-ml-xs="252"] {
     margin-left: 252px;
   }
-  [ui-my-xs="252"] {
+  [app-my-xs="252"] {
     margin-top: 252px;
     margin-bottom: 252px;
   }
-  [ui-mx-xs="252"] {
+  [app-mx-xs="252"] {
     margin-right: 252px;
     margin-left: 252px;
   }
-  [ui-ma-xs="256"] {
+  [app-ma-xs="256"] {
     margin: 256px;
   }
-  [ui-mt-xs="256"] {
+  [app-mt-xs="256"] {
     margin-top: 256px;
   }
-  [ui-mr-xs="256"] {
+  [app-mr-xs="256"] {
     margin-right: 256px;
   }
-  [ui-mb-xs="256"] {
+  [app-mb-xs="256"] {
     margin-bottom: 256px;
   }
-  [ui-ml-xs="256"] {
+  [app-ml-xs="256"] {
     margin-left: 256px;
   }
-  [ui-my-xs="256"] {
+  [app-my-xs="256"] {
     margin-top: 256px;
     margin-bottom: 256px;
   }
-  [ui-mx-xs="256"] {
+  [app-mx-xs="256"] {
     margin-right: 256px;
     margin-left: 256px;
   }
-  [ui-pa-xs="0"] {
+  [app-pa-xs="0"] {
     padding: 0px;
   }
-  [ui-pt-xs="0"] {
+  [app-pt-xs="0"] {
     padding-top: 0px;
   }
-  [ui-pr-xs="0"] {
+  [app-pr-xs="0"] {
     padding-right: 0px;
   }
-  [ui-pb-xs="0"] {
+  [app-pb-xs="0"] {
     padding-bottom: 0px;
   }
-  [ui-pl-xs="0"] {
+  [app-pl-xs="0"] {
     padding-left: 0px;
   }
-  [ui-py-xs="0"] {
+  [app-py-xs="0"] {
     padding-top: 0px;
     padding-bottom: 0px;
   }
-  [ui-px-xs="0"] {
+  [app-px-xs="0"] {
     padding-left: 0px;
     padding-right: 0px;
   }
-  [ui-pa-xs="4"] {
+  [app-pa-xs="4"] {
     padding: 4px;
   }
-  [ui-pt-xs="4"] {
+  [app-pt-xs="4"] {
     padding-top: 4px;
   }
-  [ui-pr-xs="4"] {
+  [app-pr-xs="4"] {
     padding-right: 4px;
   }
-  [ui-pb-xs="4"] {
+  [app-pb-xs="4"] {
     padding-bottom: 4px;
   }
-  [ui-pl-xs="4"] {
+  [app-pl-xs="4"] {
     padding-left: 4px;
   }
-  [ui-py-xs="4"] {
+  [app-py-xs="4"] {
     padding-top: 4px;
     padding-bottom: 4px;
   }
-  [ui-px-xs="4"] {
+  [app-px-xs="4"] {
     padding-left: 4px;
     padding-right: 4px;
   }
-  [ui-pa-xs="8"] {
+  [app-pa-xs="8"] {
     padding: 8px;
   }
-  [ui-pt-xs="8"] {
+  [app-pt-xs="8"] {
     padding-top: 8px;
   }
-  [ui-pr-xs="8"] {
+  [app-pr-xs="8"] {
     padding-right: 8px;
   }
-  [ui-pb-xs="8"] {
+  [app-pb-xs="8"] {
     padding-bottom: 8px;
   }
-  [ui-pl-xs="8"] {
+  [app-pl-xs="8"] {
     padding-left: 8px;
   }
-  [ui-py-xs="8"] {
+  [app-py-xs="8"] {
     padding-top: 8px;
     padding-bottom: 8px;
   }
-  [ui-px-xs="8"] {
+  [app-px-xs="8"] {
     padding-left: 8px;
     padding-right: 8px;
   }
-  [ui-pa-xs="12"] {
+  [app-pa-xs="12"] {
     padding: 12px;
   }
-  [ui-pt-xs="12"] {
+  [app-pt-xs="12"] {
     padding-top: 12px;
   }
-  [ui-pr-xs="12"] {
+  [app-pr-xs="12"] {
     padding-right: 12px;
   }
-  [ui-pb-xs="12"] {
+  [app-pb-xs="12"] {
     padding-bottom: 12px;
   }
-  [ui-pl-xs="12"] {
+  [app-pl-xs="12"] {
     padding-left: 12px;
   }
-  [ui-py-xs="12"] {
+  [app-py-xs="12"] {
     padding-top: 12px;
     padding-bottom: 12px;
   }
-  [ui-px-xs="12"] {
+  [app-px-xs="12"] {
     padding-left: 12px;
     padding-right: 12px;
   }
-  [ui-pa-xs="16"] {
+  [app-pa-xs="16"] {
     padding: 16px;
   }
-  [ui-pt-xs="16"] {
+  [app-pt-xs="16"] {
     padding-top: 16px;
   }
-  [ui-pr-xs="16"] {
+  [app-pr-xs="16"] {
     padding-right: 16px;
   }
-  [ui-pb-xs="16"] {
+  [app-pb-xs="16"] {
     padding-bottom: 16px;
   }
-  [ui-pl-xs="16"] {
+  [app-pl-xs="16"] {
     padding-left: 16px;
   }
-  [ui-py-xs="16"] {
+  [app-py-xs="16"] {
     padding-top: 16px;
     padding-bottom: 16px;
   }
-  [ui-px-xs="16"] {
+  [app-px-xs="16"] {
     padding-left: 16px;
     padding-right: 16px;
   }
-  [ui-pa-xs="20"] {
+  [app-pa-xs="20"] {
     padding: 20px;
   }
-  [ui-pt-xs="20"] {
+  [app-pt-xs="20"] {
     padding-top: 20px;
   }
-  [ui-pr-xs="20"] {
+  [app-pr-xs="20"] {
     padding-right: 20px;
   }
-  [ui-pb-xs="20"] {
+  [app-pb-xs="20"] {
     padding-bottom: 20px;
   }
-  [ui-pl-xs="20"] {
+  [app-pl-xs="20"] {
     padding-left: 20px;
   }
-  [ui-py-xs="20"] {
+  [app-py-xs="20"] {
     padding-top: 20px;
     padding-bottom: 20px;
   }
-  [ui-px-xs="20"] {
+  [app-px-xs="20"] {
     padding-left: 20px;
     padding-right: 20px;
   }
-  [ui-pa-xs="24"] {
+  [app-pa-xs="24"] {
     padding: 24px;
   }
-  [ui-pt-xs="24"] {
+  [app-pt-xs="24"] {
     padding-top: 24px;
   }
-  [ui-pr-xs="24"] {
+  [app-pr-xs="24"] {
     padding-right: 24px;
   }
-  [ui-pb-xs="24"] {
+  [app-pb-xs="24"] {
     padding-bottom: 24px;
   }
-  [ui-pl-xs="24"] {
+  [app-pl-xs="24"] {
     padding-left: 24px;
   }
-  [ui-py-xs="24"] {
+  [app-py-xs="24"] {
     padding-top: 24px;
     padding-bottom: 24px;
   }
-  [ui-px-xs="24"] {
+  [app-px-xs="24"] {
     padding-left: 24px;
     padding-right: 24px;
   }
-  [ui-pa-xs="28"] {
+  [app-pa-xs="28"] {
     padding: 28px;
   }
-  [ui-pt-xs="28"] {
+  [app-pt-xs="28"] {
     padding-top: 28px;
   }
-  [ui-pr-xs="28"] {
+  [app-pr-xs="28"] {
     padding-right: 28px;
   }
-  [ui-pb-xs="28"] {
+  [app-pb-xs="28"] {
     padding-bottom: 28px;
   }
-  [ui-pl-xs="28"] {
+  [app-pl-xs="28"] {
     padding-left: 28px;
   }
-  [ui-py-xs="28"] {
+  [app-py-xs="28"] {
     padding-top: 28px;
     padding-bottom: 28px;
   }
-  [ui-px-xs="28"] {
+  [app-px-xs="28"] {
     padding-left: 28px;
     padding-right: 28px;
   }
-  [ui-pa-xs="32"] {
+  [app-pa-xs="32"] {
     padding: 32px;
   }
-  [ui-pt-xs="32"] {
+  [app-pt-xs="32"] {
     padding-top: 32px;
   }
-  [ui-pr-xs="32"] {
+  [app-pr-xs="32"] {
     padding-right: 32px;
   }
-  [ui-pb-xs="32"] {
+  [app-pb-xs="32"] {
     padding-bottom: 32px;
   }
-  [ui-pl-xs="32"] {
+  [app-pl-xs="32"] {
     padding-left: 32px;
   }
-  [ui-py-xs="32"] {
+  [app-py-xs="32"] {
     padding-top: 32px;
     padding-bottom: 32px;
   }
-  [ui-px-xs="32"] {
+  [app-px-xs="32"] {
     padding-left: 32px;
     padding-right: 32px;
   }
-  [ui-pa-xs="36"] {
+  [app-pa-xs="36"] {
     padding: 36px;
   }
-  [ui-pt-xs="36"] {
+  [app-pt-xs="36"] {
     padding-top: 36px;
   }
-  [ui-pr-xs="36"] {
+  [app-pr-xs="36"] {
     padding-right: 36px;
   }
-  [ui-pb-xs="36"] {
+  [app-pb-xs="36"] {
     padding-bottom: 36px;
   }
-  [ui-pl-xs="36"] {
+  [app-pl-xs="36"] {
     padding-left: 36px;
   }
-  [ui-py-xs="36"] {
+  [app-py-xs="36"] {
     padding-top: 36px;
     padding-bottom: 36px;
   }
-  [ui-px-xs="36"] {
+  [app-px-xs="36"] {
     padding-left: 36px;
     padding-right: 36px;
   }
-  [ui-pa-xs="40"] {
+  [app-pa-xs="40"] {
     padding: 40px;
   }
-  [ui-pt-xs="40"] {
+  [app-pt-xs="40"] {
     padding-top: 40px;
   }
-  [ui-pr-xs="40"] {
+  [app-pr-xs="40"] {
     padding-right: 40px;
   }
-  [ui-pb-xs="40"] {
+  [app-pb-xs="40"] {
     padding-bottom: 40px;
   }
-  [ui-pl-xs="40"] {
+  [app-pl-xs="40"] {
     padding-left: 40px;
   }
-  [ui-py-xs="40"] {
+  [app-py-xs="40"] {
     padding-top: 40px;
     padding-bottom: 40px;
   }
-  [ui-px-xs="40"] {
+  [app-px-xs="40"] {
     padding-left: 40px;
     padding-right: 40px;
   }
-  [ui-pa-xs="44"] {
+  [app-pa-xs="44"] {
     padding: 44px;
   }
-  [ui-pt-xs="44"] {
+  [app-pt-xs="44"] {
     padding-top: 44px;
   }
-  [ui-pr-xs="44"] {
+  [app-pr-xs="44"] {
     padding-right: 44px;
   }
-  [ui-pb-xs="44"] {
+  [app-pb-xs="44"] {
     padding-bottom: 44px;
   }
-  [ui-pl-xs="44"] {
+  [app-pl-xs="44"] {
     padding-left: 44px;
   }
-  [ui-py-xs="44"] {
+  [app-py-xs="44"] {
     padding-top: 44px;
     padding-bottom: 44px;
   }
-  [ui-px-xs="44"] {
+  [app-px-xs="44"] {
     padding-left: 44px;
     padding-right: 44px;
   }
-  [ui-pa-xs="48"] {
+  [app-pa-xs="48"] {
     padding: 48px;
   }
-  [ui-pt-xs="48"] {
+  [app-pt-xs="48"] {
     padding-top: 48px;
   }
-  [ui-pr-xs="48"] {
+  [app-pr-xs="48"] {
     padding-right: 48px;
   }
-  [ui-pb-xs="48"] {
+  [app-pb-xs="48"] {
     padding-bottom: 48px;
   }
-  [ui-pl-xs="48"] {
+  [app-pl-xs="48"] {
     padding-left: 48px;
   }
-  [ui-py-xs="48"] {
+  [app-py-xs="48"] {
     padding-top: 48px;
     padding-bottom: 48px;
   }
-  [ui-px-xs="48"] {
+  [app-px-xs="48"] {
     padding-left: 48px;
     padding-right: 48px;
   }
-  [ui-pa-xs="52"] {
+  [app-pa-xs="52"] {
     padding: 52px;
   }
-  [ui-pt-xs="52"] {
+  [app-pt-xs="52"] {
     padding-top: 52px;
   }
-  [ui-pr-xs="52"] {
+  [app-pr-xs="52"] {
     padding-right: 52px;
   }
-  [ui-pb-xs="52"] {
+  [app-pb-xs="52"] {
     padding-bottom: 52px;
   }
-  [ui-pl-xs="52"] {
+  [app-pl-xs="52"] {
     padding-left: 52px;
   }
-  [ui-py-xs="52"] {
+  [app-py-xs="52"] {
     padding-top: 52px;
     padding-bottom: 52px;
   }
-  [ui-px-xs="52"] {
+  [app-px-xs="52"] {
     padding-left: 52px;
     padding-right: 52px;
   }
-  [ui-pa-xs="56"] {
+  [app-pa-xs="56"] {
     padding: 56px;
   }
-  [ui-pt-xs="56"] {
+  [app-pt-xs="56"] {
     padding-top: 56px;
   }
-  [ui-pr-xs="56"] {
+  [app-pr-xs="56"] {
     padding-right: 56px;
   }
-  [ui-pb-xs="56"] {
+  [app-pb-xs="56"] {
     padding-bottom: 56px;
   }
-  [ui-pl-xs="56"] {
+  [app-pl-xs="56"] {
     padding-left: 56px;
   }
-  [ui-py-xs="56"] {
+  [app-py-xs="56"] {
     padding-top: 56px;
     padding-bottom: 56px;
   }
-  [ui-px-xs="56"] {
+  [app-px-xs="56"] {
     padding-left: 56px;
     padding-right: 56px;
   }
-  [ui-pa-xs="60"] {
+  [app-pa-xs="60"] {
     padding: 60px;
   }
-  [ui-pt-xs="60"] {
+  [app-pt-xs="60"] {
     padding-top: 60px;
   }
-  [ui-pr-xs="60"] {
+  [app-pr-xs="60"] {
     padding-right: 60px;
   }
-  [ui-pb-xs="60"] {
+  [app-pb-xs="60"] {
     padding-bottom: 60px;
   }
-  [ui-pl-xs="60"] {
+  [app-pl-xs="60"] {
     padding-left: 60px;
   }
-  [ui-py-xs="60"] {
+  [app-py-xs="60"] {
     padding-top: 60px;
     padding-bottom: 60px;
   }
-  [ui-px-xs="60"] {
+  [app-px-xs="60"] {
     padding-left: 60px;
     padding-right: 60px;
   }
-  [ui-pa-xs="64"] {
+  [app-pa-xs="64"] {
     padding: 64px;
   }
-  [ui-pt-xs="64"] {
+  [app-pt-xs="64"] {
     padding-top: 64px;
   }
-  [ui-pr-xs="64"] {
+  [app-pr-xs="64"] {
     padding-right: 64px;
   }
-  [ui-pb-xs="64"] {
+  [app-pb-xs="64"] {
     padding-bottom: 64px;
   }
-  [ui-pl-xs="64"] {
+  [app-pl-xs="64"] {
     padding-left: 64px;
   }
-  [ui-py-xs="64"] {
+  [app-py-xs="64"] {
     padding-top: 64px;
     padding-bottom: 64px;
   }
-  [ui-px-xs="64"] {
+  [app-px-xs="64"] {
     padding-left: 64px;
     padding-right: 64px;
   }
-  [ui-pa-xs="68"] {
+  [app-pa-xs="68"] {
     padding: 68px;
   }
-  [ui-pt-xs="68"] {
+  [app-pt-xs="68"] {
     padding-top: 68px;
   }
-  [ui-pr-xs="68"] {
+  [app-pr-xs="68"] {
     padding-right: 68px;
   }
-  [ui-pb-xs="68"] {
+  [app-pb-xs="68"] {
     padding-bottom: 68px;
   }
-  [ui-pl-xs="68"] {
+  [app-pl-xs="68"] {
     padding-left: 68px;
   }
-  [ui-py-xs="68"] {
+  [app-py-xs="68"] {
     padding-top: 68px;
     padding-bottom: 68px;
   }
-  [ui-px-xs="68"] {
+  [app-px-xs="68"] {
     padding-left: 68px;
     padding-right: 68px;
   }
-  [ui-pa-xs="72"] {
+  [app-pa-xs="72"] {
     padding: 72px;
   }
-  [ui-pt-xs="72"] {
+  [app-pt-xs="72"] {
     padding-top: 72px;
   }
-  [ui-pr-xs="72"] {
+  [app-pr-xs="72"] {
     padding-right: 72px;
   }
-  [ui-pb-xs="72"] {
+  [app-pb-xs="72"] {
     padding-bottom: 72px;
   }
-  [ui-pl-xs="72"] {
+  [app-pl-xs="72"] {
     padding-left: 72px;
   }
-  [ui-py-xs="72"] {
+  [app-py-xs="72"] {
     padding-top: 72px;
     padding-bottom: 72px;
   }
-  [ui-px-xs="72"] {
+  [app-px-xs="72"] {
     padding-left: 72px;
     padding-right: 72px;
   }
-  [ui-pa-xs="76"] {
+  [app-pa-xs="76"] {
     padding: 76px;
   }
-  [ui-pt-xs="76"] {
+  [app-pt-xs="76"] {
     padding-top: 76px;
   }
-  [ui-pr-xs="76"] {
+  [app-pr-xs="76"] {
     padding-right: 76px;
   }
-  [ui-pb-xs="76"] {
+  [app-pb-xs="76"] {
     padding-bottom: 76px;
   }
-  [ui-pl-xs="76"] {
+  [app-pl-xs="76"] {
     padding-left: 76px;
   }
-  [ui-py-xs="76"] {
+  [app-py-xs="76"] {
     padding-top: 76px;
     padding-bottom: 76px;
   }
-  [ui-px-xs="76"] {
+  [app-px-xs="76"] {
     padding-left: 76px;
     padding-right: 76px;
   }
-  [ui-pa-xs="80"] {
+  [app-pa-xs="80"] {
     padding: 80px;
   }
-  [ui-pt-xs="80"] {
+  [app-pt-xs="80"] {
     padding-top: 80px;
   }
-  [ui-pr-xs="80"] {
+  [app-pr-xs="80"] {
     padding-right: 80px;
   }
-  [ui-pb-xs="80"] {
+  [app-pb-xs="80"] {
     padding-bottom: 80px;
   }
-  [ui-pl-xs="80"] {
+  [app-pl-xs="80"] {
     padding-left: 80px;
   }
-  [ui-py-xs="80"] {
+  [app-py-xs="80"] {
     padding-top: 80px;
     padding-bottom: 80px;
   }
-  [ui-px-xs="80"] {
+  [app-px-xs="80"] {
     padding-left: 80px;
     padding-right: 80px;
   }
-  [ui-pa-xs="84"] {
+  [app-pa-xs="84"] {
     padding: 84px;
   }
-  [ui-pt-xs="84"] {
+  [app-pt-xs="84"] {
     padding-top: 84px;
   }
-  [ui-pr-xs="84"] {
+  [app-pr-xs="84"] {
     padding-right: 84px;
   }
-  [ui-pb-xs="84"] {
+  [app-pb-xs="84"] {
     padding-bottom: 84px;
   }
-  [ui-pl-xs="84"] {
+  [app-pl-xs="84"] {
     padding-left: 84px;
   }
-  [ui-py-xs="84"] {
+  [app-py-xs="84"] {
     padding-top: 84px;
     padding-bottom: 84px;
   }
-  [ui-px-xs="84"] {
+  [app-px-xs="84"] {
     padding-left: 84px;
     padding-right: 84px;
   }
-  [ui-pa-xs="88"] {
+  [app-pa-xs="88"] {
     padding: 88px;
   }
-  [ui-pt-xs="88"] {
+  [app-pt-xs="88"] {
     padding-top: 88px;
   }
-  [ui-pr-xs="88"] {
+  [app-pr-xs="88"] {
     padding-right: 88px;
   }
-  [ui-pb-xs="88"] {
+  [app-pb-xs="88"] {
     padding-bottom: 88px;
   }
-  [ui-pl-xs="88"] {
+  [app-pl-xs="88"] {
     padding-left: 88px;
   }
-  [ui-py-xs="88"] {
+  [app-py-xs="88"] {
     padding-top: 88px;
     padding-bottom: 88px;
   }
-  [ui-px-xs="88"] {
+  [app-px-xs="88"] {
     padding-left: 88px;
     padding-right: 88px;
   }
-  [ui-pa-xs="92"] {
+  [app-pa-xs="92"] {
     padding: 92px;
   }
-  [ui-pt-xs="92"] {
+  [app-pt-xs="92"] {
     padding-top: 92px;
   }
-  [ui-pr-xs="92"] {
+  [app-pr-xs="92"] {
     padding-right: 92px;
   }
-  [ui-pb-xs="92"] {
+  [app-pb-xs="92"] {
     padding-bottom: 92px;
   }
-  [ui-pl-xs="92"] {
+  [app-pl-xs="92"] {
     padding-left: 92px;
   }
-  [ui-py-xs="92"] {
+  [app-py-xs="92"] {
     padding-top: 92px;
     padding-bottom: 92px;
   }
-  [ui-px-xs="92"] {
+  [app-px-xs="92"] {
     padding-left: 92px;
     padding-right: 92px;
   }
-  [ui-pa-xs="96"] {
+  [app-pa-xs="96"] {
     padding: 96px;
   }
-  [ui-pt-xs="96"] {
+  [app-pt-xs="96"] {
     padding-top: 96px;
   }
-  [ui-pr-xs="96"] {
+  [app-pr-xs="96"] {
     padding-right: 96px;
   }
-  [ui-pb-xs="96"] {
+  [app-pb-xs="96"] {
     padding-bottom: 96px;
   }
-  [ui-pl-xs="96"] {
+  [app-pl-xs="96"] {
     padding-left: 96px;
   }
-  [ui-py-xs="96"] {
+  [app-py-xs="96"] {
     padding-top: 96px;
     padding-bottom: 96px;
   }
-  [ui-px-xs="96"] {
+  [app-px-xs="96"] {
     padding-left: 96px;
     padding-right: 96px;
   }
-  [ui-pa-xs="100"] {
+  [app-pa-xs="100"] {
     padding: 100px;
   }
-  [ui-pt-xs="100"] {
+  [app-pt-xs="100"] {
     padding-top: 100px;
   }
-  [ui-pr-xs="100"] {
+  [app-pr-xs="100"] {
     padding-right: 100px;
   }
-  [ui-pb-xs="100"] {
+  [app-pb-xs="100"] {
     padding-bottom: 100px;
   }
-  [ui-pl-xs="100"] {
+  [app-pl-xs="100"] {
     padding-left: 100px;
   }
-  [ui-py-xs="100"] {
+  [app-py-xs="100"] {
     padding-top: 100px;
     padding-bottom: 100px;
   }
-  [ui-px-xs="100"] {
+  [app-px-xs="100"] {
     padding-left: 100px;
     padding-right: 100px;
   }
-  [ui-pa-xs="104"] {
+  [app-pa-xs="104"] {
     padding: 104px;
   }
-  [ui-pt-xs="104"] {
+  [app-pt-xs="104"] {
     padding-top: 104px;
   }
-  [ui-pr-xs="104"] {
+  [app-pr-xs="104"] {
     padding-right: 104px;
   }
-  [ui-pb-xs="104"] {
+  [app-pb-xs="104"] {
     padding-bottom: 104px;
   }
-  [ui-pl-xs="104"] {
+  [app-pl-xs="104"] {
     padding-left: 104px;
   }
-  [ui-py-xs="104"] {
+  [app-py-xs="104"] {
     padding-top: 104px;
     padding-bottom: 104px;
   }
-  [ui-px-xs="104"] {
+  [app-px-xs="104"] {
     padding-left: 104px;
     padding-right: 104px;
   }
-  [ui-pa-xs="108"] {
+  [app-pa-xs="108"] {
     padding: 108px;
   }
-  [ui-pt-xs="108"] {
+  [app-pt-xs="108"] {
     padding-top: 108px;
   }
-  [ui-pr-xs="108"] {
+  [app-pr-xs="108"] {
     padding-right: 108px;
   }
-  [ui-pb-xs="108"] {
+  [app-pb-xs="108"] {
     padding-bottom: 108px;
   }
-  [ui-pl-xs="108"] {
+  [app-pl-xs="108"] {
     padding-left: 108px;
   }
-  [ui-py-xs="108"] {
+  [app-py-xs="108"] {
     padding-top: 108px;
     padding-bottom: 108px;
   }
-  [ui-px-xs="108"] {
+  [app-px-xs="108"] {
     padding-left: 108px;
     padding-right: 108px;
   }
-  [ui-pa-xs="112"] {
+  [app-pa-xs="112"] {
     padding: 112px;
   }
-  [ui-pt-xs="112"] {
+  [app-pt-xs="112"] {
     padding-top: 112px;
   }
-  [ui-pr-xs="112"] {
+  [app-pr-xs="112"] {
     padding-right: 112px;
   }
-  [ui-pb-xs="112"] {
+  [app-pb-xs="112"] {
     padding-bottom: 112px;
   }
-  [ui-pl-xs="112"] {
+  [app-pl-xs="112"] {
     padding-left: 112px;
   }
-  [ui-py-xs="112"] {
+  [app-py-xs="112"] {
     padding-top: 112px;
     padding-bottom: 112px;
   }
-  [ui-px-xs="112"] {
+  [app-px-xs="112"] {
     padding-left: 112px;
     padding-right: 112px;
   }
-  [ui-pa-xs="116"] {
+  [app-pa-xs="116"] {
     padding: 116px;
   }
-  [ui-pt-xs="116"] {
+  [app-pt-xs="116"] {
     padding-top: 116px;
   }
-  [ui-pr-xs="116"] {
+  [app-pr-xs="116"] {
     padding-right: 116px;
   }
-  [ui-pb-xs="116"] {
+  [app-pb-xs="116"] {
     padding-bottom: 116px;
   }
-  [ui-pl-xs="116"] {
+  [app-pl-xs="116"] {
     padding-left: 116px;
   }
-  [ui-py-xs="116"] {
+  [app-py-xs="116"] {
     padding-top: 116px;
     padding-bottom: 116px;
   }
-  [ui-px-xs="116"] {
+  [app-px-xs="116"] {
     padding-left: 116px;
     padding-right: 116px;
   }
-  [ui-pa-xs="120"] {
+  [app-pa-xs="120"] {
     padding: 120px;
   }
-  [ui-pt-xs="120"] {
+  [app-pt-xs="120"] {
     padding-top: 120px;
   }
-  [ui-pr-xs="120"] {
+  [app-pr-xs="120"] {
     padding-right: 120px;
   }
-  [ui-pb-xs="120"] {
+  [app-pb-xs="120"] {
     padding-bottom: 120px;
   }
-  [ui-pl-xs="120"] {
+  [app-pl-xs="120"] {
     padding-left: 120px;
   }
-  [ui-py-xs="120"] {
+  [app-py-xs="120"] {
     padding-top: 120px;
     padding-bottom: 120px;
   }
-  [ui-px-xs="120"] {
+  [app-px-xs="120"] {
     padding-left: 120px;
     padding-right: 120px;
   }
-  [ui-pa-xs="124"] {
+  [app-pa-xs="124"] {
     padding: 124px;
   }
-  [ui-pt-xs="124"] {
+  [app-pt-xs="124"] {
     padding-top: 124px;
   }
-  [ui-pr-xs="124"] {
+  [app-pr-xs="124"] {
     padding-right: 124px;
   }
-  [ui-pb-xs="124"] {
+  [app-pb-xs="124"] {
     padding-bottom: 124px;
   }
-  [ui-pl-xs="124"] {
+  [app-pl-xs="124"] {
     padding-left: 124px;
   }
-  [ui-py-xs="124"] {
+  [app-py-xs="124"] {
     padding-top: 124px;
     padding-bottom: 124px;
   }
-  [ui-px-xs="124"] {
+  [app-px-xs="124"] {
     padding-left: 124px;
     padding-right: 124px;
   }
-  [ui-pa-xs="128"] {
+  [app-pa-xs="128"] {
     padding: 128px;
   }
-  [ui-pt-xs="128"] {
+  [app-pt-xs="128"] {
     padding-top: 128px;
   }
-  [ui-pr-xs="128"] {
+  [app-pr-xs="128"] {
     padding-right: 128px;
   }
-  [ui-pb-xs="128"] {
+  [app-pb-xs="128"] {
     padding-bottom: 128px;
   }
-  [ui-pl-xs="128"] {
+  [app-pl-xs="128"] {
     padding-left: 128px;
   }
-  [ui-py-xs="128"] {
+  [app-py-xs="128"] {
     padding-top: 128px;
     padding-bottom: 128px;
   }
-  [ui-px-xs="128"] {
+  [app-px-xs="128"] {
     padding-left: 128px;
     padding-right: 128px;
   }
-  [ui-pa-xs="132"] {
+  [app-pa-xs="132"] {
     padding: 132px;
   }
-  [ui-pt-xs="132"] {
+  [app-pt-xs="132"] {
     padding-top: 132px;
   }
-  [ui-pr-xs="132"] {
+  [app-pr-xs="132"] {
     padding-right: 132px;
   }
-  [ui-pb-xs="132"] {
+  [app-pb-xs="132"] {
     padding-bottom: 132px;
   }
-  [ui-pl-xs="132"] {
+  [app-pl-xs="132"] {
     padding-left: 132px;
   }
-  [ui-py-xs="132"] {
+  [app-py-xs="132"] {
     padding-top: 132px;
     padding-bottom: 132px;
   }
-  [ui-px-xs="132"] {
+  [app-px-xs="132"] {
     padding-left: 132px;
     padding-right: 132px;
   }
-  [ui-pa-xs="136"] {
+  [app-pa-xs="136"] {
     padding: 136px;
   }
-  [ui-pt-xs="136"] {
+  [app-pt-xs="136"] {
     padding-top: 136px;
   }
-  [ui-pr-xs="136"] {
+  [app-pr-xs="136"] {
     padding-right: 136px;
   }
-  [ui-pb-xs="136"] {
+  [app-pb-xs="136"] {
     padding-bottom: 136px;
   }
-  [ui-pl-xs="136"] {
+  [app-pl-xs="136"] {
     padding-left: 136px;
   }
-  [ui-py-xs="136"] {
+  [app-py-xs="136"] {
     padding-top: 136px;
     padding-bottom: 136px;
   }
-  [ui-px-xs="136"] {
+  [app-px-xs="136"] {
     padding-left: 136px;
     padding-right: 136px;
   }
-  [ui-pa-xs="140"] {
+  [app-pa-xs="140"] {
     padding: 140px;
   }
-  [ui-pt-xs="140"] {
+  [app-pt-xs="140"] {
     padding-top: 140px;
   }
-  [ui-pr-xs="140"] {
+  [app-pr-xs="140"] {
     padding-right: 140px;
   }
-  [ui-pb-xs="140"] {
+  [app-pb-xs="140"] {
     padding-bottom: 140px;
   }
-  [ui-pl-xs="140"] {
+  [app-pl-xs="140"] {
     padding-left: 140px;
   }
-  [ui-py-xs="140"] {
+  [app-py-xs="140"] {
     padding-top: 140px;
     padding-bottom: 140px;
   }
-  [ui-px-xs="140"] {
+  [app-px-xs="140"] {
     padding-left: 140px;
     padding-right: 140px;
   }
-  [ui-pa-xs="144"] {
+  [app-pa-xs="144"] {
     padding: 144px;
   }
-  [ui-pt-xs="144"] {
+  [app-pt-xs="144"] {
     padding-top: 144px;
   }
-  [ui-pr-xs="144"] {
+  [app-pr-xs="144"] {
     padding-right: 144px;
   }
-  [ui-pb-xs="144"] {
+  [app-pb-xs="144"] {
     padding-bottom: 144px;
   }
-  [ui-pl-xs="144"] {
+  [app-pl-xs="144"] {
     padding-left: 144px;
   }
-  [ui-py-xs="144"] {
+  [app-py-xs="144"] {
     padding-top: 144px;
     padding-bottom: 144px;
   }
-  [ui-px-xs="144"] {
+  [app-px-xs="144"] {
     padding-left: 144px;
     padding-right: 144px;
   }
-  [ui-pa-xs="148"] {
+  [app-pa-xs="148"] {
     padding: 148px;
   }
-  [ui-pt-xs="148"] {
+  [app-pt-xs="148"] {
     padding-top: 148px;
   }
-  [ui-pr-xs="148"] {
+  [app-pr-xs="148"] {
     padding-right: 148px;
   }
-  [ui-pb-xs="148"] {
+  [app-pb-xs="148"] {
     padding-bottom: 148px;
   }
-  [ui-pl-xs="148"] {
+  [app-pl-xs="148"] {
     padding-left: 148px;
   }
-  [ui-py-xs="148"] {
+  [app-py-xs="148"] {
     padding-top: 148px;
     padding-bottom: 148px;
   }
-  [ui-px-xs="148"] {
+  [app-px-xs="148"] {
     padding-left: 148px;
     padding-right: 148px;
   }
-  [ui-pa-xs="152"] {
+  [app-pa-xs="152"] {
     padding: 152px;
   }
-  [ui-pt-xs="152"] {
+  [app-pt-xs="152"] {
     padding-top: 152px;
   }
-  [ui-pr-xs="152"] {
+  [app-pr-xs="152"] {
     padding-right: 152px;
   }
-  [ui-pb-xs="152"] {
+  [app-pb-xs="152"] {
     padding-bottom: 152px;
   }
-  [ui-pl-xs="152"] {
+  [app-pl-xs="152"] {
     padding-left: 152px;
   }
-  [ui-py-xs="152"] {
+  [app-py-xs="152"] {
     padding-top: 152px;
     padding-bottom: 152px;
   }
-  [ui-px-xs="152"] {
+  [app-px-xs="152"] {
     padding-left: 152px;
     padding-right: 152px;
   }
-  [ui-pa-xs="156"] {
+  [app-pa-xs="156"] {
     padding: 156px;
   }
-  [ui-pt-xs="156"] {
+  [app-pt-xs="156"] {
     padding-top: 156px;
   }
-  [ui-pr-xs="156"] {
+  [app-pr-xs="156"] {
     padding-right: 156px;
   }
-  [ui-pb-xs="156"] {
+  [app-pb-xs="156"] {
     padding-bottom: 156px;
   }
-  [ui-pl-xs="156"] {
+  [app-pl-xs="156"] {
     padding-left: 156px;
   }
-  [ui-py-xs="156"] {
+  [app-py-xs="156"] {
     padding-top: 156px;
     padding-bottom: 156px;
   }
-  [ui-px-xs="156"] {
+  [app-px-xs="156"] {
     padding-left: 156px;
     padding-right: 156px;
   }
-  [ui-pa-xs="160"] {
+  [app-pa-xs="160"] {
     padding: 160px;
   }
-  [ui-pt-xs="160"] {
+  [app-pt-xs="160"] {
     padding-top: 160px;
   }
-  [ui-pr-xs="160"] {
+  [app-pr-xs="160"] {
     padding-right: 160px;
   }
-  [ui-pb-xs="160"] {
+  [app-pb-xs="160"] {
     padding-bottom: 160px;
   }
-  [ui-pl-xs="160"] {
+  [app-pl-xs="160"] {
     padding-left: 160px;
   }
-  [ui-py-xs="160"] {
+  [app-py-xs="160"] {
     padding-top: 160px;
     padding-bottom: 160px;
   }
-  [ui-px-xs="160"] {
+  [app-px-xs="160"] {
     padding-left: 160px;
     padding-right: 160px;
   }
-  [ui-pa-xs="164"] {
+  [app-pa-xs="164"] {
     padding: 164px;
   }
-  [ui-pt-xs="164"] {
+  [app-pt-xs="164"] {
     padding-top: 164px;
   }
-  [ui-pr-xs="164"] {
+  [app-pr-xs="164"] {
     padding-right: 164px;
   }
-  [ui-pb-xs="164"] {
+  [app-pb-xs="164"] {
     padding-bottom: 164px;
   }
-  [ui-pl-xs="164"] {
+  [app-pl-xs="164"] {
     padding-left: 164px;
   }
-  [ui-py-xs="164"] {
+  [app-py-xs="164"] {
     padding-top: 164px;
     padding-bottom: 164px;
   }
-  [ui-px-xs="164"] {
+  [app-px-xs="164"] {
     padding-left: 164px;
     padding-right: 164px;
   }
-  [ui-pa-xs="168"] {
+  [app-pa-xs="168"] {
     padding: 168px;
   }
-  [ui-pt-xs="168"] {
+  [app-pt-xs="168"] {
     padding-top: 168px;
   }
-  [ui-pr-xs="168"] {
+  [app-pr-xs="168"] {
     padding-right: 168px;
   }
-  [ui-pb-xs="168"] {
+  [app-pb-xs="168"] {
     padding-bottom: 168px;
   }
-  [ui-pl-xs="168"] {
+  [app-pl-xs="168"] {
     padding-left: 168px;
   }
-  [ui-py-xs="168"] {
+  [app-py-xs="168"] {
     padding-top: 168px;
     padding-bottom: 168px;
   }
-  [ui-px-xs="168"] {
+  [app-px-xs="168"] {
     padding-left: 168px;
     padding-right: 168px;
   }
-  [ui-pa-xs="172"] {
+  [app-pa-xs="172"] {
     padding: 172px;
   }
-  [ui-pt-xs="172"] {
+  [app-pt-xs="172"] {
     padding-top: 172px;
   }
-  [ui-pr-xs="172"] {
+  [app-pr-xs="172"] {
     padding-right: 172px;
   }
-  [ui-pb-xs="172"] {
+  [app-pb-xs="172"] {
     padding-bottom: 172px;
   }
-  [ui-pl-xs="172"] {
+  [app-pl-xs="172"] {
     padding-left: 172px;
   }
-  [ui-py-xs="172"] {
+  [app-py-xs="172"] {
     padding-top: 172px;
     padding-bottom: 172px;
   }
-  [ui-px-xs="172"] {
+  [app-px-xs="172"] {
     padding-left: 172px;
     padding-right: 172px;
   }
-  [ui-pa-xs="176"] {
+  [app-pa-xs="176"] {
     padding: 176px;
   }
-  [ui-pt-xs="176"] {
+  [app-pt-xs="176"] {
     padding-top: 176px;
   }
-  [ui-pr-xs="176"] {
+  [app-pr-xs="176"] {
     padding-right: 176px;
   }
-  [ui-pb-xs="176"] {
+  [app-pb-xs="176"] {
     padding-bottom: 176px;
   }
-  [ui-pl-xs="176"] {
+  [app-pl-xs="176"] {
     padding-left: 176px;
   }
-  [ui-py-xs="176"] {
+  [app-py-xs="176"] {
     padding-top: 176px;
     padding-bottom: 176px;
   }
-  [ui-px-xs="176"] {
+  [app-px-xs="176"] {
     padding-left: 176px;
     padding-right: 176px;
   }
-  [ui-pa-xs="180"] {
+  [app-pa-xs="180"] {
     padding: 180px;
   }
-  [ui-pt-xs="180"] {
+  [app-pt-xs="180"] {
     padding-top: 180px;
   }
-  [ui-pr-xs="180"] {
+  [app-pr-xs="180"] {
     padding-right: 180px;
   }
-  [ui-pb-xs="180"] {
+  [app-pb-xs="180"] {
     padding-bottom: 180px;
   }
-  [ui-pl-xs="180"] {
+  [app-pl-xs="180"] {
     padding-left: 180px;
   }
-  [ui-py-xs="180"] {
+  [app-py-xs="180"] {
     padding-top: 180px;
     padding-bottom: 180px;
   }
-  [ui-px-xs="180"] {
+  [app-px-xs="180"] {
     padding-left: 180px;
     padding-right: 180px;
   }
-  [ui-pa-xs="184"] {
+  [app-pa-xs="184"] {
     padding: 184px;
   }
-  [ui-pt-xs="184"] {
+  [app-pt-xs="184"] {
     padding-top: 184px;
   }
-  [ui-pr-xs="184"] {
+  [app-pr-xs="184"] {
     padding-right: 184px;
   }
-  [ui-pb-xs="184"] {
+  [app-pb-xs="184"] {
     padding-bottom: 184px;
   }
-  [ui-pl-xs="184"] {
+  [app-pl-xs="184"] {
     padding-left: 184px;
   }
-  [ui-py-xs="184"] {
+  [app-py-xs="184"] {
     padding-top: 184px;
     padding-bottom: 184px;
   }
-  [ui-px-xs="184"] {
+  [app-px-xs="184"] {
     padding-left: 184px;
     padding-right: 184px;
   }
-  [ui-pa-xs="188"] {
+  [app-pa-xs="188"] {
     padding: 188px;
   }
-  [ui-pt-xs="188"] {
+  [app-pt-xs="188"] {
     padding-top: 188px;
   }
-  [ui-pr-xs="188"] {
+  [app-pr-xs="188"] {
     padding-right: 188px;
   }
-  [ui-pb-xs="188"] {
+  [app-pb-xs="188"] {
     padding-bottom: 188px;
   }
-  [ui-pl-xs="188"] {
+  [app-pl-xs="188"] {
     padding-left: 188px;
   }
-  [ui-py-xs="188"] {
+  [app-py-xs="188"] {
     padding-top: 188px;
     padding-bottom: 188px;
   }
-  [ui-px-xs="188"] {
+  [app-px-xs="188"] {
     padding-left: 188px;
     padding-right: 188px;
   }
-  [ui-pa-xs="192"] {
+  [app-pa-xs="192"] {
     padding: 192px;
   }
-  [ui-pt-xs="192"] {
+  [app-pt-xs="192"] {
     padding-top: 192px;
   }
-  [ui-pr-xs="192"] {
+  [app-pr-xs="192"] {
     padding-right: 192px;
   }
-  [ui-pb-xs="192"] {
+  [app-pb-xs="192"] {
     padding-bottom: 192px;
   }
-  [ui-pl-xs="192"] {
+  [app-pl-xs="192"] {
     padding-left: 192px;
   }
-  [ui-py-xs="192"] {
+  [app-py-xs="192"] {
     padding-top: 192px;
     padding-bottom: 192px;
   }
-  [ui-px-xs="192"] {
+  [app-px-xs="192"] {
     padding-left: 192px;
     padding-right: 192px;
   }
-  [ui-pa-xs="196"] {
+  [app-pa-xs="196"] {
     padding: 196px;
   }
-  [ui-pt-xs="196"] {
+  [app-pt-xs="196"] {
     padding-top: 196px;
   }
-  [ui-pr-xs="196"] {
+  [app-pr-xs="196"] {
     padding-right: 196px;
   }
-  [ui-pb-xs="196"] {
+  [app-pb-xs="196"] {
     padding-bottom: 196px;
   }
-  [ui-pl-xs="196"] {
+  [app-pl-xs="196"] {
     padding-left: 196px;
   }
-  [ui-py-xs="196"] {
+  [app-py-xs="196"] {
     padding-top: 196px;
     padding-bottom: 196px;
   }
-  [ui-px-xs="196"] {
+  [app-px-xs="196"] {
     padding-left: 196px;
     padding-right: 196px;
   }
-  [ui-pa-xs="200"] {
+  [app-pa-xs="200"] {
     padding: 200px;
   }
-  [ui-pt-xs="200"] {
+  [app-pt-xs="200"] {
     padding-top: 200px;
   }
-  [ui-pr-xs="200"] {
+  [app-pr-xs="200"] {
     padding-right: 200px;
   }
-  [ui-pb-xs="200"] {
+  [app-pb-xs="200"] {
     padding-bottom: 200px;
   }
-  [ui-pl-xs="200"] {
+  [app-pl-xs="200"] {
     padding-left: 200px;
   }
-  [ui-py-xs="200"] {
+  [app-py-xs="200"] {
     padding-top: 200px;
     padding-bottom: 200px;
   }
-  [ui-px-xs="200"] {
+  [app-px-xs="200"] {
     padding-left: 200px;
     padding-right: 200px;
   }
-  [ui-pa-xs="204"] {
+  [app-pa-xs="204"] {
     padding: 204px;
   }
-  [ui-pt-xs="204"] {
+  [app-pt-xs="204"] {
     padding-top: 204px;
   }
-  [ui-pr-xs="204"] {
+  [app-pr-xs="204"] {
     padding-right: 204px;
   }
-  [ui-pb-xs="204"] {
+  [app-pb-xs="204"] {
     padding-bottom: 204px;
   }
-  [ui-pl-xs="204"] {
+  [app-pl-xs="204"] {
     padding-left: 204px;
   }
-  [ui-py-xs="204"] {
+  [app-py-xs="204"] {
     padding-top: 204px;
     padding-bottom: 204px;
   }
-  [ui-px-xs="204"] {
+  [app-px-xs="204"] {
     padding-left: 204px;
     padding-right: 204px;
   }
-  [ui-pa-xs="208"] {
+  [app-pa-xs="208"] {
     padding: 208px;
   }
-  [ui-pt-xs="208"] {
+  [app-pt-xs="208"] {
     padding-top: 208px;
   }
-  [ui-pr-xs="208"] {
+  [app-pr-xs="208"] {
     padding-right: 208px;
   }
-  [ui-pb-xs="208"] {
+  [app-pb-xs="208"] {
     padding-bottom: 208px;
   }
-  [ui-pl-xs="208"] {
+  [app-pl-xs="208"] {
     padding-left: 208px;
   }
-  [ui-py-xs="208"] {
+  [app-py-xs="208"] {
     padding-top: 208px;
     padding-bottom: 208px;
   }
-  [ui-px-xs="208"] {
+  [app-px-xs="208"] {
     padding-left: 208px;
     padding-right: 208px;
   }
-  [ui-pa-xs="212"] {
+  [app-pa-xs="212"] {
     padding: 212px;
   }
-  [ui-pt-xs="212"] {
+  [app-pt-xs="212"] {
     padding-top: 212px;
   }
-  [ui-pr-xs="212"] {
+  [app-pr-xs="212"] {
     padding-right: 212px;
   }
-  [ui-pb-xs="212"] {
+  [app-pb-xs="212"] {
     padding-bottom: 212px;
   }
-  [ui-pl-xs="212"] {
+  [app-pl-xs="212"] {
     padding-left: 212px;
   }
-  [ui-py-xs="212"] {
+  [app-py-xs="212"] {
     padding-top: 212px;
     padding-bottom: 212px;
   }
-  [ui-px-xs="212"] {
+  [app-px-xs="212"] {
     padding-left: 212px;
     padding-right: 212px;
   }
-  [ui-pa-xs="216"] {
+  [app-pa-xs="216"] {
     padding: 216px;
   }
-  [ui-pt-xs="216"] {
+  [app-pt-xs="216"] {
     padding-top: 216px;
   }
-  [ui-pr-xs="216"] {
+  [app-pr-xs="216"] {
     padding-right: 216px;
   }
-  [ui-pb-xs="216"] {
+  [app-pb-xs="216"] {
     padding-bottom: 216px;
   }
-  [ui-pl-xs="216"] {
+  [app-pl-xs="216"] {
     padding-left: 216px;
   }
-  [ui-py-xs="216"] {
+  [app-py-xs="216"] {
     padding-top: 216px;
     padding-bottom: 216px;
   }
-  [ui-px-xs="216"] {
+  [app-px-xs="216"] {
     padding-left: 216px;
     padding-right: 216px;
   }
-  [ui-pa-xs="220"] {
+  [app-pa-xs="220"] {
     padding: 220px;
   }
-  [ui-pt-xs="220"] {
+  [app-pt-xs="220"] {
     padding-top: 220px;
   }
-  [ui-pr-xs="220"] {
+  [app-pr-xs="220"] {
     padding-right: 220px;
   }
-  [ui-pb-xs="220"] {
+  [app-pb-xs="220"] {
     padding-bottom: 220px;
   }
-  [ui-pl-xs="220"] {
+  [app-pl-xs="220"] {
     padding-left: 220px;
   }
-  [ui-py-xs="220"] {
+  [app-py-xs="220"] {
     padding-top: 220px;
     padding-bottom: 220px;
   }
-  [ui-px-xs="220"] {
+  [app-px-xs="220"] {
     padding-left: 220px;
     padding-right: 220px;
   }
-  [ui-pa-xs="224"] {
+  [app-pa-xs="224"] {
     padding: 224px;
   }
-  [ui-pt-xs="224"] {
+  [app-pt-xs="224"] {
     padding-top: 224px;
   }
-  [ui-pr-xs="224"] {
+  [app-pr-xs="224"] {
     padding-right: 224px;
   }
-  [ui-pb-xs="224"] {
+  [app-pb-xs="224"] {
     padding-bottom: 224px;
   }
-  [ui-pl-xs="224"] {
+  [app-pl-xs="224"] {
     padding-left: 224px;
   }
-  [ui-py-xs="224"] {
+  [app-py-xs="224"] {
     padding-top: 224px;
     padding-bottom: 224px;
   }
-  [ui-px-xs="224"] {
+  [app-px-xs="224"] {
     padding-left: 224px;
     padding-right: 224px;
   }
-  [ui-pa-xs="228"] {
+  [app-pa-xs="228"] {
     padding: 228px;
   }
-  [ui-pt-xs="228"] {
+  [app-pt-xs="228"] {
     padding-top: 228px;
   }
-  [ui-pr-xs="228"] {
+  [app-pr-xs="228"] {
     padding-right: 228px;
   }
-  [ui-pb-xs="228"] {
+  [app-pb-xs="228"] {
     padding-bottom: 228px;
   }
-  [ui-pl-xs="228"] {
+  [app-pl-xs="228"] {
     padding-left: 228px;
   }
-  [ui-py-xs="228"] {
+  [app-py-xs="228"] {
     padding-top: 228px;
     padding-bottom: 228px;
   }
-  [ui-px-xs="228"] {
+  [app-px-xs="228"] {
     padding-left: 228px;
     padding-right: 228px;
   }
-  [ui-pa-xs="232"] {
+  [app-pa-xs="232"] {
     padding: 232px;
   }
-  [ui-pt-xs="232"] {
+  [app-pt-xs="232"] {
     padding-top: 232px;
   }
-  [ui-pr-xs="232"] {
+  [app-pr-xs="232"] {
     padding-right: 232px;
   }
-  [ui-pb-xs="232"] {
+  [app-pb-xs="232"] {
     padding-bottom: 232px;
   }
-  [ui-pl-xs="232"] {
+  [app-pl-xs="232"] {
     padding-left: 232px;
   }
-  [ui-py-xs="232"] {
+  [app-py-xs="232"] {
     padding-top: 232px;
     padding-bottom: 232px;
   }
-  [ui-px-xs="232"] {
+  [app-px-xs="232"] {
     padding-left: 232px;
     padding-right: 232px;
   }
-  [ui-pa-xs="236"] {
+  [app-pa-xs="236"] {
     padding: 236px;
   }
-  [ui-pt-xs="236"] {
+  [app-pt-xs="236"] {
     padding-top: 236px;
   }
-  [ui-pr-xs="236"] {
+  [app-pr-xs="236"] {
     padding-right: 236px;
   }
-  [ui-pb-xs="236"] {
+  [app-pb-xs="236"] {
     padding-bottom: 236px;
   }
-  [ui-pl-xs="236"] {
+  [app-pl-xs="236"] {
     padding-left: 236px;
   }
-  [ui-py-xs="236"] {
+  [app-py-xs="236"] {
     padding-top: 236px;
     padding-bottom: 236px;
   }
-  [ui-px-xs="236"] {
+  [app-px-xs="236"] {
     padding-left: 236px;
     padding-right: 236px;
   }
-  [ui-pa-xs="240"] {
+  [app-pa-xs="240"] {
     padding: 240px;
   }
-  [ui-pt-xs="240"] {
+  [app-pt-xs="240"] {
     padding-top: 240px;
   }
-  [ui-pr-xs="240"] {
+  [app-pr-xs="240"] {
     padding-right: 240px;
   }
-  [ui-pb-xs="240"] {
+  [app-pb-xs="240"] {
     padding-bottom: 240px;
   }
-  [ui-pl-xs="240"] {
+  [app-pl-xs="240"] {
     padding-left: 240px;
   }
-  [ui-py-xs="240"] {
+  [app-py-xs="240"] {
     padding-top: 240px;
     padding-bottom: 240px;
   }
-  [ui-px-xs="240"] {
+  [app-px-xs="240"] {
     padding-left: 240px;
     padding-right: 240px;
   }
-  [ui-pa-xs="244"] {
+  [app-pa-xs="244"] {
     padding: 244px;
   }
-  [ui-pt-xs="244"] {
+  [app-pt-xs="244"] {
     padding-top: 244px;
   }
-  [ui-pr-xs="244"] {
+  [app-pr-xs="244"] {
     padding-right: 244px;
   }
-  [ui-pb-xs="244"] {
+  [app-pb-xs="244"] {
     padding-bottom: 244px;
   }
-  [ui-pl-xs="244"] {
+  [app-pl-xs="244"] {
     padding-left: 244px;
   }
-  [ui-py-xs="244"] {
+  [app-py-xs="244"] {
     padding-top: 244px;
     padding-bottom: 244px;
   }
-  [ui-px-xs="244"] {
+  [app-px-xs="244"] {
     padding-left: 244px;
     padding-right: 244px;
   }
-  [ui-pa-xs="248"] {
+  [app-pa-xs="248"] {
     padding: 248px;
   }
-  [ui-pt-xs="248"] {
+  [app-pt-xs="248"] {
     padding-top: 248px;
   }
-  [ui-pr-xs="248"] {
+  [app-pr-xs="248"] {
     padding-right: 248px;
   }
-  [ui-pb-xs="248"] {
+  [app-pb-xs="248"] {
     padding-bottom: 248px;
   }
-  [ui-pl-xs="248"] {
+  [app-pl-xs="248"] {
     padding-left: 248px;
   }
-  [ui-py-xs="248"] {
+  [app-py-xs="248"] {
     padding-top: 248px;
     padding-bottom: 248px;
   }
-  [ui-px-xs="248"] {
+  [app-px-xs="248"] {
     padding-left: 248px;
     padding-right: 248px;
   }
-  [ui-pa-xs="252"] {
+  [app-pa-xs="252"] {
     padding: 252px;
   }
-  [ui-pt-xs="252"] {
+  [app-pt-xs="252"] {
     padding-top: 252px;
   }
-  [ui-pr-xs="252"] {
+  [app-pr-xs="252"] {
     padding-right: 252px;
   }
-  [ui-pb-xs="252"] {
+  [app-pb-xs="252"] {
     padding-bottom: 252px;
   }
-  [ui-pl-xs="252"] {
+  [app-pl-xs="252"] {
     padding-left: 252px;
   }
-  [ui-py-xs="252"] {
+  [app-py-xs="252"] {
     padding-top: 252px;
     padding-bottom: 252px;
   }
-  [ui-px-xs="252"] {
+  [app-px-xs="252"] {
     padding-left: 252px;
     padding-right: 252px;
   }
-  [ui-pa-xs="256"] {
+  [app-pa-xs="256"] {
     padding: 256px;
   }
-  [ui-pt-xs="256"] {
+  [app-pt-xs="256"] {
     padding-top: 256px;
   }
-  [ui-pr-xs="256"] {
+  [app-pr-xs="256"] {
     padding-right: 256px;
   }
-  [ui-pb-xs="256"] {
+  [app-pb-xs="256"] {
     padding-bottom: 256px;
   }
-  [ui-pl-xs="256"] {
+  [app-pl-xs="256"] {
     padding-left: 256px;
   }
-  [ui-py-xs="256"] {
+  [app-py-xs="256"] {
     padding-top: 256px;
     padding-bottom: 256px;
   }
-  [ui-px-xs="256"] {
+  [app-px-xs="256"] {
     padding-left: 256px;
     padding-right: 256px;
   }
-}
-/*# sourceMappingURL=global.css.map */
+}/*# sourceMappingURL=global.css.map */

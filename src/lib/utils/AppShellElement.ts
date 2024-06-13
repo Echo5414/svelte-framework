@@ -128,7 +128,7 @@ class AppShellElement extends HTMLElement {
                         grid-template-rows: var(--grid-template-rows);
                         grid-template-areas: var(--grid-template-areas);
                         background-color: var(--bodyBackgroundColor);
-                    }
+                    } 
                     
                     ::slotted([slot="header"]) {
                         grid-area: header;
@@ -291,10 +291,15 @@ class AppShellElement extends HTMLElement {
 	private handleVerticalResize(mouseEvent: MouseEvent): void {
 		console.log('handleVerticalResize called');
 
-		if (!(this.resizingSection instanceof HTMLElement)) {
+/* 		if (!(this.resizingSection instanceof HTMLElement)) {
 			console.error('resizingSection is not an HTMLElement');
 			return;
-		}
+		} */
+
+    if (!this.resizingSection || !(this.resizingSection instanceof HTMLElement)) {
+			console.error('resizingSection is not valid or not an HTMLElement');
+			return;
+	}
 
 		if (this.startY === undefined || this.initialHeight === undefined) {
 			return;

@@ -8,7 +8,8 @@
         import('$lib/utils/IconElement'),
         import('$lib/utils/AppShellElement'),
         import('$lib/utils/TooltipElement'),
-        import('$lib/utils/DropdownElement')
+        import('$lib/utils/DropdownElement'),
+        import('$lib/utils/ModalElement')
       ])
       .then(() => {
         initializeTooltips();
@@ -26,32 +27,40 @@
       appShell.offsetHeight;
     }
   }
+
+/*   const t: ToastSettings = {
+	  message: 'Lorem ipsum dolor sit amet consectetur adipisicing elit...',
+  };
+  toastStore.trigger(t); */
+
 </script>
 
-<app-shell>
+
+
+<app-shell theme="default">
 	<app-section slot="sidebar-left" col="4" gap="0" resize="true">
-		<nav id="home" ui-col-xs="1-5">
+		<nav id="home" app-col-xs="1-5">
 			<ul>
 				<li>
 					<a href="" tooltipDescription="Bibliothek ausblenden" tooltipPosition="right">
-            <app-icon width="32" fill="white" ui-pr-xs="8">icon-home</app-icon>
+            <app-icon width="32" fill="white" app-pr-xs="8">icon-home</app-icon>
 						<span>Home</span>
 					</a>
 				</li>
 				<li>
-					<a href="" tooltipDescription="Bibliothek ausblenden" tooltipPosition="bottom">
-            <app-icon width="32" fill="white" ui-pr-xs="8">icon-search</app-icon>
+					<a href="" app-tooltip-description="Bibliothek ausblenden" tooltipPosition="bottom">
+            <app-icon width="32" fill="white" app-pr-xs="8">icon-search</app-icon>
 						<span>Search</span>
 					</a>
 				</li>
 			</ul>
 		</nav>
-    <div class="cardLeft" ui-col-xs="1-5" >
-      <nav id="library" ui-align="between">
+    <div class="cardLeft" app-col-xs="1-5" >
+      <nav id="library" app-align="between">
         <ul>
           <li>
             <a href="" tooltipDescription="Bibliothek ausblenden" tooltipPosition="top">
-              <app-icon width="32" fill="white" ui-pr-xs="8">icon-library</app-icon>
+              <app-icon width="32" fill="white" app-pr-xs="8">icon-library</app-icon>
               <span>Bibliothek</span>
             </a>
           </li>
@@ -96,7 +105,7 @@
         <!-- Slot: Action -->
         <button theme="default">
           <span>Recents</span>
-          <app-icon width="20" fill="white" ui-pl-xs="8">icon-list</app-icon>
+          <app-icon width="20" fill="white" app-pl-xs="8">icon-list</app-icon>
         </button>
         <!-- Slot: Content -->
         <nav>
@@ -122,34 +131,66 @@
             <li><small>Ansicht</small></li>
             <li>
               <a href="">
-                <app-icon width="20" fill="white" ui-pr-xs="4">icon-compact</app-icon>
+                <app-icon width="20" fill="white" app-pr-xs="4">icon-compact</app-icon>
                 <span>Kompakt</span>
               </a>
             </li>
             <li>
               <a href="">
-                <app-icon width="20" fill="white" ui-pr-xs="4">icon-list</app-icon>
+                <app-icon width="20" fill="white" app-pr-xs="4">icon-list</app-icon>
                 <span>Liste</span>
               </a>
             </li>
             <li>
               <a href="">
-                <app-icon width="20" fill="white" ui-pr-xs="4">icon-grid</app-icon>
+                <app-icon width="20" fill="white" app-pr-xs="4">icon-grid</app-icon>
                 <span>Raster</span>
               </a>
             </li>
           </ul>
         </nav>
       </app-dropdown>
+      
+      <app-card>
+        
+      </app-card>
     </div>
 
 	</app-section>
-	<app-section slot="header" col="12" resize="true"> Header </app-section>
+  <app-section slot="sidebar-left" col="2" gap="0" resize="true">
+    <div app-col-xs="1-3">
+      <p>Sidebar 2</p>
+    </div>
+  </app-section>
+	<app-section slot="header" col="12" resize="true">
+    Header 
+
+    <button data-modal-target="myModal">Toggle Modal</button>
+
+    <app-modal id="myModal" theme="default">
+      <header>
+        <h1>Confirm Your Membership</h1>
+      </header>
+      <section app-py-xs="16">  
+          <p>Thank you for signing up for a membership! Please review the membership details below:<br>
+          <ul>
+              <li>Membership: Individual</li>
+              <li>Price: $10</li>
+          </ul>
+      </section>
+      <footer app-align="right">
+          <button app-mr:md="8">Cancel</button>
+          <button>Confirm</button>    
+      </footer>
+    </app-modal>
+    
+  
+    </app-section>
 	<app-section slot="main" col="12">
 		<slot />
 	</app-section>
 	<app-section slot="sidebar-right" col="4" resize="true">
-		<span ui-col-xs="1-3">Sidebar-Right</span>
+		<span app-col-xs="1-3">Sidebar-Right</span>
 	</app-section>
 	<app-section slot="footer" col="20" resize="true">
 		Footer
@@ -165,18 +206,10 @@
 		align-items: center;
 	}
 
-
-
-
-
 	/* Optional: Weitere Anpassungen am Text-Styling */
 	.menu-item span {
 		/* Hier könnten Sie weitere Stil-Anpassungen vornehmen */
 	}
-
-
-
-
 
 	app-shell:defined app-section[slot='sidebar-left'] {
 		background-color: black;
@@ -247,9 +280,6 @@
     }
 	}
 
-
-
-
   app-shell:defined app-section[slot='sidebar-right'] {
 		background-color: rgb(238, 0, 255);
 		width: var(--sidebarRightWidth);
@@ -297,7 +327,6 @@
 	}
 
 
-
 /* 	:global(html, body) {
 		height: 100%;
 		width: 100%;
@@ -319,13 +348,7 @@
     font-size: small;
   }
 
-
-
-
 	:global() {
-
     .tooltip-content {} // DOES NOT WORK!!!!
-  
-    
 	}
 </style>
