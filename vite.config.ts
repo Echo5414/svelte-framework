@@ -1,5 +1,5 @@
 import { sveltekit } from '@sveltejs/kit/vite';
-import { defineConfig } from 'vite';
+import { defineConfig, Plugin } from 'vite';
 import VitePurgecss from 'vite-plugin-purgecss';
 import customReloadPlugin from './src/custom-reload-plugin'; // Adjust the path as necessary
 
@@ -13,8 +13,8 @@ export default defineConfig({
       ],
       safelist: [/svelte-/],
       defaultExtractor: content => content.match(/[A-Za-z0-9-_:/]+/g) || []
-    }),
-    customReloadPlugin
+    }) as unknown as Plugin, // Explicitly cast VitePurgecss to Plugin
+    customReloadPlugin as Plugin // Explicitly cast customReloadPlugin to Plugin
   ],
   server: {
     watch: {
